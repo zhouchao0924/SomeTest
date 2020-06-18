@@ -1,0 +1,44 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.24",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "SomeTest",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"Slate",
+				"SlateCore"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "SimpleArchives",
+			"Enabled": false
+		},
+		{
+			"Name": "SimpleDrawText",
+			"Enabled": false
+		},
+		{
+			"Name": "SimpleGameSettings",
+			"Enabled": false
+		},
+		{
+			"Name": "SimplePopup",
+			"Enabled": false
+		},
+		{
+			"Name": "SimpleScreenMove",
+			"Enabled": false
+		},
+		{
+			"Name": "SimpleTutoria",
+			"Enabled": false
+		}
+	]
+}
