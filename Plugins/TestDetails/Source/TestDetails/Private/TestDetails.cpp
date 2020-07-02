@@ -3,6 +3,7 @@
 #include "TestDetails.h"
 #include "PropertyEditorModule.h"
 #include "MyTestDetailCustomization.h"
+#include "StructVariableDetail.h"
 
 #define LOCTEXT_NAMESPACE "FTestDetailsModule"
 
@@ -50,7 +51,7 @@ void FTestDetailsModule::ShutdownModule()
 
 void FTestDetailsModule::RegisterPropertyTypeCustomizations()
 {
-	//RegisterCustomPropertyTypeLayout("StructVariable", FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FStructVariableDetail::MakeInstance));
+	RegisterCustomPropertyTypeLayout("StructVariable", FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FStructVariableDetail::MakeInstance));
 }
 
 void FTestDetailsModule::RegisterObjectCustomizations()
