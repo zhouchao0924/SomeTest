@@ -144,6 +144,7 @@ void FExtendEditorModule::PullDwonSuBar(FMenuBuilder& Builder)
 void FExtendEditorModule::AddToolbarExtension(FToolBarBuilder& Builder)
 {
 	//Builder.AddToolBarButton(FExtendEditorCommands::Get().PluginAction);
+
 	Builder.BeginSection("HellWorldC");
 	Builder.BeginBlockGroup();
 	{
