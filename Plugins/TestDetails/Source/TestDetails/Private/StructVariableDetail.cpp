@@ -26,7 +26,6 @@ void FStructVariableDetail::CustomizeChildren(TSharedRef<IPropertyHandle> Proper
 	{
 		FText EventValueStr;
 		PropertyText->GetValue(EventValueStr);
-
 		if (EditableTextBox.IsValid())
 		{
 			EditableTextBox->SetText(EventValueStr);
