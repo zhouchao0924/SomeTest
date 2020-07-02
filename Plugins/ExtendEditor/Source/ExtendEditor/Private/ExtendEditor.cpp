@@ -5,8 +5,8 @@
 #include "ExtendEditorCommands.h"
 #include "Misc/MessageDialog.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
-
 #include "LevelEditor.h"
+#include "ContentBrowserModule.h"
 
 static const FName ExtendEditorTabName("ExtendEditor");
 
@@ -49,6 +49,20 @@ void FExtendEditorModule::StartupModule()
 		MenuBarExtender->AddMenuBarExtension("Help", EExtensionHook::After, PluginCommands, FMenuBarExtensionDelegate::CreateRaw(this, &FExtendEditorModule::AddMenuBarExtension));
 
 		LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuBarExtender);
+	}
+
+	{
+		auto& MenuButtonArray = LevelEditorModule.GetAllLevelViewportContextMenuExtenders();
+		MenuButtonArray.Add(FLevelEditorModule::FLevelViewportMenuExtender_SelectedActors::CreateRaw(this, &FExtendEditorModule::SelectedCurrentActors));
+
+		LevelViewportMenuExtender_SelectedActor = MenuButtonArray.Last().GetHandle();
+	}
+
+	{
+		FContentBrowserModule&  ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+		auto &MenuExtenderDelegates = ContentBrowserModule.GetAllPathViewContextMenuExtenders();
+
+		MenuExtenderDelegates.Add(FContentBrowserMenuExtender_SelectedPaths::CreateRaw(this, &FExtendEditorModule::GetPathsFormEditor));
 	}
 }
 
@@ -139,6 +153,66 @@ void FExtendEditorModule::PullDwonSuBar(FMenuBuilder& Builder)
 		FOnGetContent::CreateStatic<TSharedPtr<FUICommandList>>(&FTaskABC::MakeWidget, PluginCommands),
 		FSlateIcon()
 	);
+}
+
+void FExtendEditorModule::EdtorPrint(FString MyString)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, MyString);
+	}
+}
+
+TSharedRef<FExtender> FExtendEditorModule::SelectedCurrentActors(const TSharedRef<FUICommandList> MyUICommandList, const TArray<AActor*> AllActor)
+{
+	TSharedRef<FExtender> Extender = MakeShareable(new FExtender);
+
+	EdtorPrint(FString::Printf(TEXT("Actor Number = %d"), AllActor.Num()));
+
+	if (AllActor.Num() > 0)
+	{
+
+		FLevelEditorModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
+		TSharedRef<FUICommandList> LevelCommand = LevelEditorModule.GetGlobalLevelEditorActions();
+
+		Extender->AddMenuExtension("ActorControl", EExtensionHook::After, LevelCommand, FMenuExtensionDelegate::CreateRaw(this, &FExtendEditorModule::AddSelectActorButton));
+	}
+
+	return Extender;
+}
+
+void FExtendEditorModule::AddSelectActorButton(FMenuBuilder& Builder)
+{
+	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+
+	Builder.AddMenuSeparator();
+	Builder.AddSubMenu(
+		LOCTEXT("OK_ONE", "just a task"),
+		LOCTEXT("OK_TWO", "just a task button"),
+		FNewMenuDelegate::CreateRaw(this, &FExtendEditorModule::PullDwonSuBar)
+	);
+}
+
+TSharedRef<FExtender> FExtendEditorModule::GetPathsFormEditor(const TArray<FString>& NewPaths)
+{
+	TSharedRef<FExtender> Extender = MakeShareable(new FExtender);
+
+	EdtorPrint(FString::Printf(TEXT("Actor Number = %d"), NewPaths.Num()));
+
+	if (NewPaths.Num() > 0)
+	{
+
+		//FContentBrowserModule& LevelEditorModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+		//此处并没有生成！
+		Extender->AddMenuExtension("NewFolder", EExtensionHook::After, PluginCommands, FMenuExtensionDelegate::CreateRaw(this, &FExtendEditorModule::AddSelectActorButton));
+	}
+
+	for (auto Tmp : NewPaths)
+	{
+		EdtorPrint(Tmp);
+	}
+
+	return Extender;
 }
 
 void FExtendEditorModule::AddToolbarExtension(FToolBarBuilder& Builder)

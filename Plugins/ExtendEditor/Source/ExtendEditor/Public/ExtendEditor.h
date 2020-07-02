@@ -28,8 +28,18 @@ private:
 	void PullDwonBar(FMenuBuilder& Builder);
 	void PullDwonSuBar(FMenuBuilder& Builder);
 
+	void EdtorPrint(FString MyString);
+
+	TSharedRef<FExtender> SelectedCurrentActors(const TSharedRef<FUICommandList> MyUICommandList, const TArray<AActor*> AllActor);
+
+	void AddSelectActorButton(FMenuBuilder& Builder);
+
+	TSharedRef<FExtender> GetPathsFormEditor(const TArray<FString>& NewPaths);
+
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
+
+	FDelegateHandle LevelViewportMenuExtender_SelectedActor;
 };
 
 class FTaskABC
