@@ -87,6 +87,7 @@ bool FUE4EditorCustomizeModule::_Internal_ImportUTheme_v0(TArray<uint8>& AllFile
 	uint8 RequestEngineVersion=0;
 	RequestEngineVersion = AllFileData[ContentsDataIndex];
 	ContentsDataIndex++;
+	//void *memcpy(void *str1, const void *str2, size_t n) 从存储区 str2 复制 n 个字节到存储区 str1。
 	memcpy(&UncompressedFileSize, AllFileData.GetData() + ContentsDataIndex, sizeof(int));
 	ContentsDataIndex += 4;
 	md5byteCheck.Append(AllFileData.GetData() + ContentsDataIndex, 16);
@@ -96,6 +97,10 @@ bool FUE4EditorCustomizeModule::_Internal_ImportUTheme_v0(TArray<uint8>& AllFile
 	//8=UTheme Head+File Version,4=UncompressedFileSize,16=md5Byte,28=8+4+16
 	md5.Update(AllFileData.GetData() + ContentsDataIndex, AllFileData.Num() - ContentsDataIndex); 
 	md5.Final(FileContentMD5);
+	// 	int memcmp(const void *str1, const void *str2, size_t n)) 把存储区 str1 和存储区 str2 的前 n 个字节进行比较。
+	// 	如果返回值 < 0，则表示 str1 小于 str2。
+	// 	如果返回值 > 0，则表示 str2 小于 str1。
+	// 	如果返回值 = 0，则表示 str1 等于 str2。
 	if (memcmp(FileContentMD5, md5byteCheck.GetData(), 16))
 	{
 		if (ErrorMsg)
@@ -968,9 +973,13 @@ bool FUE4EditorCustomizeModule::ImportUTheme(FString FilePath, FText* ErrorMsg)
 void FUE4EditorCustomizeModule::ShowDialogForImport()
 {
 	TArray<FString> OutFiles;
-	if (FDesktopPlatformModule::Get()->OpenFileDialog(NULL, "Import Theme",
-													  IPluginManager::Get().FindPlugin(TEXT("UE4EditorCustomize"))->GetBaseDir() + FString("/Themes")
-													  , TEXT(""), TEXT("All(*.ini,*.UTheme)|*.ini;*.UTheme|Theme File (*.UTheme)|*.UTheme|Config File(*.ini)|*.ini"), EFileDialogFlags::None, OutFiles))
+	if (FDesktopPlatformModule::Get()->OpenFileDialog(
+		NULL, 
+		"Import Theme",
+		IPluginManager::Get().FindPlugin(TEXT("UE4EditorCustomize"))->GetBaseDir() + FString("/Themes"), 
+		TEXT(""), 
+		TEXT("All(*.ini,*.UTheme)|*.ini;*.UTheme|Theme File (*.UTheme)|*.UTheme|Config File(*.ini)|*.ini"), 
+		EFileDialogFlags::None, OutFiles))
 	{ 
 		if (FPaths::GetExtension(OutFiles[0]).Equals("UTheme",ESearchCase::IgnoreCase))
 		{

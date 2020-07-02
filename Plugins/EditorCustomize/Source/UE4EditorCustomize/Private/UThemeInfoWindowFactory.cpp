@@ -14,9 +14,11 @@
 #include "DesktopPlatformModule.h"
 #include "Widgets/Layout/SConstraintCanvas.h"
 #include "EditorStyleSet.h"
+#include "Misc/FileHelper.h"
 
 #define LOCTEXT_NAMESPACE "FUE4EditorCustomizeModule"
 
+//ADD_INFO_ITEM(NameBox, LOCTEXT("Name:", "Name:"), !IsEditable(), FOnTextChanged::CreateLambda([this](const FText& NewName) {Name = NewName; }))
 #define ADD_INFO_ITEM(INFO_TEXTBOX,INFO_NAME,EDITABLE,INFO_CHANGED_DELEGATE) \
 + SVerticalBox::Slot().AutoHeight()\
 [\
@@ -51,83 +53,99 @@ UThemeInfoWindowFactory::UThemeInfoWindowFactory(bool Editable)
 	Name = Author = Intro = FText::FromString("None");
 	InfoEditable = Editable;
 	BuildSlateBrush();
-	SAssignNew(UThemeInfoWindow, SWindow).ClientSize(FVector2D(500.f, 800.f)).SizingRule(ESizingRule::FixedSize).Title(LOCTEXT("UThemeInfo", "UTheme Infomation"))
+
+	//就像创建一个新的UObject对象用NewObject() 一样，在Slate中，创建一个新的UI 有SNew 与 SAssignNew 两种方式。
+	//两者的区别：
+	//	SNew返回TSharedRef;
+	//	SAssignNew 返回TSharedPtr
+	SAssignNew(UThemeInfoWindow, SWindow)
+		.ClientSize(FVector2D(500.f, 800.f))
+		/* The windows size fixed and cannot be resized **/
+		//FixedSize,
+
+		/** The window size is computed from its content and cannot be resized by users */
+		//Autosized,
+
+		/** The window can be resized by users */
+		//UserSized,
+		.SizingRule(ESizingRule::FixedSize)
+		.Title(LOCTEXT("UThemeInfo", "UTheme Infomation"))
 		[
 			SNew(SBorder).BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
 			[
 				SAssignNew(MainVerticlePanel, SVerticalBox)
 				+ SVerticalBox::Slot().AutoHeight()
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot().AutoWidth().HAlign(HAlign_Fill).VAlign(VAlign_Fill)
-		[
-			SNew(SImage)
-			.OnMouseButtonDown(FPointerEventHandler::CreateRaw(this, &UThemeInfoWindowFactory::OnThemeIconMouseDown))
-		.Image(&IconImageBrush)
-		]
-	+ SHorizontalBox::Slot().FillWidth(1.f)
-		[
-			SAssignNew(MainInfoPanel, SVerticalBox)
-			ADD_INFO_ITEM(NameBox, LOCTEXT("Name:", "Name:"), !IsEditable(), FOnTextChanged::CreateLambda([this](const FText& NewName) {Name = NewName; }))
-		ADD_INFO_ITEM(SizeBox, LOCTEXT("Size:", "Size:"), true, FOnTextChanged())
-		ADD_INFO_ITEM(EngineVersionBox, LOCTEXT("RequestEngine:", "Request Engine:"), true, FOnTextChanged())
-		ADD_INFO_ITEM(VersionBox, LOCTEXT("UThemeVersion:", "UThemeVerison:"), true, FOnTextChanged())
-		+ SVerticalBox::Slot().FillHeight(1.f).VAlign(VAlign_Bottom)
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot().FillWidth(1.f).MaxWidth(100.f)
-		[
-			SNew(STextBlock)
-			.Text(LOCTEXT("Author:", "Author:"))
-		]
-	+ SHorizontalBox::Slot().FillWidth(1.f)
-		[
-			SAssignNew(AuthorBox, SEditableTextBox)
-			.OnTextChanged(FOnTextChanged::CreateLambda([this](const FText& NewAuthor) {Author = NewAuthor; }))
-		.IsReadOnly(!IsEditable())
-		]
-		]
-		]
-		]
-	+ SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Fill).VAlign(VAlign_Fill)
-		[
-			SNew(SScrollBox).Orientation(Orient_Horizontal)
-			+ SScrollBox::Slot().VAlign(VAlign_Fill).HAlign(HAlign_Fill)
-		[
-			SAssignNew(PreviewPicBox, SHorizontalBox)
-		]
-		]
-	+ SVerticalBox::Slot().AutoHeight()
-		[
-			SNew(STextBlock)
-			.Text(LOCTEXT("Intro:", "Intro:"))
-		]
-	+ SVerticalBox::Slot().FillHeight(1.f)
-		[
-			SNew(SScrollBox).Orientation(EOrientation::Orient_Vertical)
-			+ SScrollBox::Slot()
-		[
-			SAssignNew(IntroBox, SMultiLineEditableTextBox)
-			.IsReadOnly(!IsEditable())
-		.OnTextChanged(FOnTextChanged::CreateLambda([this](const FText& NewText) { Intro = NewText; }))
-		]
-		]
-	+ SVerticalBox::Slot().FillHeight(1.f).VAlign(VAlign_Bottom)
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot().FillWidth(1.f).HAlign(HAlign_Right)
-		[
-			SNew(SButton)
-			.Text(LOCTEXT("Comfirm", "Confirm"))
-		.OnClicked(FOnClicked::CreateLambda([this]() {IsConfirmed = true; UThemeInfoWindow->RequestDestroyWindow(); return FReply::Handled(); }))
-		]
-	+ SHorizontalBox::Slot().AutoWidth()
-		[
-			SNew(SButton)
-			.Text(LOCTEXT("Cancel", "Cancel"))
-		.OnClicked(FOnClicked::CreateLambda([this]() {IsConfirmed = false; UThemeInfoWindow->RequestDestroyWindow(); return FReply::Handled(); }))
-		]
-		]
+				[
+					SNew(SHorizontalBox)
+					+ SHorizontalBox::Slot().AutoWidth().HAlign(HAlign_Fill).VAlign(VAlign_Fill)
+					[
+						SNew(SImage)
+						.OnMouseButtonDown(FPointerEventHandler::CreateRaw(this, &UThemeInfoWindowFactory::OnThemeIconMouseDown))
+						.Image(&IconImageBrush)
+					]
+					+ SHorizontalBox::Slot().FillWidth(1.f)
+					[
+						SAssignNew(MainInfoPanel, SVerticalBox)
+						ADD_INFO_ITEM(NameBox, LOCTEXT("Name:", "Name:"), !IsEditable(), FOnTextChanged::CreateLambda([this](const FText& NewName) {Name = NewName; }))
+						ADD_INFO_ITEM(SizeBox, LOCTEXT("Size:", "Size:"), true, FOnTextChanged())
+						ADD_INFO_ITEM(EngineVersionBox, LOCTEXT("RequestEngine:", "Request Engine:"), true, FOnTextChanged())
+						ADD_INFO_ITEM(VersionBox, LOCTEXT("UThemeVersion:", "UThemeVerison:"), true, FOnTextChanged())
+						+ SVerticalBox::Slot().FillHeight(1.f).VAlign(VAlign_Bottom)
+						[
+							SNew(SHorizontalBox)
+							+ SHorizontalBox::Slot().FillWidth(1.f).MaxWidth(100.f)
+							[
+								SNew(STextBlock)
+								.Text(LOCTEXT("Author:", "Author:"))
+							]
+							+ SHorizontalBox::Slot().FillWidth(1.f)
+							[
+								SAssignNew(AuthorBox, SEditableTextBox)
+								.OnTextChanged(FOnTextChanged::CreateLambda([this](const FText& NewAuthor) {Author = NewAuthor; }))
+								.IsReadOnly(!IsEditable())
+							]
+						]
+					]
+				]
+				+ SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Fill).VAlign(VAlign_Fill)
+				[
+					SNew(SScrollBox).Orientation(Orient_Horizontal)
+					+ SScrollBox::Slot().VAlign(VAlign_Fill).HAlign(HAlign_Fill)
+					[
+						SAssignNew(PreviewPicBox, SHorizontalBox)
+					]
+				]
+				+ SVerticalBox::Slot().AutoHeight()
+				[
+					SNew(STextBlock)
+					.Text(LOCTEXT("Intro:", "Intro:"))
+				]
+				+ SVerticalBox::Slot().FillHeight(1.f)
+				[
+					SNew(SScrollBox).Orientation(EOrientation::Orient_Vertical)
+					+ SScrollBox::Slot()
+					[
+						SAssignNew(IntroBox, SMultiLineEditableTextBox)
+						.IsReadOnly(!IsEditable())
+						.OnTextChanged(FOnTextChanged::CreateLambda([this](const FText& NewText) { Intro = NewText; }))
+					]
+				]
+				+ SVerticalBox::Slot().FillHeight(1.f).VAlign(VAlign_Bottom)
+				[
+					SNew(SHorizontalBox)
+					+ SHorizontalBox::Slot().FillWidth(1.f).HAlign(HAlign_Right)
+					[
+						SNew(SButton)
+						.Text(LOCTEXT("Comfirm", "Confirm"))
+						.OnClicked(FOnClicked::CreateLambda([this]() {IsConfirmed = true; UThemeInfoWindow->RequestDestroyWindow(); return FReply::Handled(); }))
+					]
+					+ SHorizontalBox::Slot().AutoWidth()
+					[
+						SNew(SButton)
+						.Text(LOCTEXT("Cancel", "Cancel"))
+						.OnClicked(FOnClicked::CreateLambda([this]() {IsConfirmed = false; UThemeInfoWindow->RequestDestroyWindow(); return FReply::Handled(); }))
+					]
+				]
 			]
 		];
 	if (IsEditable())
@@ -210,7 +228,7 @@ void UThemeInfoWindowFactory::AddPreviewPicture(UTexture2D* Picture, bool IsRemo
 			[
 				SNew(SButton)
 				.ButtonStyle(&RemoveImageButton)
-			.OnClicked(FOnClicked::CreateLambda([tmpCanvasPanel, FilePath, this]()
+				.OnClicked(FOnClicked::CreateLambda([tmpCanvasPanel, FilePath, this]()
 				{
 					tmpImagePath.Remove(FilePath);
 					PreviewPicBox->RemoveSlot(tmpCanvasPanel.ToSharedRef());
@@ -284,12 +302,16 @@ UTexture2D* UThemeInfoWindowFactory::GetLocalTexture(const FString &_TexPath)
 	TSharedPtr<IImageWrapper> imageWrapper;
 	FString FileExtension = FPaths::GetExtension(_TexPath);
 	EPixelFormat PixelFormat = EPixelFormat::PF_R8G8B8A8;
-	if (FileExtension.Equals("JPG", ESearchCase::IgnoreCase) || FileExtension.Equals("JPEG", ESearchCase::IgnoreCase))
+	if (FileExtension.Equals("JPG", ESearchCase::IgnoreCase) ||
+		FileExtension.Equals("JPEG", ESearchCase::IgnoreCase))
+	{
 		imageWrapper = imageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
+	}	
 	else if (FileExtension.Equals("PNG", ESearchCase::IgnoreCase))
 		imageWrapper = imageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
 	else
 		imageWrapper = imageWrapperModule.CreateImageWrapper(EImageFormat::BMP);
+
 	TArray<uint8> OutArray;
 	if (FFileHelper::LoadFileToArray(OutArray, *_TexPath))
 	{
@@ -311,25 +333,31 @@ UTexture2D* UThemeInfoWindowFactory::GetLocalTexture(const FString &_TexPath)
 	return OutTex;
 }
 
+//uint8ToTexture
 UTexture2D* UThemeInfoWindowFactory::GetLocalTexture(TArray<uint8> &ProvideData, FString ImageType)
 {
 	UTexture2D* OutTex = NULL;
 	IImageWrapperModule& imageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
 	TSharedPtr<IImageWrapper> imageWrapper;
 	EPixelFormat PixelFormat = EPixelFormat::PF_R8G8B8A8;
+
 	if (ImageType.Equals("JPG", ESearchCase::IgnoreCase) || ImageType.Equals("JPEG", ESearchCase::IgnoreCase))
+	{
 		imageWrapper = imageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
+	}	
 	else if (ImageType.Equals("PNG", ESearchCase::IgnoreCase))
 	{
 		//PixelFormat = EPixelFormat::PF_R8G8B8A8;    
-		//This Code will couse Error color of Image while import UTheme.
+		//This Code will cause Error color of Image while import UTheme.
 		//But It must be used while package.
 		imageWrapper = imageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
 	}
 	else
+	{
 		imageWrapper = imageWrapperModule.CreateImageWrapper(EImageFormat::BMP);
-	if (imageWrapper.IsValid() &&
-		imageWrapper->SetCompressed(ProvideData.GetData(), ProvideData.Num()))
+	}
+		
+	if (imageWrapper.IsValid() && imageWrapper->SetCompressed(ProvideData.GetData(), ProvideData.Num()))
 	{
 		const TArray<uint8>* uncompressedRGBA = NULL;
 		if (imageWrapper->GetRaw(ERGBFormat::RGBA, 8, uncompressedRGBA))
@@ -339,7 +367,8 @@ UTexture2D* UThemeInfoWindowFactory::GetLocalTexture(TArray<uint8> &ProvideData,
 				imageWrapper->GetWidth(),
 				imageWrapper->GetHeight(),
 				uncompressedFColor,
-				true, PixelFormat);
+				true, 
+				PixelFormat);
 		}
 	}
 	return OutTex;
