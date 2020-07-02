@@ -70,8 +70,8 @@ void FReflectionDataPanelModule::ShutdownModule()
 
 	if (CustomizeObject)
 	{
-		CustomizeObject->ConditionalBeginDestroy();
-		//CustomizeObject = nullptr;
+		//CustomizeObject->ConditionalBeginDestroy();
+		CustomizeObject = nullptr;
 	}
 }
 
