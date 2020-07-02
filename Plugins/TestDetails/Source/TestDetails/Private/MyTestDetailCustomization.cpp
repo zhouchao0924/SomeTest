@@ -24,10 +24,10 @@ void FMyTestDetailCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 			+ SHorizontalBox::Slot()
 			[
 				SNew(SProperty, HelloI)
-				.CustomWidget()
-				[
-					SNew(SImage)
-				]
+				//.CustomWidget()
+				//[
+				//	SNew(SImage)
+				//]
 			]
 
 			+ SHorizontalBox::Slot()
