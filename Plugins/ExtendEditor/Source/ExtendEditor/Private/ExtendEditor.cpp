@@ -143,7 +143,29 @@ void FExtendEditorModule::PullDwonSuBar(FMenuBuilder& Builder)
 
 void FExtendEditorModule::AddToolbarExtension(FToolBarBuilder& Builder)
 {
-	Builder.AddToolBarButton(FExtendEditorCommands::Get().PluginAction);
+	//Builder.AddToolBarButton(FExtendEditorCommands::Get().PluginAction);
+	Builder.BeginSection("HellWorldC");
+	Builder.BeginBlockGroup();
+	{
+		//Builder.AddToolBarButton(
+		//	FExtendEditorCommands::Get().PluginAction,
+		//	NAME_None,
+		//	TAttribute<FText>(),
+		//	TAttribute<FText>(),
+		//	TAttribute<FSlateIcon>(),
+		//	TEXT("HellWorldCC")
+		//);
+
+		Builder.AddComboButton(
+			FUIAction(),
+			FOnGetContent::CreateStatic<TSharedPtr<FUICommandList>>(&FTaskABC::MakeWidget, PluginCommands),
+			LOCTEXT("HHHH", "PHHHH"),
+			LOCTEXT("CCCC", "I am C"),
+			FSlateIcon()
+		);
+	}
+	Builder.EndBlockGroup();
+	Builder.EndSection();
 }
 
 TSharedRef<SWidget> FTaskABC::MakeWidget(TSharedPtr<class FUICommandList> PluginCommands)
