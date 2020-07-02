@@ -74,27 +74,81 @@ void FExtendEditorModule::PluginButtonClicked()
 
 void FExtendEditorModule::AddMenuExtension(FMenuBuilder& Builder)
 {
-	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	Builder.BeginSection(TEXT("Helloworld"));
+	{
+		Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+		Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+		Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+		Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	}
+	Builder.EndSection();
 }
 
 void FExtendEditorModule::AddMenuBarExtension(FMenuBarBuilder &Builder)
 {
-	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	Builder.AddPullDownMenu(
+		LOCTEXT("HELLO", "Hello"),
+		LOCTEXT("I_AM_BUTTON", "I am button"),
+		FNewMenuDelegate::CreateRaw(this, &FExtendEditorModule::PullDwonBar),
+		"HelloW"
+	);
 }
 
 void FExtendEditorModule::PullDwonBar(FMenuBuilder& Builder)
 {
+	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	Builder.AddMenuSeparator();
+	Builder.AddSubMenu(
+		LOCTEXT("OK_ONE", "just a task"),
+		LOCTEXT("OK_TWO", "just a task button"),
+		FNewMenuDelegate::CreateRaw(this, &FExtendEditorModule::PullDwonSuBar)
+	);
 
+	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
 }
 
 void FExtendEditorModule::PullDwonSuBar(FMenuBuilder& Builder)
 {
-	
+	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	Builder.BeginSection(TEXT("Hall"));
+	{
+		Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+		Builder.AddMenuEntry(FExtendEditorCommands::Get().PluginAction);
+	}
+	Builder.EndSection();
+
+	Builder.AddWidget(
+		SNew(SImage),
+		LOCTEXT("IamgeTask", "just Iamge Task")
+	);
+
+	Builder.AddEditableText(
+		LOCTEXT("OK_A", "just a Hello"),
+		LOCTEXT("OK_B", "just a task Hello"),
+		FSlateIcon(),
+		LOCTEXT("TTT", "just a TTTTTT")
+	);
+
+	Builder.AddSearchWidget();
+
+	Builder.AddWrapperSubMenu(
+		LOCTEXT("III", "III III III"),
+		LOCTEXT("RRR", "RRR RRR RRR RRR"),
+		FOnGetContent::CreateStatic<TSharedPtr<FUICommandList>>(&FTaskABC::MakeWidget, PluginCommands),
+		FSlateIcon()
+	);
 }
 
 void FExtendEditorModule::AddToolbarExtension(FToolBarBuilder& Builder)
 {
 	Builder.AddToolBarButton(FExtendEditorCommands::Get().PluginAction);
+}
+
+TSharedRef<SWidget> FTaskABC::MakeWidget(TSharedPtr<class FUICommandList> PluginCommands)
+{
+	return SNew(SImage);
 }
 
 #undef LOCTEXT_NAMESPACE

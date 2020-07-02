@@ -31,3 +31,10 @@ private:
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
 };
+
+class FTaskABC
+{
+public:
+
+	static TSharedRef<SWidget> MakeWidget(TSharedPtr<class FUICommandList> PluginCommands);
+};
