@@ -3,17 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
-#include "MyDataAsset.generated.h"
+#include "UObject/NoExportTypes.h"
+#include "CustomAsset.generated.h"
+
 
 /**
  * 
  */
 UCLASS()
-class TESTASSETDATA_API UMyDataAsset : public UDataAsset
+class TESTASSETDATA_API UCustomAsset : public UObject
 {
 	GENERATED_BODY()
-	
 	
 public:
 
@@ -25,4 +25,6 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "MyDataAsset")
 		int32 Int32Value;
+
+	
 };

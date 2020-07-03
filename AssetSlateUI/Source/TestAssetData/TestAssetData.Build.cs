@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class AssetData : ModuleRules
+public class TestAssetData : ModuleRules
 {
-	public AssetData(ReadOnlyTargetRules Target) : base(Target)
+	public TestAssetData(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -37,8 +37,7 @@ public class AssetData : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
-                "ProceduralMeshComponent"
+				"SlateCore"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

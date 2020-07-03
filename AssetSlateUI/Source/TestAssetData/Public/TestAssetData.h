@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FAssetDataModule : public IModuleInterface
+class FTestAssetDataModule : public IModuleInterface
 {
 public:
 

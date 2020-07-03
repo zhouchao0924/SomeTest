@@ -32,7 +32,7 @@ void FCustomAssetActions::OpenAssetEditor(const TArray<UObject*>& InObjects, TSh
 		if (CustomAsset != nullptr)
 		{
 			TSharedRef<FCustomAssetEditorToolkit> EditorToolkit = MakeShareable(new FCustomAssetEditorToolkit());
-			EditorToolkit->Initialize(CustomAsset,Mode, EditWithinLevelEditor);
+			EditorToolkit->Initialize(CustomAsset, Mode, EditWithinLevelEditor);
 		}
 	}
 }

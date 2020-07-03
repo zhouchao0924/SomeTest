@@ -1,8 +1,9 @@
 #include "CustomAssetEditorToolkit.h"
 #include "Widgets/Images/SImage.h"
-#include "SCustomAssetViewport.h"
-#include "CustomDataattribute.h"
+#include "Widgets/Docking/SDockTab.h"
 #include "CustomAsset.h"
+#include "SCustomAssetViewport.h"
+//#include "CustomDataattribute.h"
 
 #define LOCTEXT_NAMESPACE "CustomAssetEditor"
 
@@ -19,12 +20,13 @@ void FCustomAssetEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager
 	Super::RegisterTabSpawners(InTabManager);
 
 	InTabManager->RegisterTabSpawner(CustomAssetEditor::AssetEditorID, FOnSpawnTab::CreateLambda(
-	[&](const FSpawnTabArgs &Args)
+		[&](const FSpawnTabArgs &Args)
 	{
 		return SNew(SDockTab)
 			[
-				SNew(SCustomAssetViewport)
-				.CustomAsset(CustomTextAsset)
+				SNew(SImage)
+				// SNew(SCustomAssetViewport)
+				//.CustomAsset(CustomTextAsset)
 			];
 	}));
 
@@ -33,8 +35,9 @@ void FCustomAssetEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager
 	{
 		return SNew(SDockTab)
 			[
-				SNew(SCustomDataAttribute)
-				.CustomAsset(CustomTextAsset)
+				SNew(SImage)
+				//SNew(SCustomDataAttribute)
+				//.CustomAsset(CustomTextAsset)
 			];
 	}));
 }

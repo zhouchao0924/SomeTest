@@ -1,15 +1,15 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
-#include "../Public/AssetData.h"
+#include "../Public/TestAssetData.h"
 
-#define LOCTEXT_NAMESPACE "FAssetDataModule"
+#define LOCTEXT_NAMESPACE "FTestAssetDataModule"
 
-void FAssetDataModule::StartupModule()
+void FTestAssetDataModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
 }
 
-void FAssetDataModule::ShutdownModule()
+void FTestAssetDataModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
@@ -17,4 +17,4 @@ void FAssetDataModule::ShutdownModule()
 
 #undef LOCTEXT_NAMESPACE
 	
-IMPLEMENT_MODULE(FAssetDataModule, AssetData)
+IMPLEMENT_MODULE(FTestAssetDataModule, TestAssetData)
