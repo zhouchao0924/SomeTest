@@ -130,7 +130,7 @@ void FMeshlImportDetail::OnLabelsRootTextCommited(const FText& InText, ETextComm
 {
 	if (HandleMeshSavePaths.IsValid())
 	{
-		HandleMeshSavePaths->SetValue(InText);
+		HandleMeshSavePaths->SetValue(InText); 
 	}
 }
 
