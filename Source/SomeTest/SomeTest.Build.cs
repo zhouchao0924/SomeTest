@@ -15,7 +15,7 @@ public class SomeTest : ModuleRules
             "SimpleScreenLoading",
             "InputCore",
             "UMG",
-            "AssetSlateUI"
+            //"AssetSlateUI"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

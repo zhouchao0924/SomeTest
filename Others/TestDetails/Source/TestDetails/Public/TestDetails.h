@@ -6,7 +6,7 @@
 #include "Modules/ModuleManager.h"
 #include "PropertyEditorDelegates.h"
 
-class FAssetSlateUIModule : public IModuleInterface
+class FTestDetailsModule : public IModuleInterface
 {
 public:
 
@@ -15,9 +15,13 @@ public:
 	virtual void ShutdownModule() override;
 private:
 	void RegisterPropertyTypeCustomizations();
+	void RegisterObjectCustomizations();
 
+	void RegisterCustomClassLayout(FName ClassName, FOnGetDetailCustomizationInstance DetailLayoutDelegate);
 	void RegisterCustomPropertyTypeLayout(FName PropertyTypeName, FOnGetPropertyTypeCustomizationInstance PropertyTypeLayoutDelegate);
+
 private:
-	TArray<TSharedRef<class IAssetTypeActions>> RegisteredAssetTypeActions;
+
+	TSet< FName > RegisteredClassNames;
 	TSet< FName > RegisteredPropertyTypes;
 };

@@ -45,7 +45,7 @@ TSharedRef< FSlateStyleSet > FReflectionDataPanelStyle::Create()
 	TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("ReflectionDataPanelStyle"));
 	Style->SetContentRoot(IPluginManager::Get().FindPlugin("TestDetails")->GetBaseDir() / TEXT("Resources"));
 
-	Style->Set("ReflectionDataPanel.OpenPluginWindow", new IMAGE_BRUSH(TEXT("Icon128"), Icon40x40));
+	Style->Set("ReflectionDataPanel.OpenPluginWindow", new IMAGE_BRUSH(TEXT("ButtonIcon_40x"), Icon40x40));
 
 	return Style;
 }

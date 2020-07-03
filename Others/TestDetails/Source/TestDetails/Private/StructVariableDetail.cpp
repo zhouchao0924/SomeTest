@@ -1,28 +1,27 @@
-﻿#include "StructVariableDetail.h"
+#include "StructVariableDetail.h"
 #include "DetailWidgetRow.h"
 #include "Widgets/Images/SImage.h"
 #include "Widgets/Input/SEditableTextBox.h"
-#include "StructVariable.h"
 
 void FStructVariableDetail::CustomizeHeader(TSharedRef<IPropertyHandle> PropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils)
 {
 	HeaderRow
-		.NameContent()
-		[
-			PropertyHandle->CreatePropertyNameWidget()
-		]
-		.ValueContent()
-		.MinDesiredWidth(125.0f)
-		.MaxDesiredWidth(325.0f)
-		[
-			SAssignNew(EditableTextBox, SEditableTextBox)
-			.OnTextCommitted(this, &FStructVariableDetail::OnPropertyTextCommited)
-		];
+	.NameContent()
+	[
+		PropertyHandle->CreatePropertyNameWidget()
+	]
+	.ValueContent()
+	.MinDesiredWidth(125.0f)
+	.MaxDesiredWidth(325.0f)
+	[
+		SAssignNew(EditableTextBox, SEditableTextBox)
+		.OnTextCommitted(this, &FStructVariableDetail::OnPropertyTextCommited)
+	];
 }
 
 void FStructVariableDetail::CustomizeChildren(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils)
 {
-	PropertyText = PropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FStructVariable, MyText));//绑定变量，获取IPropertyHandle
+	PropertyText = PropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FStructVariable, MyText));
 	if (PropertyText && EditableTextBox.IsValid())
 	{
 		FText EventValueStr;
@@ -43,10 +42,11 @@ void FStructVariableDetail::OnPropertyTextCommited(const FText& InText, ETextCom
 {
 	if (PropertyText.IsValid())
 	{
-		//获取路径值
+		//��ȡ·��ֵ
 		FText EventValueStr;
 		PropertyText->GetValue(EventValueStr);
 
 		PropertyText->SetValue(InText);
 	}
 }
+

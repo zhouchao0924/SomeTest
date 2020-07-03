@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class AssetSlateUI : ModuleRules
+public class TestDetails : ModuleRules
 {
-	public AssetSlateUI(ReadOnlyTargetRules Target) : base(Target)
+	public TestDetails(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -38,9 +38,6 @@ public class AssetSlateUI : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-                "UnrealEd",
-                "TestAssetData",
-                "AssetTools",
                 "PropertyEditor"
 				// ... add private dependencies that you statically link with here ...	
 			}

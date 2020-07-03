@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class TestAssetData : ModuleRules
+public class ReflectionDataPanel : ModuleRules
 {
-	public TestAssetData(ReadOnlyTargetRules Target) : base(Target)
+	public ReflectionDataPanel(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -34,10 +34,15 @@ public class TestAssetData : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
+				"Projects",
+				"InputCore",
+				"UnrealEd",
+				"LevelEditor",
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore"
+				"SlateCore",
+                "TestDetails"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

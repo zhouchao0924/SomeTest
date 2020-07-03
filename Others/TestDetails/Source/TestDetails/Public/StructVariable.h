@@ -9,5 +9,5 @@ struct TESTDETAILS_API FStructVariable
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, Category = Hell)
-		FText MyText;
+	FText MyText;
 };

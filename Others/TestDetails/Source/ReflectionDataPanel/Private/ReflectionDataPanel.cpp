@@ -8,7 +8,7 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
-#include "SCustomizeWidget.h"
+#include "CustomizeWidget.h"
 #include "CustomizeObject.h"
 
 static const FName ReflectionDataPanelTabName("ReflectionDataPanel");
@@ -18,6 +18,7 @@ static const FName ReflectionDataPanelTabName("ReflectionDataPanel");
 void FReflectionDataPanelModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
+	
 	CustomizeObject = NewObject<UCustomizeObject>();
 	if (CustomizeObject)
 	{

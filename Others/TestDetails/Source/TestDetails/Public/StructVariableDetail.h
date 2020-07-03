@@ -15,7 +15,7 @@ public:
 	*@param CustomizationUtils 自定义实用程序
 	*/
 	virtual void CustomizeHeader(TSharedRef<IPropertyHandle> PropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils)override;
-
+	
 	/*
 	*当应自定义属性的子级或添加额外的行时调用
 	*@param PropertyHandle 正在自定义的属性句柄

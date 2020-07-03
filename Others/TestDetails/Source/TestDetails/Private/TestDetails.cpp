@@ -14,6 +14,10 @@ void FTestDetailsModule::StartupModule()
 	RegisterPropertyTypeCustomizations();
 	RegisterObjectCustomizations();
 
+	/**
+	 * Customization modules should call this when that module has been unloaded, loaded, etc...
+	 * so the property module can clean up its data.  Needed to support dynamic reloading of modules
+	 */
 	PropertyModule.NotifyCustomizationModuleChanged();
 }
 

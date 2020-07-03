@@ -10,23 +10,24 @@
 void FMyTestDetailCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
 {
 	IDetailCategoryBuilder& DetailCategoryBuilderInstance = DetailBuilder.EditCategory(TEXT("CustomizeDetails"));
-	TSharedPtr<IPropertyHandle> HelloI = DetailBuilder.GetProperty("HelloI");//获取这个变量
-	DetailBuilder.AddPropertyToCategory(HelloI);//在分类中也可以看到
+	TSharedPtr<IPropertyHandle> HelloI = DetailBuilder.GetProperty("HelloI");
+	DetailBuilder.AddPropertyToCategory(HelloI);
 	DetailCategoryBuilderInstance
 		.AddCustomRow(LOCTEXT("MMMM", "Hello Wolrd"))
 		.WholeRowContent()
 		[
-			//SNew(STextBlock)
-			//.Text(LOCTEXT("TTTT", "I am World"))
+			/*SNew(STextBlock)
+			.Text(LOCTEXT("TTTT", "I am World"))*/
+
 			SNew(SHorizontalBox)
 
 			+ SHorizontalBox::Slot()
 			[
-				SNew(SProperty, HelloI)//类似StructVariableDetail.h可以自定义变量，但是如果只想修改一个变量
-				.CustomWidget()
-				[
-					SNew(SImage)
-				]
+				SNew(SProperty, HelloI)
+				//.CustomWidget()
+				//[
+				//	SNew(SImage)
+				//]
 			]
 
 			+ SHorizontalBox::Slot()
@@ -34,6 +35,7 @@ void FMyTestDetailCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 				SNew(SProperty, DetailBuilder.GetProperty("HelloF"))
 			]
 		];
+//	DetailCategoryBuilderInstance.AddProperty();
 }
 
 TSharedRef< IDetailCustomization > FMyTestDetailCustomization::MakeInstance()

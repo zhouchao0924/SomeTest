@@ -10,26 +10,27 @@
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable)//蓝图可用
+UCLASS(BlueprintType, Blueprintable)
 class TESTDETAILS_API UCustomizeObject : public UObject
 {
 	GENERATED_BODY()
+	
 public:
-	UPROPERTY(EditAnywhere, Category = Hell)//被自定义覆盖
-		FStructVariable Hle;
+	UPROPERTY(EditAnywhere, Category = Hell)
+	FStructVariable Hle;
 
 	UPROPERTY(EditAnywhere, Category = Hell)
-		float Hello;
+	float Hello;
 
 	UPROPERTY(EditAnywhere, Category = Hell)
-		FText HelloA;
+	FText HelloA;
 
 	UPROPERTY(EditAnywhere, Category = Hell)
-		TArray<int32> HelloAArray;
+	TArray<int32> HelloAArray;
 
 	UPROPERTY(EditAnywhere, Category = Hell)
-		int32 HelloI;
+	int32 HelloI;
 
 	UPROPERTY(EditAnywhere, Category = Hell)
-		float HelloF;
+	float HelloF;
 };

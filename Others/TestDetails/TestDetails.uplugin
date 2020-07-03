@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "AssetSlateUI",
+	"FriendlyName": "TestDetails",
 	"Description": "",
 	"Category": "Other",
 	"CreatedBy": "",
@@ -16,13 +16,13 @@
 	"Installed": false,
   "Modules": [
     {
-      "Name": "AssetSlateUI",
-      "Type": "Editor",
+      "Name": "TestDetails",
+      "Type": "Runtime",
       "LoadingPhase": "Default"
     },
     {
-      "Name": "TestAssetData",
-      "Type": "Runtime",
+      "Name": "ReflectionDataPanel",
+      "Type": "Runtime", 
       "LoadingPhase": "Default"
     }
   ]

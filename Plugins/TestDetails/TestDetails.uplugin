@@ -22,7 +22,7 @@
     },
     {
       "Name": "ReflectionDataPanel",
-      "Type": "Runtime", 
+      "Type": "Runtime",
       "LoadingPhase": "Default"
     }
   ]
