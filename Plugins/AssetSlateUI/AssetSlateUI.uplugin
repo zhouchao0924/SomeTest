@@ -1,40 +1,28 @@
 {
-  "FileVersion": 3,
-  "Version": 1,
-  "VersionName": "1.0",
-  "FriendlyName": "AssetSlateUI",
-  "Description": "",
-  "Category": "Other",
-  "CreatedBy": "",
-  "CreatedByURL": "",
-  "DocsURL": "",
-  "MarketplaceURL": "",
-  "SupportURL": "",
-  "CanContainContent": true,
-  "IsBetaVersion": false,
-  "Installed": false,
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "AssetSlateUI",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
   "Modules": [
     {
       "Name": "AssetSlateUI",
       "Type": "Editor",
-      "LoadingPhase": "Default",
-      "AdditionalDependencies": [
-        "UnrealEd"
-      ]
+      "LoadingPhase": "Default"
     },
     {
       "Name": "TestAssetData",
       "Type": "Runtime",
-      "LoadingPhase": "Default",
-      "AdditionalDependencies": [
-        "UnrealEd"
-      ]
-    }
-  ],
-  "Plugins": [
-    {
-      "Name": "ProceduralMeshComponent",
-      "Enabled": true
+      "LoadingPhase": "Default"
     }
   ]
 }
