@@ -87,7 +87,7 @@ public:
 
 	//模型读取路径
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "CustomAsset")
-	FMeshlImport  MeshlImport;
+	FMeshlImport  MeshlImport; 
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Material")
 	TArray<UMaterialInterface*> MaterialInterface;
