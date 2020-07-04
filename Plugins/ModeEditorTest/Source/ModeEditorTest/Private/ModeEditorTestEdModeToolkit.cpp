@@ -49,12 +49,12 @@ namespace LocalNode
 	static FText PointHFID = LOCTEXT("Point86", "Point 8 and 6 center");//86
 	static FText PointEFID = LOCTEXT("Point56", "Point 5 and 6 center");//56
 	////////////////////////////////Face//////////////////////////////////////////
-	static FText PointFaceAID = LOCTEXT("PointFaceA", "FaceA ceentr");//56
-	static FText PointFaceBID = LOCTEXT("PointFaceB", "FaceB ceentr");//56
-	static FText PointFaceCID = LOCTEXT("PointFaceC", "FaceC ceentr");//56
-	static FText PointFaceDID = LOCTEXT("PointFaceD", "FaceD ceentr");//56
-	static FText PointFaceEID = LOCTEXT("PointFaceE", "FaceE ceentr");//56
-	static FText PointFaceFID = LOCTEXT("PointFaceF", "FaceF ceentr");//56
+	static FText PointFaceAID = LOCTEXT("PointFaceA", "FaceA center");//56
+	static FText PointFaceBID = LOCTEXT("PointFaceB", "FaceB center");//56
+	static FText PointFaceCID = LOCTEXT("PointFaceC", "FaceC center");//56
+	static FText PointFaceDID = LOCTEXT("PointFaceD", "FaceD center");//56
+	static FText PointFaceEID = LOCTEXT("PointFaceE", "FaceE center");//56
+	static FText PointFaceFID = LOCTEXT("PointFaceF", "FaceF center");//56
 }
 
 FModeEditorTestEdModeToolkit::FModeEditorTestEdModeToolkit()
@@ -88,7 +88,7 @@ void FModeEditorTestEdModeToolkit::Init(const TSharedPtr<IToolkitHost>& InitTool
 
 				for (FSelectionIterator It(GEditor->GetSelectedActorIterator()); It; ++It)
 				{
-					AActor* Actor = static_cast<AActor*>(*It);
+					AActor* Actor = static_cast<AActor*>(*It);//原生C++风格转换成UObject
 					if (Actor->GetPivotOffset() != PivotOffset)
 					{
 						Actor->Modify();
