@@ -21,9 +21,9 @@ void UTestGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextM
 	//ContextMenuBuilder.AddAction(NewNodeAction);
 }
 
-void UTestGraphSchema::GetContextMenuActions(const UEdGraph* CurrentGraph, const UEdGraphNode* InGraphNode, const UEdGraphPin* InGraphPin, class FMenuBuilder* MenuBuilder, bool bIsDebugging) const
+void UTestGraphSchema::GetContextMenuActions(class UToolMenu* Menu, class UGraphNodeContextMenuContext* Context) const
 {
-
+	//接口变了，没有找到FMenuBuilder参数，暂时跳过
 }
 
 UEdGraphNode* FTestGraphSchemaAction::PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode /*= true*/)

@@ -29,13 +29,25 @@ public:
 /**
  * 
  */
-UCLASS()
+UCLASS(MinimalAPI)
 class UTestGraphSchema : public UEdGraphSchema
 {
 	GENERATED_BODY()
 public:
+	/**
+	 * Get all actions that can be performed when right clicking on a graph or drag-releasing on a graph from a pin
+	 *
+	 * @param [in,out]	ContextMenuBuilder	The context (graph, dragged pin, etc...) and output menu builder.
+	 */
 	virtual void GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const override;
-	virtual void GetContextMenuActions(const UEdGraph* CurrentGraph, const UEdGraphNode* InGraphNode, const UEdGraphPin* InGraphPin, class FMenuBuilder* MenuBuilder, bool bIsDebugging) const;
+	
+	/**
+	 * Gets actions that should be added to the right-click context menu for a node or pin
+	 *
+	 * @param	Menu				The menu to append actions to.
+	 * @param	Context				The menu's context.
+	 */
+	virtual void GetContextMenuActions(class UToolMenu* Menu, class UGraphNodeContextMenuContext* Context) const;
 
 	virtual const FPinConnectionResponse CanCreateConnection(const UEdGraphPin* A, const UEdGraphPin* B) const
 	{
