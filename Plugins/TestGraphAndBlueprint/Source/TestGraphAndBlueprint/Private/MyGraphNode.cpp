@@ -11,7 +11,16 @@
 #include "EdGraph/EdGraphPin.h"
 #include "KismetPins/SGraphPinBool.h"
 #include "KismetPins/SGraphPinColor.h"
-#include "../Public/MyGraphPin.h"
+#include "MyGraphPin.h"
+#include "KismetPins/SGraphPinExec.h"
+#include "KismetPins/SGraphPinObject.h"
+#include "../Private/KismetPins/SGraphPinEnum.h"
+#include "SGraphPinNameList.h"
+#include "NodeFactory.h"
+#include "KismetPins/SGraphPinString.h"
+#include "KismetPins/SGraphPinVector2D.h"
+#include "KismetPins/SGraphPinVector4.h"
+#include "KismetPins/SGraphPinInteger.h"
 
 void SMyGraphNode_HelloWorld::Construct(const FArguments& InArgs, UTestNode_HelloWorld* MarkerNode)
 {
@@ -86,7 +95,7 @@ void SMyGraphNode_HelloWorld::UpdateGraphNode()
 	NewPin->SetIsEditable(IsEditable); \
 	this->AddPin(NewPin.ToSharedRef());
 
-#define VERSION_SET 1
+#define VERSION_SET 0
 void SMyGraphNode_HelloWorld::CreatePinWidgets()
 {
 	UTestNode_HelloWorld* HelloNode = CastChecked<UTestNode_HelloWorld>(GraphNode);
@@ -101,14 +110,6 @@ void SMyGraphNode_HelloWorld::CreatePinWidgets()
 
 			this->AddPin(NewPin.ToSharedRef());
 
-			if(CurPin->Direction==EEdGraphPinDirection::EGPD_Input)
-			{
-				InputPins.Add(NewPin.ToSharedRef());
-			}
-			else if (CurPin->Direction == EEdGraphPinDirection::EGPD_Output)
-			{
-				OutputPins.Add(NewPin.ToSharedRef());
-			}
 		}
 
 #else
@@ -150,9 +151,9 @@ void SMyGraphNode_HelloWorld::AddPin(const TSharedRef<SGraphPin>& PinToAdd)
 	{
 		PinToAdd->SetVisibility(TAttribute<EVisibility>(PinToAdd, &SGraphPin::IsPinVisibleAsAdvanced));
 	}
-//#if VERSION_SET 
+#if VERSION_SET 
 	PinToAdd->SetDesiredSizeScale(FVector2D(16.f, 16.f));
-//#endif
+#endif
 	if (PinToAdd->GetDirection() == EEdGraphPinDirection::EGPD_Input)
 	{
 		LeftNodeBox->AddSlot()

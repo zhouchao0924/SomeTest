@@ -23,7 +23,7 @@ public:
 	virtual UEdGraphNode* PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode = true);
 
 	class UTestNode_HelloWorld *NodeHelloWorld;
-	//	class UK2Node_Event *K2Node_Event;
+	class UK2Node_Event *K2Node_Event;
 };
 
 /**
