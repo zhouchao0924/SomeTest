@@ -12,6 +12,7 @@
 #include "GraphEditor.h"
 #include "EdGraph/EdGraphSchema.h"
 #include "TestGraphSchema.h"
+#include "MyGraphPanelNodeFactory.h"
 
 static const FName TestGraphAndBlueprintTabName("TestGraphAndBlueprint");
 
@@ -53,6 +54,10 @@ void FTestGraphAndBlueprintModule::StartupModule()
 	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(TestGraphAndBlueprintTabName, FOnSpawnTab::CreateRaw(this, &FTestGraphAndBlueprintModule::OnSpawnPluginTab))
 		.SetDisplayName(LOCTEXT("FTestGraphAndBlueprintTabTitle", "TestGraphAndBlueprint"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
+
+	FEdGraphUtilities::RegisterVisualNodeFactory(MakeShareable(new FMyGraphPanelNodeFactory));
+	FEdGraphUtilities::RegisterVisualPinFactory(MakeShareable(new FMyGraphPanelPinFactory));
+	FEdGraphUtilities::RegisterVisualPinConnectionFactory(MakeShareable(new FMyGraphPanelPinConnectionFactory));
 }
 
 void FTestGraphAndBlueprintModule::ShutdownModule()

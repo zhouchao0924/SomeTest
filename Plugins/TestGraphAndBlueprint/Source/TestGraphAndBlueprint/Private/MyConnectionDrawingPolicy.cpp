@@ -31,6 +31,7 @@ void FMyConnectionDrawingPolicy::DrawConnection(int32 LayerId, const FVector2D& 
 
 	float WireThickness = 1.0;
 	FLinearColor WireColor = FLinearColor::Blue;
+
 	FSlateDrawElement::MakeDrawSpaceSpline(
 		DrawElementsList,
 		LayerId,
