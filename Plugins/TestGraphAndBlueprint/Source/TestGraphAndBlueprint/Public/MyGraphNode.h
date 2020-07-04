@@ -17,7 +17,7 @@ public:
 	virtual void UpdateGraphNode() override;
 	virtual void CreatePinWidgets() override;
 
-	//virtual void AddPin(const TSharedRef<SGraphPin>& PinToAdd) override;
+	virtual void AddPin(const TSharedRef<SGraphPin>& PinToAdd) override;
 protected:
 	TSharedPtr<class SBox> PinBox;
 };

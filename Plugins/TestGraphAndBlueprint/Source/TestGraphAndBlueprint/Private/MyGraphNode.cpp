@@ -140,7 +140,43 @@ void SMyGraphNode_HelloWorld::CreatePinWidgets()
 	}
 }
 
-//void SMyGraphNode_HelloWorld::AddPin(const TSharedRef<SGraphPin>& PinToAdd)
-//{
-//
-//}
+void SMyGraphNode_HelloWorld::AddPin(const TSharedRef<SGraphPin>& PinToAdd)
+{
+	PinToAdd->SetOwner(SharedThis(this));
+
+	const UEdGraphPin* PinObj = PinToAdd->GetPinObj();
+
+	if (PinObj && PinObj->bAdvancedView)
+	{
+		PinToAdd->SetVisibility(TAttribute<EVisibility>(PinToAdd, &SGraphPin::IsPinVisibleAsAdvanced));
+	}
+//#if VERSION_SET 
+	PinToAdd->SetDesiredSizeScale(FVector2D(16.f, 16.f));
+//#endif
+	if (PinToAdd->GetDirection() == EEdGraphPinDirection::EGPD_Input)
+	{
+		LeftNodeBox->AddSlot()
+			.HAlign(HAlign_Fill)
+			.VAlign(VAlign_Fill)
+			.FillHeight(1.0f)
+			.Padding(20.0f, 0.0f)
+			[
+				PinToAdd
+			];
+
+		InputPins.Add(PinToAdd);
+	}
+	else if (PinToAdd->GetDirection() == EEdGraphPinDirection::EGPD_Output)
+	{
+		RightNodeBox->AddSlot()
+			.HAlign(HAlign_Right)
+			.VAlign(VAlign_Fill)
+			.FillHeight(1.0f)
+			.Padding(20.0f, 0.0f)
+			[
+				PinToAdd
+			];
+
+		OutputPins.Add(PinToAdd);
+	}
+}
