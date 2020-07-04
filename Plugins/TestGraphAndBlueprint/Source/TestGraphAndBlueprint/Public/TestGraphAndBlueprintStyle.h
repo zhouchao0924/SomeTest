@@ -9,6 +9,7 @@
 class FTestGraphAndBlueprintStyle
 {
 public:
+	static FSlateImageBrush *GetImageBurush(const FString &RelativePath, FVector2D Size);
 
 	static void Initialize();
 

@@ -1,15 +1,15 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+//$ Copyright 2015 Ali Akbar, Code Respawn Technologies Pvt Ltd - All Rights Reserved $//
 #pragma once
+#include "SGraphPin.h"
 
-#include "CoreMinimal.h"
-
-/**
- * 
- */
-class TESTGRAPHANDBLUEPRINT_API MyGraphPin
+class TESTGRAPHANDBLUEPRINT_API SMyGraphPin : public SGraphPin
 {
 public:
-	MyGraphPin();
-	~MyGraphPin();
+	SLATE_BEGIN_ARGS(SMyGraphPin) {}
+	SLATE_END_ARGS()
+
+	void Construct(const FArguments& InArgs, UEdGraphPin* InPin);
+
+	TSharedPtr< SGraphNode> GetGraphNode() { return OwnerNodePtr.Pin(); }
+protected:
 };

@@ -50,6 +50,14 @@ TSharedRef< FSlateStyleSet > FTestGraphAndBlueprintStyle::Create()
 	return Style;
 }
 
+FSlateImageBrush * FTestGraphAndBlueprintStyle::GetImageBurush(const FString &RelativePath, FVector2D Size)
+{
+	TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("TestGraphAndBlueprintStyle"));
+	Style->SetContentRoot(IPluginManager::Get().FindPlugin("TestGraphAndBlueprint")->GetBaseDir() / TEXT("Resources"));
+
+	return new IMAGE_BRUSH(RelativePath, Size);
+}
+
 #undef IMAGE_BRUSH
 #undef BOX_BRUSH
 #undef BORDER_BRUSH

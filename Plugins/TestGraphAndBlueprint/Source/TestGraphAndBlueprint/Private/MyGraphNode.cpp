@@ -8,6 +8,10 @@
 #include "SGraphPinNameList.h"
 #include "NodeFactory.h"
 #include "Widgets/Layout/SBox.h"
+#include "EdGraph/EdGraphPin.h"
+#include "KismetPins/SGraphPinBool.h"
+#include "KismetPins/SGraphPinColor.h"
+#include "../Public/MyGraphPin.h"
 
 void SMyGraphNode_HelloWorld::Construct(const FArguments& InArgs, UTestNode_HelloWorld* MarkerNode)
 {
@@ -85,18 +89,28 @@ void SMyGraphNode_HelloWorld::UpdateGraphNode()
 #define VERSION_SET 1
 void SMyGraphNode_HelloWorld::CreatePinWidgets()
 {
-	/*UTestNode_HelloWorld* HelloNode = CastChecked<UTestNode_HelloWorld>(GraphNode);
+	UTestNode_HelloWorld* HelloNode = CastChecked<UTestNode_HelloWorld>(GraphNode);
 
 	if (HelloNode)
 	{
 #if VERSION_SET
 		for (UEdGraphPin * CurPin : HelloNode->Pins)
 		{
-			TSharedPtr<SGraphPin> NewPin = FNodeFactory::CreatePinWidget(CurPin);
+			TSharedPtr<SGraphPin> NewPin = /*FNodeFactory::CreatePinWidget(CurPin)*/SNew(SMyGraphPin, CurPin);
 			NewPin->SetIsEditable(IsEditable);
 
 			this->AddPin(NewPin.ToSharedRef());
+
+			if(CurPin->Direction==EEdGraphPinDirection::EGPD_Input)
+			{
+				InputPins.Add(NewPin.ToSharedRef());
+			}
+			else if (CurPin->Direction == EEdGraphPinDirection::EGPD_Output)
+			{
+				OutputPins.Add(NewPin.ToSharedRef());
+			}
 		}
+
 #else
 		static TArray<TSharedPtr<FName>> InNameList;
 		InNameList.Add(MakeShareable(new  FName(TEXT("Monster"))));
@@ -123,10 +137,10 @@ void SMyGraphNode_HelloWorld::CreatePinWidgets()
 		RESET_PIN(SMyGraphPin, HelloNode->Pins[14]);
 #endif
 
-	}*/
+	}
 }
 
-void SMyGraphNode_HelloWorld::AddPin(const TSharedRef<SGraphPin>& PinToAdd)
-{
-
-}
+//void SMyGraphNode_HelloWorld::AddPin(const TSharedRef<SGraphPin>& PinToAdd)
+//{
+//
+//}
