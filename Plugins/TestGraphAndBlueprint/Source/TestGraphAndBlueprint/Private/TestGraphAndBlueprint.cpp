@@ -69,6 +69,11 @@ void FTestGraphAndBlueprintModule::ShutdownModule()
 	FTestGraphAndBlueprintCommands::Unregister();
 
 	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(TestGraphAndBlueprintTabName);
+
+	if (GraphObject != nullptr)
+	{
+		GraphObject = nullptr;
+	}
 }
 
 TSharedRef<SDockTab> FTestGraphAndBlueprintModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)

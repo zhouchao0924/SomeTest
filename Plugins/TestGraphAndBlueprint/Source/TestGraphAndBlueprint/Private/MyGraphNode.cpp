@@ -95,7 +95,7 @@ void SMyGraphNode_HelloWorld::UpdateGraphNode()
 	NewPin->SetIsEditable(IsEditable); \
 	this->AddPin(NewPin.ToSharedRef());
 
-#define VERSION_SET 0
+#define VERSION_SET 1
 void SMyGraphNode_HelloWorld::CreatePinWidgets()
 {
 	UTestNode_HelloWorld* HelloNode = CastChecked<UTestNode_HelloWorld>(GraphNode);
@@ -105,7 +105,7 @@ void SMyGraphNode_HelloWorld::CreatePinWidgets()
 #if VERSION_SET
 		for (UEdGraphPin * CurPin : HelloNode->Pins)
 		{
-			TSharedPtr<SGraphPin> NewPin = /*FNodeFactory::CreatePinWidget(CurPin)*/SNew(SMyGraphPin, CurPin);
+			TSharedPtr<SGraphPin> NewPin = FNodeFactory::CreatePinWidget(CurPin)/*SNew(SMyGraphPin, CurPin)*/;
 			NewPin->SetIsEditable(IsEditable);
 
 			this->AddPin(NewPin.ToSharedRef());

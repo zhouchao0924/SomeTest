@@ -16,11 +16,11 @@ void UTestGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextM
 			LOCTEXT("NewGraphText", "Add a Node"),
 			0));
 
-	//NewNodeAction->NodeHelloWorld = NewObject<UTestNode_HelloWorld>(ContextMenuBuilder.OwnerOfTemporaries);//参数，储存临时模板节点
-	//ContextMenuBuilder.AddAction(NewNodeAction);
-
-	NewNodeAction->K2Node_Event = NewObject<UK2Node_Event>(ContextMenuBuilder.OwnerOfTemporaries);
+	NewNodeAction->NodeHelloWorld = NewObject<UTestNode_HelloWorld>(ContextMenuBuilder.OwnerOfTemporaries);//参数，储存临时模板节点
 	ContextMenuBuilder.AddAction(NewNodeAction);
+
+	//NewNodeAction->K2Node_Event = NewObject<UK2Node_Event>(ContextMenuBuilder.OwnerOfTemporaries);
+	//ContextMenuBuilder.AddAction(NewNodeAction);
 }
 
 void UTestGraphSchema::GetContextMenuActions(class UToolMenu* Menu, class UGraphNodeContextMenuContext* Context) const
@@ -31,33 +31,6 @@ void UTestGraphSchema::GetContextMenuActions(class UToolMenu* Menu, class UGraph
 UEdGraphNode* FTestGraphSchemaAction::PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode /*= true*/)
 {
 	UEdGraphNode *UEdResultNode = nullptr;
-
-	if (NodeHelloWorld != nullptr)
-	{
-		const FScopedTransaction Transaction(LOCTEXT("FF", "Hell:NewNode"));
-
-		ParentGraph->Modify();
-
-		if (FromPin != nullptr)
-		{
-			FromPin->Modify();
-		}
-
-		K2Node_Event->Rename(nullptr, ParentGraph);
-		ParentGraph->AddNode(K2Node_Event, true, bSelectNewNode);
-
-		K2Node_Event->CreateNewGuid();
-		K2Node_Event->PostPlacedNewNode();
-		//	K2Node_Event->AllocateDefaultPins();
-		//	K2Node_Event->AutowireNewNode(FromPin);
-
-		K2Node_Event->NodePosX = Location.X;
-		K2Node_Event->NodePosY = Location.Y;
-
-		K2Node_Event->SetFlags(RF_Transactional);
-
-		UEdResultNode = NodeHelloWorld;
-	}
 
 	//if (NodeHelloWorld != nullptr)
 	//{
@@ -70,27 +43,54 @@ UEdGraphNode* FTestGraphSchemaAction::PerformAction(class UEdGraph* ParentGraph,
 	//		FromPin->Modify();
 	//	}
 
-	//	NodeHelloWorld->Rename(nullptr, ParentGraph);
-	//	ParentGraph->AddNode(NodeHelloWorld, true, bSelectNewNode);
+	//	K2Node_Event->Rename(nullptr, ParentGraph);
+	//	ParentGraph->AddNode(K2Node_Event, true, bSelectNewNode);
 
-	//	NodeHelloWorld->CreateNewGuid();
-	//	NodeHelloWorld->PostPlacedNewNode();
-	//	NodeHelloWorld->AllocateDefaultPins();
-	//	NodeHelloWorld->AutowireNewNode(FromPin);
+	//	K2Node_Event->CreateNewGuid();
+	//	K2Node_Event->PostPlacedNewNode();
+	//	//	K2Node_Event->AllocateDefaultPins();
+	//	//	K2Node_Event->AutowireNewNode(FromPin);
 
-	//	NodeHelloWorld->NodePosX = Location.X;
-	//	NodeHelloWorld->NodePosY = Location.Y;
+	//	K2Node_Event->NodePosX = Location.X;
+	//	K2Node_Event->NodePosY = Location.Y;
 
-	//	NodeHelloWorld->SetFlags(RF_Transactional);//Object is transactional.非序列化，与GC回收有关
+	//	K2Node_Event->SetFlags(RF_Transactional);
 
 	//	UEdResultNode = NodeHelloWorld;
 	//}
+
+	if (NodeHelloWorld != nullptr)
+	{
+		const FScopedTransaction Transaction(LOCTEXT("FF", "Hell:NewNode"));
+
+		ParentGraph->Modify();
+
+		if (FromPin != nullptr)
+		{
+			FromPin->Modify();
+		}
+
+		NodeHelloWorld->Rename(nullptr, ParentGraph);
+		ParentGraph->AddNode(NodeHelloWorld, true, bSelectNewNode);
+
+		NodeHelloWorld->CreateNewGuid();
+		NodeHelloWorld->PostPlacedNewNode();
+		NodeHelloWorld->AllocateDefaultPins();
+		NodeHelloWorld->AutowireNewNode(FromPin);
+
+		NodeHelloWorld->NodePosX = Location.X;
+		NodeHelloWorld->NodePosY = Location.Y;
+
+		NodeHelloWorld->SetFlags(RF_Transactional);//Object is transactional.非序列化，与GC回收有关
+
+		UEdResultNode = NodeHelloWorld;
+	}
 	return UEdResultNode;
 }
 
-FConnectionDrawingPolicy* UTestGraphSchema::CreateConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float InZoomFactor, const FSlateRect& InClippingRect, class FSlateWindowElementList& InDrawElements, class UEdGraph* InGraphObj) const
-{
-	return new FMyConnectionDrawingPolicy(InBackLayerID, InFrontLayerID, InZoomFactor, InClippingRect, InDrawElements, InGraphObj);
-}
+//FConnectionDrawingPolicy* UTestGraphSchema::CreateConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float InZoomFactor, const FSlateRect& InClippingRect, class FSlateWindowElementList& InDrawElements, class UEdGraph* InGraphObj) const
+//{
+//	return new FMyConnectionDrawingPolicy(InBackLayerID, InFrontLayerID, InZoomFactor, InClippingRect, InDrawElements, InGraphObj);
+//}
 
 #undef LOCTEXT_NAMESPACE

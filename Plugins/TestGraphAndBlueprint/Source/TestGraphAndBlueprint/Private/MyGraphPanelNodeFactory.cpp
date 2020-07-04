@@ -3,6 +3,7 @@
 #include "MyConnectionDrawingPolicy.h"
 #include "TestGraphSchema.h"
 #include "MyGraphNode.h"
+#include "MyGraphPin.h"
 
 FMyGraphPanelNodeFactory::FMyGraphPanelNodeFactory()
 {
@@ -21,6 +22,11 @@ TSharedPtr<class SGraphNode> FMyGraphPanelNodeFactory::CreateNode(class UEdGraph
 
 TSharedPtr<class SGraphPin> FMyGraphPanelPinFactory::CreatePin(class UEdGraphPin* Pin) const
 {
+	if (UTestNode_HelloWorld* MarkerNode = Cast<UTestNode_HelloWorld>(Pin->GetOuter()))
+	{
+		return SNew(SMyGraphPin, Pin);
+	}
+
 	return NULL;
 }
 
