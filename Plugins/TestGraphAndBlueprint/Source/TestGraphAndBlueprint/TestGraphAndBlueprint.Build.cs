@@ -42,6 +42,9 @@ public class TestGraphAndBlueprint : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+                "GraphEditor",
+                "EditorStyle",
+                "BlueprintGraph"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

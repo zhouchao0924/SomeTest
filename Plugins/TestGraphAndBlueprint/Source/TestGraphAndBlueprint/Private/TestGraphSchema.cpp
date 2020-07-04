@@ -1,6 +1,7 @@
 #include "TestGraphSchema.h"
 #include "TestNode_HelloWorld.h"
 #include "ScopedTransaction.h"
+#include "MyConnectionDrawingPolicy.h"
 
 #define LOCTEXT_NAMESPACE "TestGraphSchema"
 
@@ -56,6 +57,11 @@ UEdGraphNode* FTestGraphSchemaAction::PerformAction(class UEdGraph* ParentGraph,
 		UEdResultNode = NodeHelloWorld;
 	}
 	return UEdResultNode;
+}
+
+FConnectionDrawingPolicy* UTestGraphSchema::CreateConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float InZoomFactor, const FSlateRect& InClippingRect, class FSlateWindowElementList& InDrawElements, class UEdGraph* InGraphObj) const
+{
+	return new FMyConnectionDrawingPolicy(InBackLayerID, InFrontLayerID, InZoomFactor, InClippingRect, InDrawElements, InGraphObj);
 }
 
 #undef LOCTEXT_NAMESPACE
