@@ -27,7 +27,7 @@ void SMyGraphPin::Construct(const FArguments& InArgs, UEdGraphPin* InPin)
 		})
 		.OnMouseButtonDown_Lambda([&](const FGeometry& Geometry, const FPointerEvent& PointerEvent)
 		{
-			/*bIsMovingLinks = false;
+			bIsMovingLinks = false;
 
 			if (PointerEvent.GetEffectingButton() == EKeys::LeftMouseButton)
 			{
@@ -52,7 +52,7 @@ void SMyGraphPin::Construct(const FArguments& InArgs, UEdGraphPin* InPin)
 							TMap< FGraphPinHandle, TSharedRef<SGraphPin> > PinToPinWidgetMap;
 							for (const TSharedRef<SWidget>& SomePinWidget : AllPins)
 							{
-								const SGraphPin& PinWidget = static_cast<const SGraphPin&>(SomePinWidget.Get());
+								const SGraphPin& PinWidget = static_cast<const SGraphPin&>(SomePinWidget.Get());//不是继承自UObject，用static_cast
 								UEdGraphPin* GraphPin = PinWidget.GetPinObj();
 								if (GraphPin->LinkedTo.Num() > 0)
 								{
@@ -130,7 +130,7 @@ void SMyGraphPin::Construct(const FArguments& InArgs, UEdGraphPin* InPin)
 						}
 					}
 				}
-			}*/
+			}
 
 			return FReply::Handled();
 		})
