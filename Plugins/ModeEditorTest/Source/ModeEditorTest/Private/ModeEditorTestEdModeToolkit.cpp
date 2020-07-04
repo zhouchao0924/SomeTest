@@ -24,17 +24,84 @@ TextA.ToString() == TextB.ToString()
 
 namespace LocalNode
 {
-	static FText LeftFaceBehindTopID = LOCTEXT("LeftFaceBehindTopID", "Left Face Behind Top Point");
+	//c
+	static FText PointCenterID = LOCTEXT("PointCenter", "Center");//1
+	//////////////////////////////Point////////////////////////////////////////////
+	static FText PointAID = LOCTEXT("Point1", "Point 1");//1
+	static FText PointBID = LOCTEXT("Point2", "Point 2");//2
+	static FText PointCID = LOCTEXT("Point3", "Point 3");//3
+	static FText PointDID = LOCTEXT("Point4", "Point 4");//4
+	static FText PointEID = LOCTEXT("Point5", "Point 5");//5
+	static FText PointFID = LOCTEXT("Point6", "Point 6");//6
+	static FText PointGID = LOCTEXT("Point7", "Point 7");//7
+	static FText PointHID = LOCTEXT("Point8", "Point 8");//8
+	//////////////////////////////Line////////////////////////////////////////////
+	static FText PointACID = LOCTEXT("Point13", "Point 1 and 3 center");//13
+	static FText PointADID = LOCTEXT("Point14", "Point 1 and 4 center");//14
+	static FText PointBGID = LOCTEXT("Point27", "Point 2 and 7 center");//27
+	static FText PointAGID = LOCTEXT("Point17", "Point 1 and 7 center");//17
+	static FText PointBDID = LOCTEXT("Point24", "Point 2 and 4 center");//24
+	static FText PointDEID = LOCTEXT("Point45", "Point 5 and 4 center");//45
+	static FText PointBFID = LOCTEXT("Point26", "Point 2 and 6 center");//26
+	static FText PointGHID = LOCTEXT("Point78", "Point 7 and 8 center");//78
+	static FText PointCHID = LOCTEXT("Point38", "Point 3 and 8 center");//38
+	static FText PointCEID = LOCTEXT("Point35", "Point 3 and 5 center");//35
+	static FText PointHFID = LOCTEXT("Point86", "Point 8 and 6 center");//86
+	static FText PointEFID = LOCTEXT("Point56", "Point 5 and 6 center");//56
+	////////////////////////////////Face//////////////////////////////////////////
+	static FText PointFaceAID = LOCTEXT("PointFaceA", "FaceA ceentr");//56
+	static FText PointFaceBID = LOCTEXT("PointFaceB", "FaceB ceentr");//56
+	static FText PointFaceCID = LOCTEXT("PointFaceC", "FaceC ceentr");//56
+	static FText PointFaceDID = LOCTEXT("PointFaceD", "FaceD ceentr");//56
+	static FText PointFaceEID = LOCTEXT("PointFaceE", "FaceE ceentr");//56
+	static FText PointFaceFID = LOCTEXT("PointFaceF", "FaceF ceentr");//56
 }
 
 FModeEditorTestEdModeToolkit::FModeEditorTestEdModeToolkit()
 {
 }
 
+FVector PivotOffset = FVector::ZeroVector;
+
 void FModeEditorTestEdModeToolkit::Init(const TSharedPtr<IToolkitHost>& InitToolkitHost)
 {
 	struct Locals
 	{
+		//复制中心点
+		static FReply OnClickCopyPivot()
+		{
+			AActor* SelectedActor = GEditor->GetSelectedActors()->GetBottom<AActor>();
+			if (SelectedActor)
+			{
+				PivotOffset = SelectedActor->GetPivotOffset();
+			}
+
+			return FReply::Handled();
+		}
+
+		//粘贴中心点
+		static FReply OnClickPastePivot()
+		{
+			if (GEditor->GetSelectedActorCount() > 0)
+			{
+				const FScopedTransaction Transaction(LOCTEXT("PivotOffset", " Pivot Offset My Obj"));
+
+				for (FSelectionIterator It(GEditor->GetSelectedActorIterator()); It; ++It)
+				{
+					AActor* Actor = static_cast<AActor*>(*It);
+					if (Actor->GetPivotOffset() != PivotOffset)
+					{
+						Actor->Modify();
+						Actor->SetPivotOffset(PivotOffset);
+					}
+				}
+
+				GUnrealEd->NoteSelectionChange();
+			}
+
+			return FReply::Handled();
+		}
+
 		static bool IsWidgetEnabled()
 		{
 			return GEditor->GetSelectedActors()->Num() != 0;
@@ -103,9 +170,119 @@ void FModeEditorTestEdModeToolkit::Init(const TSharedPtr<IToolkitHost>& InitTool
 			FVector Offset = FVector::ZeroVector;
 
 			/////////////////////////////////////C/////////////////////////////////////
-			if (COMPARE_LOCTEXT(ID, LocalNode::LeftFaceBehindTopID))
+			if (COMPARE_LOCTEXT(ID, LocalNode::PointCenterID))
 			{
-				Offset = FVector(0, 0, Extent.Z);
+				Offset = FVector(FVector::ZeroVector);
+			}
+
+			///////////////////////////////////////P///////////////////////////////////
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointAID))
+			{
+				Offset = FVector(-Extent.X, -Extent.Y, Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointBID))
+			{
+				Offset = FVector(Extent.X, Extent.Y, Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointCID))
+			{
+				Offset = FVector(-Extent.X, -Extent.Y, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointDID))
+			{
+				Offset = FVector(-Extent.X, Extent.Y, Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointEID))
+			{
+				Offset = FVector(-Extent.X, Extent.Y, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFID))
+			{
+				Offset = FVector(Extent.X, Extent.Y, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointGID))
+			{
+				Offset = FVector(Extent.X, -Extent.Y, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointHID))
+			{
+				Offset = FVector(Extent.X, -Extent.Y, Extent.Z);
+			}
+
+			//////////////////////////////////E////////////////////////////////////////
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointACID))
+			{
+				Offset = FVector(-Extent.X, 0.0f, Extent.Z);//1
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointADID))
+			{
+				Offset = FVector(-Extent.X, 0.0f, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointBGID))
+			{
+				Offset = FVector(0.0f, -Extent.Y, Extent.Z);//2
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointAGID))
+			{
+				Offset = FVector(0.0f, -Extent.Y, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointBDID))
+			{
+				Offset = FVector(Extent.X, 0.0f, Extent.Z);//3
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointDEID))
+			{
+				Offset = FVector(Extent.X, 0.0f, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointBFID))
+			{
+				Offset = FVector(0.0f, Extent.Y, Extent.Z);//4
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointGHID))
+			{
+				Offset = FVector(0.0f, Extent.Y, -Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointCHID))
+			{
+				Offset = FVector(Extent.X, -Extent.Y, 0.0f);//5
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointCEID))
+			{
+				Offset = FVector(Extent.X, Extent.Y, 0.0f);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointHFID))
+			{
+				Offset = FVector(-Extent.X, -Extent.Y, 0.0f);//6
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointEFID))
+			{
+				Offset = FVector(-Extent.X, Extent.Y, 0.0f);
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFaceAID))
+			{
+				Offset = FVector(-Extent.X, 0.0f, 0.0f);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFaceBID))
+			{
+				Offset = FVector(Extent.X, 0.0f, 0.0f);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFaceCID))
+			{
+				Offset = FVector(0.0f, Extent.Y, 0.0f);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFaceDID))
+			{
+				Offset = FVector(0.0f, -Extent.Y, 0.0f);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFaceEID))
+			{
+				Offset = FVector(0.0f, 0.0f, Extent.Z);
+			}
+			else if (COMPARE_LOCTEXT(ID, LocalNode::PointFaceFID))
+			{
+				Offset = FVector(0.0f, 0.0f, -Extent.Z);
 			}
 
 			Result = Origin + Offset;
@@ -248,6 +425,9 @@ void FModeEditorTestEdModeToolkit::Init(const TSharedPtr<IToolkitHost>& InitTool
 		.Padding(25)
 		.IsEnabled_Static(&Locals::IsWidgetEnabled)
 		[
+			SNew(SScrollBox)
+			+ SScrollBox::Slot()
+			[
 			SNew(SVerticalBox)
 			+ SVerticalBox::Slot()
 			.AutoHeight()
@@ -286,14 +466,194 @@ void FModeEditorTestEdModeToolkit::Init(const TSharedPtr<IToolkitHost>& InitTool
 				[
 					Locals::MakeButton(LOCTEXT("DownButtonLabel", "Down"), FVector(0, 0, -Factor))
 				]
+			///////////////////////////////////////Center///////////////////////////////////
 			+ SVerticalBox::Slot()
 				.HAlign(HAlign_Center)
 				.AutoHeight()
 				[
-					Locals::MakePointButton(LocalNode::LeftFaceBehindTopID)
+					Locals::MakePointButton(LocalNode::PointCenterID)
+				]
+			//////////////////////////////////P////////////////////////////////////////
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointAID)
 				]
 
-		];
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointBID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointCID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointDID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointEID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointGID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointHID)
+				]
+
+			////////////////////////////////E//////////////////////////////////////////
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointACID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointADID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointBGID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointAGID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointBDID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointDEID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointBFID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointGHID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointCHID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointCEID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointHFID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Left)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointEFID)
+				]
+
+			////////////////////////////////F//////////////////////////////////////////
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFaceAID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFaceBID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFaceCID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFaceDID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFaceEID)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Right)
+				.AutoHeight()
+				[
+					Locals::MakePointButton(LocalNode::PointFaceFID)
+				]
+		//////////////////////////////////////////////////////////////////////////
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Center)
+				.AutoHeight()
+				[
+					SNew(SButton)
+					.Text(LOCTEXT("CopyButtonPivot","Copy Pivot"))
+					.OnClicked_Static(&Locals::OnClickCopyPivot)
+				]
+			+ SVerticalBox::Slot()
+				.HAlign(HAlign_Center)
+				.AutoHeight()
+				[
+					SNew(SButton)
+					.Text(LOCTEXT("PasteButtonPivot", "Paste Pivot"))
+					.OnClicked_Static(&Locals::OnClickPastePivot)
+				]
+
+		]];
 		
 	FModeToolkit::Init(InitToolkitHost);
 }
