@@ -27,8 +27,117 @@ class AReflexActor : public AActor
 //	SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_INCLASS_NO_PURE_DECLS
 //	SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_ENHANCED_CONSTRUCTORS
 
+//添加函数后
+public: 
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_PRIVATE_PROPERTY_OFFSET 
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_SPARSE_DATA 
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_RPC_WRAPPERS_NO_PURE_DECLS 
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_CALLBACK_WRAPPERS 
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_INCLASS_NO_PURE_DECLS 
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_ENHANCED_CONSTRUCTORS 
+
 //3
 //////////////////////////////////////////////////////////////////////////////////////
+//添加函数后
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_PRIVATE_PROPERTY_OFFSET展开
+	FORCEINLINE static uint32 __PPO__MyBoxComponent() { return STRUCT_OFFSET(AReflexActor, MyBoxComponent); } 
+	FORCEINLINE static uint32 __PPO__MyBoxComponent2() { return STRUCT_OFFSET(AReflexActor, MyBoxComponent2); }
+
+	//SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_RPC_WRAPPERS_NO_PURE_DECLS 展开
+	virtual void TestFunc5_Implementation(int32 IntValue); 
+
+	//DECLARE_FUNCTION(execTestFunc5) //前缀exec，蓝图调用约定
+	static void execTestFunc5(UObject* Context, FFrame& Stack, /* RESULT_DECL */void*const Z_Param__Result)
+	{ 
+		//P_GET_PROPERTY(UIntProperty, Z_Param_IntValue); 展开
+		UIntProperty::TCppType Z_Param_IntValue = UIntProperty::GetDefaultPropertyValue();					
+		Stack.StepCompiledIn<UIntProperty>(&Z_Param_IntValue);
+		//P_FINISH; 展开
+		Stack.Code += !!Stack.Code; /* increment the code ptr unless it is null */
+		//P_NATIVE_BEGIN; 展开
+		{
+			//SCOPED_SCRIPT_NATIVE_TIMER(ScopedNativeCallTimer);展开
+			FBlueprintEventTimer::FScopedNativeTimer ScopedNativeCallTimer;
+
+			//P_THIS->TestFunc5_Implementation(Z_Param_IntValue); 展开    1
+			//P_THIS_CAST(ThisClass)->TestFunc5_Implementation(Z_Param_IntValue); 展开    2
+			//((ThisClass*)P_THIS_OBJECT)->TestFunc5_Implementation(Z_Param_IntValue); 展开    3
+			((ThisClass*)(Context))->TestFunc5_Implementation(Z_Param_IntValue); 
+			//P_NATIVE_END; 展开
+		}
+	} 
+		
+	//DECLARE_FUNCTION(execTestFunc4) 
+	static void execTestFunc4(UObject* Context, FFrame& Stack, void*const Z_Param__Result)
+	{ 
+		//P_FINISH; 
+		//P_NATIVE_BEGIN; 
+		//P_THIS->TestFunc4(); 
+		//P_NATIVE_END; 
+		Stack.Code += !!Stack.Code; /* increment the code ptr unless it is null */
+		{
+			FBlueprintEventTimer::FScopedNativeTimer ScopedNativeCallTimer;
+			((ThisClass*)(Context))->TestFunc4();
+		}
+	} 
+		
+	//DECLARE_FUNCTION(execTestFunc3) 
+	static void execTestFunc3(UObject* Context, FFrame& Stack, void*const Z_Param__Result)
+	{ 
+		//P_GET_PROPERTY(UIntProperty, Z_Param_IntValue); 
+		//P_GET_PROPERTY(UStrProperty, Z_Param_Name); 
+		//P_GET_UBOOL(Z_Param_bShowWindows); 
+		//P_FINISH;
+		//P_NATIVE_BEGIN; 
+		//*(FString*)Z_Param__Result = P_THIS->TestFunc3(Z_Param_IntValue, Z_Param_Name, Z_Param_bShowWindows); 
+		//P_NATIVE_END; 
+		UIntProperty::TCppType Z_Param_IntValue = UIntProperty::GetDefaultPropertyValue();
+		Stack.StepCompiledIn<UIntProperty>(&Z_Param_IntValue);
+
+		UStrProperty::TCppType Z_Param_Name = UStrProperty::GetDefaultPropertyValue();
+		Stack.StepCompiledIn<UStrProperty>(&Z_Param_Name);
+
+		uint32 Z_Param_bShowWindows32 = 0; 
+		bool Z_Param_bShowWindows = false;
+		Stack.StepCompiledIn<UBoolProperty>(&Z_Param_bShowWindows32);
+		Z_Param_bShowWindows = !!Z_Param_bShowWindows32; // translate the bitfield into a bool type for non-intel platforms
+
+		Stack.Code += !!Stack.Code; /* increment the code ptr unless it is null */
+
+		{
+			FBlueprintEventTimer::FScopedNativeTimer ScopedNativeCallTimer;
+			*(FString*)Z_Param__Result = ((ThisClass*)(Context))->TestFunc3(Z_Param_IntValue, Z_Param_Name, Z_Param_bShowWindows);
+		}
+	} 
+		
+	//DECLARE_FUNCTION(execTestFunc2) 
+	static void execTestFunc2(UObject* Context, FFrame& Stack, void*const Z_Param__Result)
+	{ 
+		//P_FINISH; 
+		//P_NATIVE_BEGIN; 
+		//*(bool*)Z_Param__Result = P_THIS->TestFunc2(); 
+		//P_NATIVE_END; 
+		Stack.Code += !!Stack.Code; /* increment the code ptr unless it is null */
+		{
+			FBlueprintEventTimer::FScopedNativeTimer ScopedNativeCallTimer;//可以理解为追踪执行时间
+			*(bool*)Z_Param__Result = ((ThisClass*)(Context))->TestFunc2();
+		}
+	} 
+		
+	//DECLARE_FUNCTION(execTestFunc1) 
+	static void execTestFunc1(UObject* Context, FFrame& Stack, void*const Z_Param__Result)
+	{ 
+		//P_FINISH; 
+		//P_NATIVE_BEGIN; 
+		//P_THIS->TestFunc1(); 
+		//P_NATIVE_END; 
+		Stack.Code += !!Stack.Code; /* increment the code ptr unless it is null */
+		{
+			FBlueprintEventTimer::FScopedNativeTimer ScopedNativeCallTimer;
+			((ThisClass*)(Context))->TestFunc1();
+		}
+	}
+
 //SomeTest_Source_SomeTest_ReflexSystem_ReflexActor_h_12_INCLASS_NO_PURE_DECLS展开
 private:
 	//注册C++原生函数以便暴露给蓝图虚拟机使用

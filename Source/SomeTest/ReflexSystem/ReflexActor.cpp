@@ -25,3 +25,8 @@ void AReflexActor::Tick(float DeltaTime)
 
 }
 
+void AReflexActor::TestFunc5_Implementation(int32 IntValue)
+{
+
+}
+
