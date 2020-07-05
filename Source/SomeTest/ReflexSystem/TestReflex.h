@@ -1,5 +1,9 @@
-#include "ReflexActor.generated.h"
+#pragma once
+#define OFF_REFLEXACTOR 1
 
+#if OFF_REFLEXACTOR
+#include "GameFramework/Actor.h"
+#include "ReflexActor.generated.h"
 class AReflexActor : public AActor
 {
 	//GENERATED_BODY()
@@ -145,3 +149,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 };
+
+#endif
