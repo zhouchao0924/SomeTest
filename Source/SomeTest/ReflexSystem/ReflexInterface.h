@@ -22,4 +22,11 @@ class SOMETEST_API IReflexInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Interactable)
+		bool Hello();
+	virtual bool Hello_Implementation();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "MyCategory")
+		void Hello_Hello();
+	virtual void Hello_Hello_Implementation();
 };

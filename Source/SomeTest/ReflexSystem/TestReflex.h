@@ -1,5 +1,5 @@
 #pragma once
-#define OFF_REFLEXACTOR 1
+#define OFF_REFLEXACTOR 0
 
 #if OFF_REFLEXACTOR
 #include "GameFramework/Actor.h"
