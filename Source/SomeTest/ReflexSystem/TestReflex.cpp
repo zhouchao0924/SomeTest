@@ -1205,5 +1205,118 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 #pragma warning (pop)
 #endif
 
+//枚举
+/////////////////////////////////////////////////////////////////////
+// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/GeneratedCppIncludes.h"
+#include "SomeTest/ReflexSystem/ReflexEnum.h"
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable : 4883)
+#endif
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+void EmptyLinkFunctionForGeneratedCodeReflexEnum() {}
+
+// Cross Module References
+SOMETEST_API UEnum* Z_Construct_UEnum_SomeTest_EReflexEnum();
+UPackage* Z_Construct_UPackage__Script_SomeTest();
+
+// End Cross Module References
+static UEnum* EReflexEnum_StaticEnum()//在延迟注册时会被调用
+{
+	static UEnum* Singleton = nullptr;
+	if (!Singleton)
+	{
+		Singleton = GetStaticEnum(
+			Z_Construct_UEnum_SomeTest_EReflexEnum, 
+			Z_Construct_UPackage__Script_SomeTest(), 
+			TEXT("EReflexEnum"));
+	}
+	return Singleton;
+}
+
+template<> SOMETEST_API UEnum* StaticEnum<EReflexEnum>()
+{
+	return EReflexEnum_StaticEnum();
+}
+
+//延迟注册
+static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EReflexEnum(
+	EReflexEnum_StaticEnum, 
+	TEXT("/Script/SomeTest"),
+	TEXT("EReflexEnum"), 
+	false,
+	nullptr, 
+	nullptr);
+
+uint32 Get_Z_Construct_UEnum_SomeTest_EReflexEnum_Hash() { return 2657654087U; }
+UEnum* Z_Construct_UEnum_SomeTest_EReflexEnum()
+{
+#if WITH_HOT_RELOAD
+	UPackage* Outer = Z_Construct_UPackage__Script_SomeTest();
+	static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(
+		Outer,
+		TEXT("EReflexEnum"),
+		0,
+		Get_Z_Construct_UEnum_SomeTest_EReflexEnum_Hash(), 
+		false);
+#else
+	static UEnum* ReturnEnum = nullptr;
+#endif // WITH_HOT_RELOAD
+	if (!ReturnEnum)
+	{
+		static const UE4CodeGen_Private::FEnumeratorParam Enumerators[] = {
+			{ "EReflexEnum::Heath", (int64)EReflexEnum::Heath },
+			{ "EReflexEnum::Mana", (int64)EReflexEnum::Mana },
+			{ "EReflexEnum::Attack", (int64)EReflexEnum::Attack },
+			{ "EReflexEnum::Arm", (int64)EReflexEnum::Arm },
+			{ "EReflexEnum::Hello", (int64)EReflexEnum::Hello },
+			{ "EReflexEnum::World", (int64)EReflexEnum::World },
+			{ "EReflexEnum::Max", (int64)EReflexEnum::Max },
+		};
+#if WITH_METADATA
+		const UE4CodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+			{ "Arm.DisplayName", "4" },
+			{ "Arm.Name", "EReflexEnum::Arm" },
+			{ "Attack.DisplayName", "3" },
+			{ "Attack.Name", "EReflexEnum::Attack" },
+			{ "BlueprintType", "true" },
+			{ "Heath.DisplayName", "1" },
+			{ "Heath.Name", "EReflexEnum::Heath" },
+			{ "Hello.DisplayName", "5" },
+			{ "Hello.Name", "EReflexEnum::Hello" },
+			{ "Mana.DisplayName", "2" },
+			{ "Mana.Name", "EReflexEnum::Mana" },
+			{ "Max.Name", "EReflexEnum::Max" },
+			{ "ModuleRelativePath", "ReflexSystem/ReflexEnum.h" },
+			{ "World.DisplayName", "6" },
+			{ "World.Name", "EReflexEnum::World" },
+		};
+#endif
+		static const UE4CodeGen_Private::FEnumParams EnumParams = {
+			(UObject*(*)())Z_Construct_UPackage__Script_SomeTest,
+			nullptr,
+			"EReflexEnum",
+			"EReflexEnum",
+			Enumerators,
+			UE_ARRAY_COUNT(Enumerators),
+			RF_Public | RF_Transient | RF_MarkAsNative,
+			UE4CodeGen_Private::EDynamicType::NotDynamic,
+			(uint8)UEnum::ECppForm::EnumClass,
+			METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
+		};
+		UE4CodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
+	}
+	return ReturnEnum;
+}
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif
 
 #endif

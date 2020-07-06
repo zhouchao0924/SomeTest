@@ -276,8 +276,157 @@ struct FReflexStruct
 public:
 };
 
+//////////////////////////////////////////////////////////
+//Ã¶¾Ù
+// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+#ifdef SOMETEST_ReflexEnum_generated_h
+#error "ReflexEnum.generated.h already included, missing '#pragma once' in ReflexEnum.h"
+#endif
+#define SOMETEST_ReflexEnum_generated_h
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID SomeTest_Source_SomeTest_ReflexSystem_ReflexEnum_h
 
 
+#define FOREACH_ENUM_EREFLEXENUM(op) \
+	op(EReflexEnum::Heath) \
+	op(EReflexEnum::Mana) \
+	op(EReflexEnum::Attack) \
+	op(EReflexEnum::Arm) \
+	op(EReflexEnum::Hello) \
+	op(EReflexEnum::World) \
+	op(EReflexEnum::Max) 
+
+enum class EReflexEnum : uint8;
+template<> SOMETEST_API UEnum* StaticEnum<EReflexEnum>();
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+//½Ó¿Ú
+////////////////////////////////////////
+// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+#ifdef SOMETEST_ReflexInterface_generated_h
+#error "ReflexInterface.generated.h already included, missing '#pragma once' in ReflexInterface.h"
+#endif
+#define SOMETEST_ReflexInterface_generated_h
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_SPARSE_DATA
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_RPC_WRAPPERS
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_STANDARD_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	SOMETEST_API UReflexInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UReflexInterface) \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(SOMETEST_API, UReflexInterface); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UReflexInterface); \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	SOMETEST_API UReflexInterface(UReflexInterface&&); \
+	SOMETEST_API UReflexInterface(const UReflexInterface&); \
+public:
+
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_ENHANCED_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	SOMETEST_API UReflexInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	SOMETEST_API UReflexInterface(UReflexInterface&&); \
+	SOMETEST_API UReflexInterface(const UReflexInterface&); \
+public: \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(SOMETEST_API, UReflexInterface); \
+DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UReflexInterface); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UReflexInterface)
+
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_GENERATED_UINTERFACE_BODY() \
+private: \
+	static void StaticRegisterNativesUReflexInterface(); \
+	friend struct Z_Construct_UClass_UReflexInterface_Statics; \
+public: \
+	DECLARE_CLASS(UReflexInterface, UInterface, COMPILED_IN_FLAGS(CLASS_Abstract | CLASS_Interface), CASTCLASS_None, TEXT("/Script/SomeTest"), SOMETEST_API) \
+	DECLARE_SERIALIZER(UReflexInterface)
+
+//class UReflexInterface : public UInterface
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_GENERATED_BODY_LEGACY \
+		PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_GENERATED_UINTERFACE_BODY() \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_STANDARD_CONSTRUCTORS \
+	PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_GENERATED_BODY \
+	PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_GENERATED_UINTERFACE_BODY() \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_ENHANCED_CONSTRUCTORS \
+private: \
+	PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_INCLASS_IINTERFACE_NO_PURE_DECLS \
+protected: \
+	virtual ~IReflexInterface() {} \
+public: \
+	typedef UReflexInterface UClassType; \
+	typedef IReflexInterface ThisClass; \
+	virtual UObject* _getUObject() const { check(0 && "Missing required implementation."); return nullptr; }
+
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_INCLASS_IINTERFACE \
+protected: \
+	virtual ~IReflexInterface() {} \
+public: \
+	typedef UReflexInterface UClassType; \
+	typedef IReflexInterface ThisClass; \
+	virtual UObject* _getUObject() const { check(0 && "Missing required implementation."); return nullptr; }
+
+//class SOMETEST_API IReflexInterface
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_10_PROLOG
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_21_GENERATED_BODY_LEGACY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_SPARSE_DATA \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_RPC_WRAPPERS \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_INCLASS_IINTERFACE \
+public: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+#define SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_21_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_SPARSE_DATA \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h_13_INCLASS_IINTERFACE_NO_PURE_DECLS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+template<> SOMETEST_API UClass* StaticClass<class UReflexInterface>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID SomeTest_Source_SomeTest_ReflexSystem_ReflexInterface_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
 
