@@ -259,4 +259,26 @@ public:
 
 };
 
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+USTRUCT(Blueprintable)
+struct FReflexStruct
+{
+	//GENERATED_USTRUCT_BODY()
+
+	//#define SomeTest_Source_SomeTest_ReflexSystem_ReflexStruct_h_8_GENERATED_BODY 展开
+	friend struct Z_Construct_UScriptStruct_FReflexStruct_Statics; //创建结构体反射对象 UScriptStruct
+	SOMETEST_API static class UScriptStruct* StaticStruct();//反射结构体
+
+public:
+};
+
+
+
+
+
+
 #endif
