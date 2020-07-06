@@ -264,7 +264,7 @@ public:
 
 
 
-USTRUCT(Blueprintable)
+//USTRUCT(Blueprintable)
 struct FReflexStruct
 {
 	//GENERATED_USTRUCT_BODY()

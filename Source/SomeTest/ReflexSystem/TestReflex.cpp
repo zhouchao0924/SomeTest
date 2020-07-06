@@ -961,5 +961,249 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 #pragma warning (pop)
 #endif
 
+//结构体变量
+////////////////////////////////////////////////////////////
+
+// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/GeneratedCppIncludes.h"
+#include "SomeTest/ReflexSystem/ReflexStruct.h"
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable : 4883)
+#endif
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+void EmptyLinkFunctionForGeneratedCodeReflexStruct() {}
+
+// Cross Module References
+SOMETEST_API UScriptStruct* Z_Construct_UScriptStruct_FReflexStruct();
+UPackage* Z_Construct_UPackage__Script_SomeTest();
+ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UBoxComponent_NoRegister();
+
+// End Cross Module References
+class UScriptStruct* FReflexStruct::StaticStruct()
+{
+	static class UScriptStruct* Singleton = NULL;
+	if (!Singleton)
+	{
+		extern SOMETEST_API uint32 Get_Z_Construct_UScriptStruct_FReflexStruct_Hash();
+		Singleton = GetStaticStruct(
+			Z_Construct_UScriptStruct_FReflexStruct, 
+			Z_Construct_UPackage__Script_SomeTest(), 
+			TEXT("ReflexStruct"), 
+			sizeof(FReflexStruct), 
+			Get_Z_Construct_UScriptStruct_FReflexStruct_Hash());
+	}
+	return Singleton;
+}
+
+template<> SOMETEST_API UScriptStruct* StaticStruct<FReflexStruct>()
+{
+	return FReflexStruct::StaticStruct();
+}
+static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FReflexStruct(
+	FReflexStruct::StaticStruct,
+	TEXT("/Script/SomeTest"),
+	TEXT("ReflexStruct"),
+	false,
+	nullptr,
+	nullptr);
+
+static struct FScriptStruct_SomeTest_StaticRegisterNativesFReflexStruct
+{
+	FScriptStruct_SomeTest_StaticRegisterNativesFReflexStruct()
+	{
+		UScriptStruct::DeferCppStructOps(FName(TEXT("ReflexStruct")), new UScriptStruct::TCppStructOps<FReflexStruct>);
+	}
+} ScriptStruct_SomeTest_StaticRegisterNativesFReflexStruct;
+
+struct Z_Construct_UScriptStruct_FReflexStruct_Statics
+{
+#if WITH_METADATA
+	static const UE4CodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+	static void* NewStructOps();
+#if WITH_METADATA
+	static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VlaueString_MetaData[];
+#endif
+	static const UE4CodeGen_Private::FStrPropertyParams NewProp_VlaueString;
+#if WITH_METADATA
+	static const UE4CodeGen_Private::FMetaDataPairParam NewProp_VlaueC_MetaData[];
+#endif
+	static const UE4CodeGen_Private::FFloatPropertyParams NewProp_VlaueC;
+#if WITH_METADATA
+	static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SetMyComponent_MetaData[];
+#endif
+	static const UE4CodeGen_Private::FSetPropertyParams NewProp_SetMyComponent;
+	static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SetMyComponent_ElementProp;
+#if WITH_METADATA
+	static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ArrayComponent_MetaData[];
+#endif
+	static const UE4CodeGen_Private::FArrayPropertyParams NewProp_ArrayComponent;
+	static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ArrayComponent_Inner;
+	static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UE4CodeGen_Private::FStructParams ReturnStructParams;
+};
+#if WITH_METADATA
+const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FReflexStruct_Statics::Struct_MetaDataParams[] = {
+	{ "BlueprintType", "true" },
+	{ "IsBlueprintBase", "true" },
+	{ "ModuleRelativePath", "ReflexSystem/ReflexStruct.h" },
+};
+#endif
+void* Z_Construct_UScriptStruct_FReflexStruct_Statics::NewStructOps()
+{
+	return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FReflexStruct>();
+}
+#if WITH_METADATA
+const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueString_MetaData[] = {
+	{ "Category", "TTT" },
+	{ "ModuleRelativePath", "ReflexSystem/ReflexStruct.h" },
+};
+#endif
+const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueString = 
+{ 
+	"VlaueString", 
+	nullptr, 
+	(EPropertyFlags)0x0010000000000014,
+	UE4CodeGen_Private::EPropertyGenFlags::Str,
+	RF_Public | RF_Transient | RF_MarkAsNative,
+	1, 
+	STRUCT_OFFSET(FReflexStruct, VlaueString), 
+	METADATA_PARAMS(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueString_MetaData, 
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueString_MetaData))
+};
+
+#if WITH_METADATA
+const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueC_MetaData[] = {
+	{ "Category", "TTT" },
+	{ "ModuleRelativePath", "ReflexSystem/ReflexStruct.h" },
+};
+#endif
+const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueC = 
+{ 
+	"VlaueC", 
+	nullptr, 
+	(EPropertyFlags)0x0010000000000014,
+	UE4CodeGen_Private::EPropertyGenFlags::Float, 
+	RF_Public | RF_Transient | RF_MarkAsNative,
+	1, 
+	STRUCT_OFFSET(FReflexStruct, VlaueC),
+	METADATA_PARAMS(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueC_MetaData, 
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueC_MetaData)) 
+};
+
+#if WITH_METADATA
+const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent_MetaData[] = {
+	{ "Category", "BoxComponent" },
+	{ "ModuleRelativePath", "ReflexSystem/ReflexStruct.h" },
+};
+#endif
+const UE4CodeGen_Private::FSetPropertyParams Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent = 
+{ 
+	"SetMyComponent", 
+	nullptr, 
+	(EPropertyFlags)0x0010000000010001, 
+	UE4CodeGen_Private::EPropertyGenFlags::Set,
+	RF_Public | RF_Transient | RF_MarkAsNative, 
+	1, 
+	STRUCT_OFFSET(FReflexStruct, SetMyComponent), 
+	METADATA_PARAMS(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent_MetaData, 
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent_MetaData)) 
+};
+
+const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent_ElementProp = 
+{ 
+	"SetMyComponent", 
+	nullptr,
+	(EPropertyFlags)0x0000000000000001,
+	UE4CodeGen_Private::EPropertyGenFlags::Object, 
+	RF_Public | RF_Transient | RF_MarkAsNative, 
+	1, 
+	0, 
+	Z_Construct_UClass_AActor_NoRegister, 
+	METADATA_PARAMS(nullptr, 0) 
+};
+
+#if WITH_METADATA
+const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent_MetaData[] = {
+	{ "Category", "BoxComponent" },
+	{ "EditInline", "true" },
+	{ "ModuleRelativePath", "ReflexSystem/ReflexStruct.h" },
+};
+#endif
+const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent =
+{ 
+	"ArrayComponent", 
+	nullptr,
+	(EPropertyFlags)0x0010008000010009,
+	UE4CodeGen_Private::EPropertyGenFlags::Array,
+	RF_Public | RF_Transient | RF_MarkAsNative,
+	1,
+	STRUCT_OFFSET(FReflexStruct, ArrayComponent), 
+	METADATA_PARAMS(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent_MetaData,
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent_MetaData)) 
+};
+
+const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent_Inner =
+{ 
+	"ArrayComponent", 
+	nullptr,
+	(EPropertyFlags)0x0000000000080008, 
+	UE4CodeGen_Private::EPropertyGenFlags::Object, 
+	RF_Public | RF_Transient | RF_MarkAsNative, 
+	1, 
+	0, 
+	Z_Construct_UClass_UBoxComponent_NoRegister,
+	METADATA_PARAMS(nullptr, 0) 
+};
+
+const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FReflexStruct_Statics::PropPointers[] = {
+	(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueString,
+	(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_VlaueC,
+	(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent,
+	(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_SetMyComponent_ElementProp,
+	(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent,
+	(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FReflexStruct_Statics::NewProp_ArrayComponent_Inner,
+};
+const UE4CodeGen_Private::FStructParams Z_Construct_UScriptStruct_FReflexStruct_Statics::ReturnStructParams = {
+	(UObject* (*)())Z_Construct_UPackage__Script_SomeTest,
+	nullptr,
+	&NewStructOps,
+	"ReflexStruct",
+	sizeof(FReflexStruct),
+	alignof(FReflexStruct),
+	Z_Construct_UScriptStruct_FReflexStruct_Statics::PropPointers,
+	UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FReflexStruct_Statics::PropPointers),
+	RF_Public | RF_Transient | RF_MarkAsNative,
+	EStructFlags(0x00000005),
+	METADATA_PARAMS(Z_Construct_UScriptStruct_FReflexStruct_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FReflexStruct_Statics::Struct_MetaDataParams))
+};
+UScriptStruct* Z_Construct_UScriptStruct_FReflexStruct()
+{
+#if WITH_HOT_RELOAD
+	extern uint32 Get_Z_Construct_UScriptStruct_FReflexStruct_Hash();
+	UPackage* Outer = Z_Construct_UPackage__Script_SomeTest();
+	static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("ReflexStruct"), sizeof(FReflexStruct), Get_Z_Construct_UScriptStruct_FReflexStruct_Hash(), false);
+#else
+	static UScriptStruct* ReturnStruct = nullptr;
+#endif
+	if (!ReturnStruct)
+	{
+		UE4CodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FReflexStruct_Statics::ReturnStructParams);
+	}
+	return ReturnStruct;
+}
+uint32 Get_Z_Construct_UScriptStruct_FReflexStruct_Hash() { return 486530343U; }
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif
+
 
 #endif
