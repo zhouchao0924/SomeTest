@@ -222,6 +222,7 @@ void EmptyLinkFunctionForGeneratedCodeReflexActor() {}
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_SomeTest();
 
+	SOMETEST_API UFunction* Z_Construct_UFunction_AReflexActor_TestFunc1();
 	SOMETEST_API UFunction* Z_Construct_UFunction_AReflexActor_TestFunc2();
 	SOMETEST_API UFunction* Z_Construct_UFunction_AReflexActor_TestFunc3();
 	SOMETEST_API UFunction* Z_Construct_UFunction_AReflexActor_TestFunc4();
@@ -247,7 +248,7 @@ void EmptyLinkFunctionForGeneratedCodeReflexActor() {}
 		ProcessEvent(FindFunctionChecked(NAME_AReflexActor_TestFunc6), &Parms);
 	}
 
-	void AReflexActor::StaticRegisterNativesAReflexActor()//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½æ±¾ï¿½Ç¿Õµï¿½
+	void AReflexActor::StaticRegisterNativesAReflexActor()//ÉÏÒ»¸ö°æ±¾ÊÇ¿ÕµÄ
 	{
 		UClass* Class = AReflexActor::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
@@ -257,7 +258,7 @@ void EmptyLinkFunctionForGeneratedCodeReflexActor() {}
 			{ "TestFunc4", &AReflexActor::execTestFunc4 },
 			{ "TestFunc5", &AReflexActor::execTestFunc5 },
 		};
-		//×¢ï¿½ï¿½ï¿½ï¿½ï¿½ÇµÄºï¿½ï¿½ï¿½ï¿½ï¿½Classï¿½ï¿½ï¿½ï¿½
+		//×¢²áÎÒÃÇµÄº¯Êýµ½ClassÀïÃæ
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, (sizeof(UE4ArrayCountHelper(Funcs)) - 1)/*UE_ARRAY_COUNT(Funcs)*/);
 	}
 
@@ -333,7 +334,7 @@ void EmptyLinkFunctionForGeneratedCodeReflexActor() {}
 		((ReflexActor_eventTestFunc2_Parms*)Obj)->ReturnValue = 1;
 	}
 
-	//ï¿½ï¿½ï¿½ï¿½Öµ
+	//·µ»ØÖµ
 	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AReflexActor_TestFunc2_Statics::NewProp_ReturnValue = 
 	{ 
 		"ReturnValue", 
@@ -517,7 +518,7 @@ void EmptyLinkFunctionForGeneratedCodeReflexActor() {}
 		return ReturnFunction;
 	}
 
-	//		void TestFunc4() {}
+	//void TestFunc4() {}
 	struct Z_Construct_UFunction_AReflexActor_TestFunc4_Statics
 	{
 #if WITH_METADATA
