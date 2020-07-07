@@ -77,4 +77,23 @@
 |第十节：反射总结|:heavy_check_mark:|
 |第十一节：基础类讲解|:heavy_check_mark:|
 
+## 第三章：蓝图编译原理剖析
+|||
+| --------   | -----  |
+|第一节：十六个阶段|:heavy_check_mark:|
+|第二节：第一部分基础类|:heavy_check_mark:|
+|第三节：第二部分基础类|:heavy_check_mark:|
+|第四节：编译阶段前的准备|:heavy_check_mark:|
+|第五节：第一到第二阶段|:heavy_check_mark:|
+|第六节：第三到第七阶段|:heavy_check_mark:|
+|第七节：重构函数变量|:heavy_check_mark:|
+|第八节：重新编译依赖象|:heavy_check_mark:|
+|第九节：第九到第十二阶段|:heavy_check_mark:|
+|第十节：构建蓝图成员变量|:heavy_check_mark:|
+|第十一节：预编译|:heavy_check_mark:|
+|第十二节：函数预编译阶段|:heavy_check_mark:|
+|第十三节：第二阶段整合语句|:heavy_check_mark:|
+|第十四节：编译蓝图为字节码|:heavy_check_mark:|
+|第十五节：第十四到十五阶段|:heavy_check_mark:|
+
 Developed with Unreal Engine 4
