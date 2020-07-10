@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ReflexInterface.h"
 #include "ReflexActor.generated.h"
 
+
 UCLASS()
-class SOMETEST_API AReflexActor : public AActor
+class SOMETEST_API AReflexActor : public AActor, public IReflexInterface
 {
 	GENERATED_BODY()
 

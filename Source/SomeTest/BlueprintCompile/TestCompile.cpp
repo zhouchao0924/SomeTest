@@ -514,7 +514,7 @@ void FBlueprintCompilationManagerImpl::FlushCompilationQueueImpl(bool bSuppressB
 		}
 
 		// STAGE VI: Purge null graphs, could be done only on load
-		//±àÒëµÚÁù½×¶Î:Çå³ş¿ÕÀ¶Í¼
+		//±àÒëµÚÁù½×¶Î:Çå³ı¿ÕÀ¶Í¼
 		for (FCompilerData& CompilerData : CurrentlyCompilingBPs)
 		{
 			UBlueprint* BP = CompilerData.BP;
