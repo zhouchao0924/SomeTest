@@ -3,20 +3,23 @@
 #include "BlueprintToolEditor.h"
 #include "AssetToolsModule.h"
 #include "AssetEditor/Architect/AssetArchitectActions.h"
+#include "Factory/Blueprint/BlueprintToolFactory.h"
+#include "EdGraphUtilities.h"
 
 #define LOCTEXT_NAMESPACE "FBlueprintToolEditorModule"
 
 void FBlueprintToolEditorModule::StartupModule()
 {
-	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
 	RegisterAssetTypeAction(AssetTools, MakeShareable(new FBlueprintTypeActions));
+
+	FEdGraphUtilities::RegisterVisualNodeFactory(MakeShareable(new FBToolPanelNodeFactory));
+	FEdGraphUtilities::RegisterVisualPinFactory(MakeShareable(new FBToolPanelPinFactory));
+	FEdGraphUtilities::RegisterVisualPinConnectionFactory(MakeShareable(new FBToolPanelPinConnectionFactory));
 }
 
 void FBlueprintToolEditorModule::ShutdownModule()
 {
-	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
-	// we call this function before unloading the module.
 	if (FModuleManager::Get().IsModuleLoaded("AssetTools"))
 	{
 		IAssetTools& AssetTools = FModuleManager::GetModuleChecked<FAssetToolsModule>("AssetTools").Get();

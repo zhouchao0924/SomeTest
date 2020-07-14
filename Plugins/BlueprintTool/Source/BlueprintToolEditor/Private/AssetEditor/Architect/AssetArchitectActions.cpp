@@ -1,6 +1,7 @@
-ï»¿#include "AssetEditor/Architect/AssetArchitectActions.h"
+#include "AssetEditor/Architect/AssetArchitectActions.h"
 #include "BlueprintData.h"
 #include "AssetEditor/Architect/AssetArchitectToolkit.h"
+
 
 #define LOCTEXT_NAMESPACE "FBlueprintTypeActions"
 
@@ -26,7 +27,7 @@ void FBlueprintTypeActions::GetActions(const TArray<UObject*>& InObjects, FMenuB
 
 void FBlueprintTypeActions::OpenAssetEditor(const TArray<UObject*>& InObjects, TSharedPtr<class IToolkitHost> EditWithinLevelEditor /*= TSharedPtr<IToolkitHost>()*/)
 {
-	//UE4è‡ªå¸¦çš„èµ„æºç¼–è¾‘å™¨
+	//UE4×Ô´øµÄ×ÊÔ´±à¼­Æ÷
 	//FSimpleAssetEditor::CreateEditor(EToolkitMode::Standalone, EditWithinLevelEditor, InObjects);
 
 	EToolkitMode::Type Mode = EditWithinLevelEditor.IsValid() ? EToolkitMode::WorldCentric : EToolkitMode::Standalone;

@@ -15,6 +15,8 @@ public:
 	virtual FReply OnActionDragged(const TArray< TSharedPtr<FEdGraphSchemaAction> >& InActions, const FPointerEvent& MouseEvent);
 
 	virtual void CollectAllActions(FGraphActionListBuilderBase& OutAllActions);
+
+	void UpdateNodeListPalette();
 protected:
 	TWeakPtr<FBlueprintToolEditorToolkit> BlueprintToolEditor;
 };

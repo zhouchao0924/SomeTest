@@ -8,11 +8,10 @@ class BLUEPRINTTOOLEDITOR_API FBPTEditorViewportClient : public FEditorViewportC
 {
 public:
 	FBPTEditorViewportClient(
-		TWeakPtr<FAssetEditorToolkit> InBlueprintEditor,
-		TWeakPtr<SBlueprintPreviewViewport> InBlueprintEditorViewport,
+		TWeakPtr<FAssetEditorToolkit> InBlueprintEditor, 
+		TWeakPtr<SBlueprintPreviewViewport> InBlueprintEditorViewport, 
 		FPreviewScene& InPreviewScene,
 		UBlueprintData* InData);
 
 	virtual void Tick(float DeltaSeconds) override;
 };
-

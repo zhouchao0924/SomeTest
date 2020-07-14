@@ -1,7 +1,9 @@
 #include "Palette/BlueprintNodeListPalette.h"
 #include "EditorStyleSet.h"
 #include "Widgets/Images/SImage.h"
-#include "Widgets/SOverlay.h"
+#include "BlueprintEditor/Core/Architect/PBToolSchema.h"
+#include "GraphEditor.h"
+#include "AssetEditor/Architect/AssetArchitectToolkit.h"
 
 void SBlueprintNodeListPalette::Construct(const FArguments& InArgs, TWeakPtr<class FBlueprintToolEditorToolkit> InBlueprintToolEditor)
 {
@@ -35,7 +37,7 @@ void SBlueprintNodeListPalette::Construct(const FArguments& InArgs, TWeakPtr<cla
 
 TSharedRef<SWidget> SBlueprintNodeListPalette::OnCreateWidgetForAction(FCreateWidgetForActionData* const InCreateData)
 {
-	return SNew(SImage);
+	return Super::OnCreateWidgetForAction(InCreateData);
 }
 
 FReply SBlueprintNodeListPalette::OnActionDragged(const TArray< TSharedPtr<FEdGraphSchemaAction> >& InActions, const FPointerEvent& MouseEvent)
@@ -45,6 +47,31 @@ FReply SBlueprintNodeListPalette::OnActionDragged(const TArray< TSharedPtr<FEdGr
 
 void SBlueprintNodeListPalette::CollectAllActions(FGraphActionListBuilderBase& OutAllActions)
 {
+	const UPBToolSchema* Schema = GetDefault<UPBToolSchema>();
 
+	TArray<TSharedPtr<FEdGraphSchemaAction> > Actions;
+	FGraphActionMenuBuilder ActionMenuBuilder;
+
+	if (BlueprintToolEditor.IsValid())
+	{
+		TSharedPtr<SGraphEditor> BPGraphEditor = BlueprintToolEditor.Pin()->GetGraphEditor();
+		if (BPGraphEditor.IsValid())
+		{
+			UEdGraph* Graph = BPGraphEditor->GetCurrentGraph();
+			Schema->GetActionList(Graph, Actions);
+
+			for (TSharedPtr<FEdGraphSchemaAction> Action : Actions)
+			{
+				ActionMenuBuilder.AddAction(Action);
+			}
+		}
+	}
+
+	OutAllActions.Append(ActionMenuBuilder);
+}
+
+void SBlueprintNodeListPalette::UpdateNodeListPalette()
+{
+	RefreshActionsList(true);
 }
 

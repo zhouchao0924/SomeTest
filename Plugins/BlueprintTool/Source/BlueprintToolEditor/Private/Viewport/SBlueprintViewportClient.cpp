@@ -5,6 +5,7 @@
 #include "Atmosphere/AtmosphericFogComponent.h"
 #include "Viewport/BlueprintViewportClient.h"
 
+
 void SBlueprintPreviewViewport::Construct(const FArguments& InArgs)
 {
 	BPEditorPtr = InArgs._BPEditorPtr;
@@ -40,7 +41,7 @@ void SBlueprintPreviewViewport::Construct(const FArguments& InArgs)
 TSharedRef<FEditorViewportClient> SBlueprintPreviewViewport::MakeEditorViewportClient()
 {
 	EditorViewportClient = MakeShareable(new FBPTEditorViewportClient(BPEditorPtr, SharedThis(this), *PreviewScene, ObjectToEdit));
-	EditorViewportClient->SetRealtime(true);
+	EditorViewportClient->SetRealtime(true);	
 
 	return EditorViewportClient.ToSharedRef();
 }

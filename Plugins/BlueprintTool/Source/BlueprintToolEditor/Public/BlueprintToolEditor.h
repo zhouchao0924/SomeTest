@@ -3,10 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "IAssetTypeActions.h"
 #include "Modules/ModuleManager.h"
+#include "IAssetTypeActions.h"
 #include "IAssetTools.h"
-
 
 class FBlueprintToolEditorModule : public IModuleInterface
 {

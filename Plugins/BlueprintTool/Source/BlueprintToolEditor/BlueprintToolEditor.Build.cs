@@ -38,6 +38,7 @@ public class BlueprintToolEditor : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+                "InputCore",
                 "AssetTools",
                 "BlueprintToolRuntime",
                 "UnrealEd",
@@ -45,8 +46,7 @@ public class BlueprintToolEditor : ModuleRules
                 "EditorStyle",
                 "ContentBrowser",
                 "GraphEditor",
-                "PropertyEditor",
-                "InputCore"
+                "PropertyEditor"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
