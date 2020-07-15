@@ -6,6 +6,7 @@
 #include "Modules/ModuleManager.h"
 #include "IAssetTypeActions.h"
 #include "IAssetTools.h"
+#include "PropertyEditorDelegates.h"
 
 class FBlueprintToolEditorModule : public IModuleInterface
 {
@@ -16,7 +17,13 @@ public:
 	virtual void ShutdownModule() override;
 
 	void RegisterAssetTypeAction(IAssetTools& AssetTools, TSharedRef<IAssetTypeActions> Action);
+public:
+	/** Register custom property type layout */
+	void RegisterCustomPropertyTypeLayout(FName PropertyTypeName, FOnGetPropertyTypeCustomizationInstance PropertyTypeLayoutDelegate);
+
+	void RegisterPropertyTypeCustomizations();
 private:
+	TSet< FName > RegisteredPropertyTypes;
 
 	TArray< TSharedPtr<IAssetTypeActions> > MyAssetTypeActions;
 };

@@ -2,7 +2,6 @@
 #include "BlueprintData.h"
 #include "AssetEditor/Architect/AssetArchitectToolkit.h"
 
-
 #define LOCTEXT_NAMESPACE "FBlueprintTypeActions"
 
 FText FBlueprintTypeActions::GetName() const
@@ -28,7 +27,7 @@ void FBlueprintTypeActions::GetActions(const TArray<UObject*>& InObjects, FMenuB
 void FBlueprintTypeActions::OpenAssetEditor(const TArray<UObject*>& InObjects, TSharedPtr<class IToolkitHost> EditWithinLevelEditor /*= TSharedPtr<IToolkitHost>()*/)
 {
 	//UE4自带的资源编辑器
-	//FSimpleAssetEditor::CreateEditor(EToolkitMode::Standalone, EditWithinLevelEditor, InObjects);
+//	FSimpleAssetEditor::CreateEditor(EToolkitMode::Standalone, EditWithinLevelEditor, InObjects);
 
 	EToolkitMode::Type Mode = EditWithinLevelEditor.IsValid() ? EToolkitMode::WorldCentric : EToolkitMode::Standalone;
 

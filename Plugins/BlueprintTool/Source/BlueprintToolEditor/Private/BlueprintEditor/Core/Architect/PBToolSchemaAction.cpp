@@ -1,6 +1,5 @@
 #include "BlueprintEditor/Core/Architect/PBToolSchemaAction.h"
 #include "BlueprintEditor/Core/Architect/K3Node.h"
-#include "ScopedTransaction.h"
 
 #define LOCTEXT_NAMESPACE "PBToolSchemaAction"
 

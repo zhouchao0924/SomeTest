@@ -16,3 +16,4 @@ void FBPToolConnectionDrawingPolicy::DetermineWiringStyle(UEdGraphPin* OutputPin
 		ApplyHoverDeemphasis(OutputPin, InputPin, Params.WireThickness, Params.WireColor);
 	}
 }
+

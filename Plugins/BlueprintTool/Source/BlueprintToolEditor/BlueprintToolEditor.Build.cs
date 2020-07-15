@@ -46,7 +46,12 @@ public class BlueprintToolEditor : ModuleRules
                 "EditorStyle",
                 "ContentBrowser",
                 "GraphEditor",
-                "PropertyEditor"
+                "PropertyEditor",
+                "ApplicationCore",
+                "BlueprintToolCode",
+                "Projects",
+                "BlueprintToolScript",
+                "EditorWidgets"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

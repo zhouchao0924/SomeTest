@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SGraphNode.h"
-#include "K3Node.h"
+#include "BlueprintEditor/Core/Architect/K3Node.h"
 
 class SEventNode : public SGraphNode
 {

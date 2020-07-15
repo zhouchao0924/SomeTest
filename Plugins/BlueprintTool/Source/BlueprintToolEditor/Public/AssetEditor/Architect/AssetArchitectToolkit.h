@@ -9,6 +9,7 @@ class FBlueprintToolEditorToolkit : public FAssetEditorToolkit, public FNotifyHo
 
 public:
 	~FBlueprintToolEditorToolkit();
+	// FTickableGameObject Interface
 	virtual bool IsTickableInEditor() const override;
 	virtual void Tick(float DeltaTime) override;
 	virtual bool IsTickable() const override;
@@ -26,7 +27,24 @@ public:
 
 	FORCEINLINE TSharedPtr<SGraphEditor> GetGraphEditor() const { return GraphEditor; }
 	//FORCEINLINE void CallEditorUpdate() { bGraphChanged = true; }
+	
+	//Commands
+private:
+	void BindCommands();
 
+	// Extend
+	void ExtendToolbar();
+
+	//Handle 
+	void Compile();
+	void Help();
+	void Run();
+
+	//Save
+	virtual void SaveAsset_Execute()override;
+
+	//Data
+	virtual UBlueprintData* GetBlueprintData() const;
 private:
 	TSharedRef<SDockTab> SpawnByPreviewTab(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnByContentBrowserTab(const FSpawnTabArgs& Args);
@@ -36,8 +54,12 @@ private:
 	TSharedRef<SDockTab> SpawnByPreviewSettingsTab(const FSpawnTabArgs& Args);
 
 	TSharedRef<SGraphEditor> CreateBPGraphEditor(UEdGraph* InGraph);
-	void OnSelectedBPNodesChanged(const TSet<class UObject*>& SelectionNode);
 
+	void OnSelectedBPNodesChanged(const TSet<class UObject*>& SelectionNode);
+private:
+	void AssetDropped(UObject* AssetObject);
+	bool IsAssetAcceptableForDrop(const UObject* AssetObject) const;
+	FVector2D GetAssetDropGridLocation() const;
 private:
 	void OnGraphChanged(const FEdGraphEditAction& Action);
 
@@ -75,8 +97,12 @@ private:
 	TSharedPtr<class SBlueprintNodeListPalette> ActionPalette;		//蓝图列表
 	TSharedPtr<class SGraphEditor> GraphEditor;						//蓝图表
 	TSharedPtr<class SBlueprintPreviewViewport> PreviewViewport;	//浏览视口
+	TSharedPtr<class SObjectEditorDropTarget> AssetDropTarget;		//拖拽的对象
 
+	//模型
+	UStaticMeshComponent *StaticMeshComponent;
 private:
 	uint8 bGraphChanged : 1;
+
 	FDelegateHandle OnGraphChangedHandle;
 };

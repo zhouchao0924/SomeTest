@@ -1,22 +1,24 @@
 #include "AssetEditor/Architect/AssetArchitectToolkit.h"
+#include "Viewport/SBlueprintViewportClient.h"
 #include "EditorStyleSet.h"
 #include "ContentBrowserModule.h"
 #include "IContentBrowserSingleton.h"
 #include "GraphEditor.h"
 #include "Palette/BlueprintNodeListPalette.h"
 #include "PropertyEditorModule.h"
-#include "Widgets/Docking/SDockTab.h"
-#include "BlueprintEditor/Core/Architect/BPArchitectEdGraph.h"
-#include "Viewport/SBlueprintViewportClient.h"
-#include "IDetailsView.h"
-#include "BlueprintData.h"
 #include "SAdvancedPreviewDetailsTab.h"
-#include "Framework/Docking/TabManager.h"
 #include "Framework/Commands/GenericCommands.h"
+#include "Windows/WindowsPlatformApplicationMisc.h"
 #include "EdGraphUtilities.h"
 #include "ScopedTransaction.h"
 #include "SNodePanel.h"
-#include "Windows/WindowsPlatformApplicationMisc.h"
+#include "Commands/BTCommands.h"
+#include "Compilation/BTCompilationUtilities.h"
+#include "SimpleCodeEvent.h"
+#include "BlueprintEditor/Core/Architect/BPArchitectEdGraph.h"
+#include "Widgets/Docking/SDockTab.h"
+#include "BlueprintEditor/GraphNode/SObjectEditorDropTarget.h"
+#include "Widgets/Text/STextBlock.h"
 
 #define LOCTEXT_NAMESPACE "BlueprintToolEditorToolkit"
 
@@ -107,19 +109,30 @@ void FBlueprintToolEditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabMan
 	InTabManager->UnregisterTabSpawner(FBPToolID::PreviewID);
 	InTabManager->UnregisterTabSpawner(FBPToolID::ContentBrowserID);
 	InTabManager->UnregisterTabSpawner(FBPToolID::BlueprintGraphID);
+
+	FBTCommands::Unregister();
 }
 
 void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost)
 {
+	FBTCommands::Register();
+
+	BindCommands();
+	ExtendToolbar();
 	//创建蓝图
 	{
-		UBPArchitectEdGraph* EDGraph = NewObject<UBPArchitectEdGraph>(InTextAsset, UBPArchitectEdGraph::StaticClass(), NAME_None, RF_Transactional);
-		EDGraph->InitializeGraph();
+		if (!InTextAsset->EdGraph)
+		{
+			InTextAsset->EdGraph = NewObject<UBPArchitectEdGraph>(InTextAsset, UBPArchitectEdGraph::StaticClass(), NAME_None, RF_Transactional);
+		}
 
+		UBPArchitectEdGraph* EDGraph = Cast<UBPArchitectEdGraph>(InTextAsset->EdGraph);
+		EDGraph->InitializeGraph();
 		GraphEditor = CreateBPGraphEditor(EDGraph);
 	}
 
-	PreviewViewport = SNew(SBlueprintPreviewViewport)
+	StaticMeshComponent = NewObject<UStaticMeshComponent>();
+	PreviewViewport = SNew(SBlueprintPreviewViewport,StaticMeshComponent)
 	.BPEditorPtr(SharedThis(this))
 	.ObjectToEdit(InTextAsset);
 
@@ -190,22 +203,22 @@ void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const 
 				)
 			)
 		);
-
-		//->AddArea
-		//(
-		//	FTabManager::NewPrimaryArea()
-		//	->SetOrientation(Orient_Horizontal)
-		//	->Split
-		//	(
-		//		FTabManager::NewStack()
-		//		->AddTab(FBPToolID::PreviewID, ETabState::OpenedTab)
-		//	)
-		//	->Split
-		//	(
-		//		FTabManager::NewStack()
-		//		->AddTab(FBPToolID::ContentBrowserID, ETabState::OpenedTab)
-		//	)
-		//);
+		
+		/*->AddArea
+		(
+			FTabManager::NewPrimaryArea()
+			->SetOrientation(Orient_Horizontal)
+			->Split
+			(
+				FTabManager::NewStack()
+				->AddTab(FBPToolID::PreviewID, ETabState::OpenedTab)
+			)
+			->Split
+			(
+				FTabManager::NewStack()
+				->AddTab(FBPToolID::ContentBrowserID, ETabState::OpenedTab)
+			)
+		);*/
 
 	InitAssetEditor(
 		InMode,
@@ -216,6 +229,7 @@ void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const 
 		true,
 		InTextAsset
 	);
+
 	OnGraphChangedHandle = GraphEditor->GetCurrentGraph()->AddOnGraphChangedHandler(FOnGraphChanged::FDelegate::CreateRaw(this, &FBlueprintToolEditorToolkit::OnGraphChanged));
 
 	RegenerateMenusAndToolbars();
@@ -239,6 +253,104 @@ FString FBlueprintToolEditorToolkit::GetWorldCentricTabPrefix() const
 FLinearColor FBlueprintToolEditorToolkit::GetWorldCentricTabColorScale() const
 {
 	return FLinearColor(0.3f, 0.2f, 0.5f, 0.5f);
+}
+
+void FBlueprintToolEditorToolkit::BindCommands()
+{
+	const FBTCommands& Commands = FBTCommands::Get();
+
+	ToolkitCommands->MapAction(
+		Commands.Compile, 
+		FExecuteAction::CreateSP(this, &FBlueprintToolEditorToolkit::Compile));
+
+	ToolkitCommands->MapAction(
+		Commands.Help,
+		FExecuteAction::CreateSP(this, &FBlueprintToolEditorToolkit::Help));
+
+	ToolkitCommands->MapAction(
+		Commands.Run,
+		FExecuteAction::CreateSP(this, &FBlueprintToolEditorToolkit::Run));
+}
+
+void FBlueprintToolEditorToolkit::ExtendToolbar()
+{
+	struct Local
+	{
+		static void FillToolbar(FToolBarBuilder& ToolbarBuilder)
+		{
+			ToolbarBuilder.BeginSection("Compile");
+			{
+				ToolbarBuilder.AddToolBarButton(FBTCommands::Get().Compile);
+			}
+			ToolbarBuilder.EndSection();
+
+			ToolbarBuilder.BeginSection("Help");
+			{
+				ToolbarBuilder.AddToolBarButton(FBTCommands::Get().Help);
+			}
+			ToolbarBuilder.EndSection();
+
+			ToolbarBuilder.BeginSection("Run");
+			{
+				ToolbarBuilder.AddToolBarButton(FBTCommands::Get().Run);
+			}
+			ToolbarBuilder.EndSection();
+		}
+	};
+
+	TSharedPtr<FExtender> ToolbarExtender(new FExtender);
+	ToolbarExtender->AddToolBarExtension(
+		"Asset",
+		EExtensionHook::After,
+		GetToolkitCommands(),
+		FToolBarExtensionDelegate::CreateStatic(&Local::FillToolbar));
+
+	AddToolbarExtender(ToolbarExtender);
+}
+
+void FBlueprintToolEditorToolkit::Compile()
+{
+	UBlueprintData* InBlueprintData = GetBlueprintData();
+	if (InBlueprintData)
+	{
+		FBTCompilationUtilities::FlushCompilationQueueImpl(InBlueprintData);
+	}
+}
+
+void FBlueprintToolEditorToolkit::Help()
+{
+
+}
+
+void FBlueprintToolEditorToolkit::Run()
+{
+#if WITH_EDITOR
+	Compile();
+#endif
+	
+	//USimpleCodeEvent::BlueprintGameBegins(StaticMeshComponent);
+}
+
+void FBlueprintToolEditorToolkit::SaveAsset_Execute()
+{
+	UBlueprintData* InBlueprintData = GetBlueprintData();
+	if (InBlueprintData)
+	{
+		FBTCompilationUtilities::ClearByte(InBlueprintData);
+
+		FAssetEditorToolkit::SaveAsset_Execute();
+
+		FBTCompilationUtilities::FlushCompilationQueueImpl(InBlueprintData);
+	}
+	else
+	{
+		FAssetEditorToolkit::SaveAsset_Execute();
+	}
+}
+
+UBlueprintData* FBlueprintToolEditorToolkit::GetBlueprintData() const
+{
+	return GetEditingObjects().Num() == 1 ? Cast<UBlueprintData>(GetEditingObjects()[0]) : NULL;
 }
 
 TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByPreviewTab(const FSpawnTabArgs& Args)
@@ -276,6 +388,11 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByContentBrowserTab(const
 
 TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByBlueprintViewTab(const FSpawnTabArgs& Args)
 {
+	AssetDropTarget = SNew(SObjectEditorDropTarget)
+		.OnAssetDropped(this, &FBlueprintToolEditorToolkit::AssetDropped)
+		.OnIsAssetAcceptableForDrop(this, &FBlueprintToolEditorToolkit::IsAssetAcceptableForDrop)
+		.Visibility(EVisibility::HitTestInvisible);
+
 	return SNew(SDockTab)
 		.Label(LOCTEXT("BPGraph", "BP Graph"))
 		.TabColorScale(GetTabColorScale())
@@ -285,6 +402,11 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByBlueprintViewTab(const 
 			[
 				GraphEditor.ToSharedRef()
 			]
+
+			+ SOverlay::Slot()
+			[
+				AssetDropTarget.ToSharedRef()
+			]	
 		];
 }
 
@@ -332,7 +454,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByDetailsTab(const FSpawn
 TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByPreviewSettingsTab(const FSpawnTabArgs& Args)
 {
 	TSharedPtr<FAdvancedPreviewScene> PreviewScene;
-	TSharedPtr<SWidget> SettingsView = SNullWidget::NullWidget;
+	TSharedPtr<SWidget> SettingsView = SNullWidget::NullWidget;;
 
 	if (PreviewViewport.IsValid())
 	{
@@ -350,9 +472,9 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByPreviewSettingsTab(cons
 		[
 			SNew(SBox)
 			.AddMetaData<FTagMetaData>(FTagMetaData(TEXT("BPTool Preview Settings")))
-		[
-			SettingsView.ToSharedRef()
-		]
+			[
+				SettingsView.ToSharedRef()
+			]
 		];
 }
 
@@ -376,6 +498,7 @@ TSharedRef<SGraphEditor> FBlueprintToolEditorToolkit::CreateBPGraphEditor(UEdGra
 				.TextStyle(FEditorStyle::Get(), TEXT("GraphBreadcrumbButtonText"))
 			]
 		];
+
 	GraphEditorCommands = MakeShareable(new FUICommandList);
 	{
 		GraphEditorCommands->MapAction(FGenericCommands::Get().Duplicate,
@@ -436,6 +559,53 @@ void FBlueprintToolEditorToolkit::OnSelectedBPNodesChanged(const TSet<class UObj
 	{
 		PropertyEditor->SetObjects(SelectionNode.Array());
 	}
+}
+
+void FBlueprintToolEditorToolkit::AssetDropped(UObject* AssetObject)
+{
+	if (GraphEditor.IsValid())
+	{
+		UBPArchitectEdGraph* ThemeGraph = Cast<UBPArchitectEdGraph>(GraphEditor->GetCurrentGraph());
+		if (ThemeGraph)
+		{
+			FVector2D GridLocation = GetAssetDropGridLocation();
+			ThemeGraph->CreateNewNode(AssetObject, GridLocation);
+		}
+	}
+}
+
+bool FBlueprintToolEditorToolkit::IsAssetAcceptableForDrop(const UObject* AssetObject) const
+{
+	if (!AssetObject)
+	{
+		return false;
+	}
+
+	UClass* AssetClass = AssetObject->GetClass();
+
+	bool bValidClass = AssetClass->IsChildOf<UStaticMesh>()
+		|| AssetClass->IsChildOf<UClass>()
+		|| AssetClass->IsChildOf<AActor>()
+		|| AssetClass->IsChildOf<UBlueprint>();
+
+	return bValidClass;
+}
+
+FVector2D FBlueprintToolEditorToolkit::GetAssetDropGridLocation() const
+{
+	if (!AssetDropTarget.IsValid())
+	{
+		return FVector2D::ZeroVector;
+	}
+
+	FVector2D PanelCoord = AssetDropTarget->GetPanelCoordDropPosition();
+	FVector2D ViewLocation = FVector2D::ZeroVector;
+	float ZoomAmount = 1.0f;
+
+	GraphEditor->GetViewLocation(ViewLocation, ZoomAmount);
+	FVector2D GridLocation = PanelCoord / ZoomAmount + ViewLocation;
+
+	return GridLocation;
 }
 
 void FBlueprintToolEditorToolkit::OnGraphChanged(const FEdGraphEditAction& Action)
@@ -545,8 +715,8 @@ void FBlueprintToolEditorToolkit::PasteNodes()
 		Node->SnapToGrid(SNodePanel::GetSnapGridSize());
 
 		Node->CreateNewGuid();
-		//Node->PostPlacedNewNode();
-		//Node->AllocateDefaultPins();
+//		Node->PostPlacedNewNode();
+//		Node->AllocateDefaultPins();
 
 		//创建新的GraphPinID 为后面的虚拟机做判断
 		for (UEdGraphPin *Pin : Node->Pins)

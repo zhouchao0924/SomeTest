@@ -1,7 +1,7 @@
 #include "Viewport/BlueprintViewportClient.h"
-#include "AssetEditorModeManager.h"
-#include "Toolkits/AssetEditorToolkit.h"
+#include "AssetEditor/Architect/AssetArchitectToolkit.h"
 #include "Viewport/SBlueprintViewportClient.h"
+#include "AssetEditorModeManager.h"
 
 FBPTEditorViewportClient::FBPTEditorViewportClient(TWeakPtr<FAssetEditorToolkit> InBlueprintEditor, TWeakPtr<SBlueprintPreviewViewport> InBlueprintEditorViewport, FPreviewScene& InPreviewScene, UBlueprintData* InData)
 	:FEditorViewportClient(nullptr, &InPreviewScene)

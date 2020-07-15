@@ -3,6 +3,7 @@
 #include "SEditorViewport.h"
 #include "AssetEditor/Architect/AssetArchitectToolkit.h"
 
+
 class BLUEPRINTTOOLEDITOR_API SBlueprintPreviewViewport : public SEditorViewport
 {
 public:
@@ -11,8 +12,9 @@ public:
 		SLATE_ARGUMENT(UBlueprintData*, ObjectToEdit)
 	SLATE_END_ARGS()
 
-	void Construct(const FArguments& InArgs);
-	FORCEINLINE TSharedPtr<class FAdvancedPreviewScene> GetPreviewScene() { return PreviewScene; }
+	void Construct(const FArguments& InArgs, UStaticMeshComponent *StaticMeshComponent);
+
+	FORCEINLINE TSharedPtr<class FAdvancedPreviewScene> GetPreviewScene() {return PreviewScene;}
 
 protected:
 	virtual TSharedRef<FEditorViewportClient> MakeEditorViewportClient() override;

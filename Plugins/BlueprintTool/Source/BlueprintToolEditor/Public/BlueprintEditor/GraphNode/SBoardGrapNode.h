@@ -11,7 +11,7 @@ public:
 	SLATE_ATTRIBUTE(FText, NodeName)
 	SLATE_END_ARGS()
 
-		void Construct(const FArguments& InArgs, UK3Node* MarkerNode);
+	void Construct(const FArguments& InArgs, UK3Node* MarkerNode);
 
 	virtual void UpdateGraphNode() override;
 

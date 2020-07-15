@@ -8,6 +8,7 @@ UCLASS()
 class UPBToolSchema : public UEdGraphSchema
 {
 	GENERATED_UCLASS_BODY()
+
 public:
 	virtual void GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const override;
 
@@ -16,7 +17,7 @@ public:
 	void InitVariable(FGraphContextMenuBuilder& ContextMenuBuilder) const;
 
 	void InitVariable(UEdGraph* OwnerBPGraph, TArray<TSharedPtr<FEdGraphSchemaAction> >& OutActions) const;
-
+	
 	virtual const FPinConnectionResponse CanCreateConnection(const UEdGraphPin* A, const UEdGraphPin* B) const
 	{
 		if (A->PinType.PinCategory == B->PinType.PinCategory)
@@ -26,12 +27,10 @@ public:
 		else
 		{
 			return FPinConnectionResponse(CONNECT_RESPONSE_DISALLOW, TEXT("Not implemented by this schema"));
-		}
+		}	
 	}
 
 	virtual bool TryCreateConnection(UEdGraphPin* A, UEdGraphPin* B) const override;
 
-	void GetActionList(UEdGraph* OwnerBPGraph, TArray<TSharedPtr<FEdGraphSchemaAction> >& OutActions) const;
+	void GetActionList( UEdGraph* OwnerBPGraph,TArray<TSharedPtr<FEdGraphSchemaAction> >& OutActions) const;
 };
-
-

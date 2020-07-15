@@ -1,9 +1,8 @@
 #include "Palette/BlueprintNodeListPalette.h"
 #include "EditorStyleSet.h"
-#include "Widgets/Images/SImage.h"
-#include "BlueprintEditor/Core/Architect/PBToolSchema.h"
-#include "GraphEditor.h"
 #include "AssetEditor/Architect/AssetArchitectToolkit.h"
+#include "GraphEditor.h"
+#include "BlueprintEditor/Core/Architect/PBToolSchema.h"
 
 void SBlueprintNodeListPalette::Construct(const FArguments& InArgs, TWeakPtr<class FBlueprintToolEditorToolkit> InBlueprintToolEditor)
 {
@@ -58,7 +57,7 @@ void SBlueprintNodeListPalette::CollectAllActions(FGraphActionListBuilderBase& O
 		if (BPGraphEditor.IsValid())
 		{
 			UEdGraph* Graph = BPGraphEditor->GetCurrentGraph();
-			Schema->GetActionList(Graph, Actions);
+			Schema->GetActionList(Graph,Actions);
 
 			for (TSharedPtr<FEdGraphSchemaAction> Action : Actions)
 			{

@@ -7,7 +7,7 @@ class BLUEPRINTTOOLEDITOR_API SBPToolGraphPin : public SGraphPin
 public:
 	SLATE_BEGIN_ARGS(SBPToolGraphPin) {}
 	SLATE_ATTRIBUTE(FText, PinName)
-		SLATE_END_ARGS()
+	SLATE_END_ARGS()
 
 		void Construct(const FArguments& InArgs, UEdGraphPin* InPin);
 
