@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 2,
+	"VersionName": "1.2",
+	"FriendlyName": "SimpleThread",
+	"Description": "Simple threading means that the use of code level is very simple, not that the thread code is very simple.This thread plug-in, we joined the task queue, our own thread pool, our synchronous asynchronism, our own collaboration, our own macro, mainly in order to use it easily. ",
+	"Category": "RenZhai",
+	"CreatedBy": "Other Courses",
+	"CreatedByURL": "https://zhuanlan.zhihu.com/p/60117613",
+	"DocsURL": "https://zhuanlan.zhihu.com/p/78023533",
+	"MarketplaceURL": "http://renzhai.net/",
+	"SupportURL": "http://www.aboutcg.org/course/tut_ue4suite_190813/",
+	"EngineVersion": "4.22.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "SimpleThread",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
