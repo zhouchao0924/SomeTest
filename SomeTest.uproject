@@ -45,6 +45,11 @@
 		{
 			"Name": "SimpleGameSettings",
 			"Enabled": false
+		},
+		{
+			"Name": "SimpleThread",
+			"Enabled": true,
+			"MarketplaceURL": "http://renzhai.net/"
 		}
 	]
 }
