@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "MultiThread/TestMultiThreadInterface.h"
+#include "MultiThread/TestMultiThread.h"
 #include "SomeTestGameModeBase.generated.h"
-
 /**
  * 
  */
@@ -81,4 +82,18 @@ private:
 			*(FString*)Z_Param__Result = ((ThisClass*)Context)->TestFunc5(Z_Param_IntValue, Z_Param_Out_Actor);
 		}
 	}
+
+//∂‡œﬂ≥Ã≤‚ ‘
+public:
+	virtual void BeginPlay() override;
+
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
+	void print();
+
+	ITestMultiThreadInterface *NewInterface;
+
+	TestMultiThread *NewTestMultiThread;
+
+
 };

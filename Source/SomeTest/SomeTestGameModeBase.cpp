@@ -6,11 +6,15 @@
 #include "ReflexSystem/ReflexStruct.h"
 #include "UObject/PropertyPortFlags.h"
 #include "UObject/UObjectHash.h"
+#include "Async/TaskGraphInterfaces.h"
+#include "MultiThread/GraphTask.h"
+#include "MultiThread/MyAsyncTask.h"
 
 #if PLATFORM_WINDOWS
 #pragma optimize("", off) 
 #endif
 
+//利用反射写代码
 template<typename... TReturns, typename... TArgs>
 void Call(FName FunctionName, TTuple<TReturns...>& OutParams, TArgs&&... Args);
 
@@ -478,6 +482,41 @@ bool ASomeTestGameModeBase::TestPrint(FString Index)
 	GetObjectsOfClass(UEnum::StaticClass(), ObjectArrayEnum2);
 
 	return true;
+}
+
+void ASomeTestGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+	NewInterface = new ITestMultiThreadInterface();
+	NewTestMultiThread = new TestMultiThread();
+	NewTestMultiThread->TestMultiThreadDelegate.BindUObject(this, &ASomeTestGameModeBase::print);
+	NewTestMultiThread->CreateThread(NewInterface);
+
+	TGraphTask<GraphTask>::CreateTask(NULL, ENamedThreads::GameThread).ConstructAndDispatchWhenReady(4.5f);
+
+	FAsyncTask<MyAsyncTask> *MyTask = new FAsyncTask<MyAsyncTask>(3);
+	MyTask->StartBackgroundTask();
+	//MyTask->StartSynchronousTask();
+	if (MyTask->IsDone())
+	{
+		UE_LOG(LogTemp, Log, TEXT("MyTask->IsDone"));
+	}
+	MyTask->EnsureCompletion();
+	delete MyTask;
+}
+
+void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
+	delete NewTestMultiThread;
+	NewInterface = nullptr;
+}
+
+//主线程执行内容
+void ASomeTestGameModeBase::print()
+{
+	UE_LOG(LogTemp, Log, TEXT("print"));
 }
 
 template<typename... TReturns, typename... TArgs>

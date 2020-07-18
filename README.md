@@ -2,6 +2,10 @@
 
 |||
 | --------   | -----  |
+|UE4 Slate初探|:heavy_check_mark:|
+|UE4 delegate初探|:heavy_check_mark:|
+|UFUNCTION/UPROPERTY/UCLASS|:heavy_check_mark:|
+|||
 |UE4游戏开发核心技术基础教程第一部|:heavy_check_mark:|
 |UE4虚幻引擎设计蓝图功能C++初级编程教学|:heavy_check_mark:|
 |UE4 Visual Studio调试技巧实战案例教程|:heavy_check_mark:|
