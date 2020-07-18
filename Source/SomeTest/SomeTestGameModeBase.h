@@ -7,6 +7,7 @@
 #include "MultiThread/TestMultiThreadInterface.h"
 #include "MultiThread/TestMultiThread.h"
 #include "SomeTestGameModeBase.generated.h"
+
 /**
  * 
  */
@@ -94,6 +95,5 @@ public:
 	ITestMultiThreadInterface *NewInterface;
 
 	TestMultiThread *NewTestMultiThread;
-
 
 };

@@ -9,6 +9,9 @@
 #include "Async/TaskGraphInterfaces.h"
 #include "MultiThread/GraphTask.h"
 #include "MultiThread/MyAsyncTask.h"
+#include "TestOSS.h"
+
+#define IsUse 0
 
 #if PLATFORM_WINDOWS
 #pragma optimize("", off) 
@@ -487,6 +490,8 @@ bool ASomeTestGameModeBase::TestPrint(FString Index)
 void ASomeTestGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
+#if IsUse
+	//多线程
 	NewInterface = new ITestMultiThreadInterface();
 	NewTestMultiThread = new TestMultiThread();
 	NewTestMultiThread->TestMultiThreadDelegate.BindUObject(this, &ASomeTestGameModeBase::print);
@@ -503,14 +508,18 @@ void ASomeTestGameModeBase::BeginPlay()
 	}
 	MyTask->EnsureCompletion();
 	delete MyTask;
+#endif
+	OSSTest::MainOSS();
 }
 
 void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-
+#if IsUse
 	delete NewTestMultiThread;
 	NewInterface = nullptr;
+#endif
+
 }
 
 //主线程执行内容

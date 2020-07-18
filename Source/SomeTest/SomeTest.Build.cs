@@ -15,7 +15,8 @@ public class SomeTest : ModuleRules
             "SimpleScreenLoading",
             "InputCore",
             "UMG",
-            "SimpleThread"
+            "SimpleThread",
+            "SimpleOSS"
             //"AssetSlateUI"
         });
 
