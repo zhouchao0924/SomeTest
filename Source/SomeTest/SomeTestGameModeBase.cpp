@@ -510,7 +510,7 @@ void ASomeTestGameModeBase::BeginPlay()
 	MyTask->EnsureCompletion();
 	delete MyTask;
 #endif
-	OSSTest::MainOSS();
+	//OSSTest::MainOSS();
 }
 
 void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
