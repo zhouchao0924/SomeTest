@@ -10,6 +10,9 @@
 //#include <OSSThirdParty/include/alibabacloud/oss/client/ClientConfiguration.h>
 using namespace AlibabaCloud::OSS;
 //https://help.aliyun.com/document_detail/106557.html?spm=a2c4g.11186623.6.1021.142927f32uOqDb
+#if PLATFORM_WINDOWS
+#pragma optimize("", off)
+#endif
 
 TestOSS::~TestOSS()
 {
@@ -510,71 +513,420 @@ void ProgressCallback(size_t increment, int64_t transfered, int64_t total, void*
 //	return 0;
 //}
 
+//int32 OSSTest::MainOSS()
+//{
+//	std::string ObjectName = "GTAVTool.zip";
+//	std::string FileNametoSave = "C:/Users/Smartuil/Desktop/SomeTest/OSS/1.zip";
+//	std::string DownloadFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS/2.zip";
+//	std::string CheckpointFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS";
+//
+//	/*初始化网络等资源*/
+//	InitializeSdk();
+//
+//	ClientConfiguration conf;
+//	OssClient client(EndPoint, AccessKeyId, AccessKeySecret, conf);
+//
+//	/* 异步获取文件 */
+//	GetObjectRequest request5(BucketName, ObjectName);
+//	TransferProgress progressCallback = { ProgressCallback , nullptr };
+//	request5.setTransferProgress(progressCallback);
+//	request5.setResponseStreamFactory([=]() 
+//	{
+//		return std::make_shared<std::fstream>(
+//			FileNametoSave, 
+//			std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); 
+//	});
+//	auto OutLamada = [=]()
+//	{
+//		auto outcome = client.GetObject(request5);
+//	};
+//	ASYNCTASK_Lambda(OutLamada);
+//
+//
+//	/*获取文件到本地文件*/
+//	GetObjectRequest request(BucketName, ObjectName);
+//	request.setResponseStreamFactory([=]() {return std::make_shared<std::fstream>(FileNametoSave, std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); });
+//
+//	auto outcome = client.GetObject(request);
+//
+//	if (outcome.isSuccess()) {
+//		std::cout << "GetObjectToFile success" << outcome.result().Metadata().ContentLength() << std::endl;
+//	}
+//	else {
+//		/*异常处理*/
+//		std::cout << "GetObjectToFile fail" <<
+//			",code:" << outcome.error().Code() <<
+//			",message:" << outcome.error().Message() <<
+//			",requestId:" << outcome.error().RequestId() << std::endl;
+//		ShutdownSdk();
+//		return -1;
+//	}
+//
+//	/*获取文件到本地内存*/
+//	GetObjectRequest request2(BucketName, ObjectName);
+//	auto outcome2 = client.GetObject(request2);
+//
+//	/* 获取文件 */
+//	GetObjectRequest request3(BucketName, ObjectName);
+//	/* 设置下载范围 */
+//	request3.setRange(0, 1);
+//	auto outcome3 = client.GetObject(request3);
+//
+//	/* 断点续传下载 */
+//	DownloadObjectRequest request4(BucketName, ObjectName, DownloadFilePath, CheckpointFilePath);
+//	auto outcome4 = client.ResumableDownloadObject(request4);
+//
+//	/*释放网络等资源*/
+//	ShutdownSdk();
+//
+//	return 0;
+//}
+
+//int32 OSSTest::MainOSS()
+//{
+//	std::string ObjectName = "GTAVTool.zip";
+//	std::string FileNametoSave = "C:/Users/Smartuil/Desktop/SomeTest/OSS/1.zip";
+//	std::string DownloadFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS/2.zip";
+//	std::string CheckpointFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS";
+//
+//	/*初始化网络等资源*/
+//	InitializeSdk();
+//
+//	ClientConfiguration conf;
+//	OssClient client(EndPoint, AccessKeyId, AccessKeySecret, conf);
+//
+//
+//	SetObjectAclRequest request(BucketName, ObjectName);
+//	request.setAcl(CannedAccessControlList::Private);
+//	auto outcome = client.SetObjectAcl(request);
+//
+//	if (!outcome.isSuccess()) {
+//		/* 异常处理 */
+//		std::cout << "SetObjectAcl fail" <<
+//			",code:" << outcome.error().Code() <<
+//			",message:" << outcome.error().Message() <<
+//			",requestId:" << outcome.error().RequestId() << std::endl;
+//		ShutdownSdk();
+//		return -1;
+//	}
+//
+//	/* 获取文件访问权限 */
+//	GetObjectAclRequest request2(BucketName, ObjectName);
+//	auto outcome2 = client.GetObjectAcl(request2);
+//	if (!outcome2.isSuccess()) {
+//		/* 异常处理 */
+//		std::cout << "GetObjectAcl fail" <<
+//			",code:" << outcome2.error().Code() <<
+//			",message:" << outcome2.error().Message() <<
+//			",requestId:" << outcome2.error().RequestId() << std::endl;
+//
+//		ShutdownSdk();
+//		return -1;
+//	}
+//	else {
+//		std::cout << " GetObjectAcl success, Acl:" << outcome2.result().Acl() << std::endl;
+//		print(std::to_string(outcome2.result().Acl()));
+//	}
+//
+//	/* 释放网络等资源 */
+//	ShutdownSdk();
+//
+//
+//	return 0;
+//}
+
+
+//int32 OSSTest::MainOSS()
+//{
+//	std::string ObjectName = "GTAVTool.zip";
+//	std::string FileNametoSave = "C:/Users/Smartuil/Desktop/SomeTest/OSS/1.zip";
+//	std::string DownloadFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS/2.zip";
+//	std::string CheckpointFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS";
+//
+//	/*初始化网络等资源*/
+//	InitializeSdk();
+//
+//	ClientConfiguration conf;
+//	OssClient client(EndPoint, AccessKeyId, AccessKeySecret, conf);
+//	/* 设置HTTP header */
+//	auto meta = ObjectMetaData();
+//	meta.setContentType("text/plain");
+//	meta.setCacheControl("max-ag e=3");
+//
+//	//meta.setContentDisposition();
+//	//meta.setContentEncoding();
+//	//meta.setContentLength();
+//	//meta.setExpirationTime();
+//
+//	/* 设置自定义文件元信息 */
+//	meta.UserMetaData()["Hello"] = "No-value";
+//
+//	std::shared_ptr<std::iostream> content = std::make_shared<std::stringstream>();
+//	*content << "Thank you for using Aliyun Object Storage Service!";
+//	auto outcome = client.PutObject(BucketName, ObjectName, content, meta);
+//
+//	if (!outcome.isSuccess()) {
+//		/* 异常处理 */
+//		std::cout << "PutObject fail" <<
+//			",code:" << outcome.error().Code() <<
+//			",message:" << outcome.error().Message() <<
+//			",requestId:" << outcome.error().RequestId() << std::endl;
+//		ShutdownSdk();
+//		return -1;
+//	}
+//
+//	/* 获取文件的部分元信息 */
+//	auto outcome2 = client.GetObjectMeta(BucketName, ObjectName);
+//
+//	if (!outcome2.isSuccess()) {
+//		/* 异常处理 */
+//		std::cout << "GetObjectMeta fail" <<
+//			",code:" << outcome2.error().Code() <<
+//			",message:" << outcome2.error().Message() <<
+//			",requestId:" << outcome2.error().RequestId() << std::endl;
+//		ShutdownSdk();
+//		return -1;
+//	}
+//	else {
+//		auto metadata = outcome2.result();
+//		std::cout << " get metadata success, ETag:" << metadata.ETag() << "; LastModified:"
+//			<< metadata.LastModified() << "; Size:" << metadata.ContentLength() << std::endl;
+//		print(metadata.ETag());
+//		print(metadata.LastModified());
+//		print(std::to_string(metadata.ContentLength()));
+//	}
+//
+//	/* 获取文件的全部元信息 */
+//	auto outcome3 = client.HeadObject(BucketName, ObjectName);
+//
+//	if (!outcome3.isSuccess()) {
+//		/* 异常处理 */
+//		std::cout << "HeadObject fail" <<
+//			",code:" << outcome3.error().Code() <<
+//			",message:" << outcome3.error().Message() <<
+//			",requestId:" << outcome3.error().RequestId() << std::endl;
+//		ShutdownSdk();
+//		return -1;
+//	}
+//	else {
+//		auto headMeta = outcome3.result();
+//		std::cout << "headMeta success, ContentType:"
+//			<< headMeta.ContentType() << "; ContentLength:" << headMeta.ContentLength()
+//			<< "; CacheControl:" << headMeta.CacheControl() << std::endl;
+//		print(headMeta.ContentType());	
+//		print(std::to_string(headMeta.ContentLength()));
+//		print(headMeta.CacheControl());
+//		print(headMeta.ContentDisposition());
+//		print(headMeta.ContentEncoding());
+//		print(headMeta.ContentMd5());
+//	}
+//
+//	/* 释放网络等资源 */
+//	ShutdownSdk();
+//	return 0;
+//}
+
+static int64_t calculateFolderLength(const OssClient &client, const std::string &bucketName, const std::string &folder)
+{
+	std::string nextMarker = "";
+	int64_t size = 0;
+	ListObjectOutcome outcome2;
+	do {
+		/*列举文件*/
+		ListObjectsRequest request(bucketName);
+		request.setPrefix(folder);
+		request.setMarker(nextMarker);
+		outcome2 = client.ListObjects(request);
+
+		if (!outcome2.isSuccess()) {
+			/*异常处理*/
+			std::cout << "ListObjects fail" <<
+				",code:" << outcome2.error().Code() <<
+				",message:" << outcome2.error().Message() <<
+				",requestId:" << outcome2.error().RequestId() << std::endl;
+			break;
+		}
+
+		for (const auto& object : outcome2.result().ObjectSummarys()) {
+			size += _atoi64(object.Key().c_str());
+		}
+
+		nextMarker = outcome2.result().NextMarker();
+	} while (outcome2.result().IsTruncated());
+
+	return size;
+}
+
+//int32 OSSTest::MainOSS()
+//{
+//	std::string ObjectName = "GTAVTool.zip";
+//	std::string FileNametoSave = "C:/Users/Smartuil/Desktop/SomeTest/OSS/1.zip";
+//	std::string DownloadFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS/2.zip";
+//	std::string CheckpointFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS";
+//
+//	/*初始化网络等资源*/
+//	InitializeSdk();
+//
+//	ClientConfiguration conf;
+//	OssClient client(EndPoint, AccessKeyId, AccessKeySecret, conf);
+//
+//	/* 列举文件 */
+//	ListObjectsRequest request(BucketName);
+//	request.setMaxKeys(200);
+//	auto outcome = client.ListObjects(request);
+//
+//	if (!outcome.isSuccess()) {
+//		/* 异常处理 */
+//		std::cout << "ListObjects fail" <<
+//			",code:" << outcome.error().Code() <<
+//			",message:" << outcome.error().Message() <<
+//			",requestId:" << outcome.error().RequestId() << std::endl;
+//		ShutdownSdk();
+//		return -1;
+//	}
+//	else {
+//		for (const auto& object : outcome.result().ObjectSummarys()) {
+//			std::cout << "object" <<
+//				",name:" << object.Key() <<
+//				",size:" << object.Size() <<
+//				",lastmodify time:" << object.LastModified() << std::endl;
+//			print(object.Key());
+//			print(std::to_string(object.Size()));
+//			print(object.LastModified());
+//		}
+//	}
+//	std::string keyPrefix = "yourkeyPrefix";
+//	{
+//		std::string nextMarker = "";
+//		ListObjectOutcome outcome4;
+//		do {
+//			/* 列举文件 */
+//			ListObjectsRequest request2(BucketName);
+//			/* 设置正斜线（/）为文件夹的分隔符 */
+//			request2.setDelimiter("/");
+//			request2.setPrefix(keyPrefix);
+//			request2.setMarker(nextMarker);
+//			outcome4 = client.ListObjects(request2);
+//
+//			if (!outcome4.isSuccess()) {
+//				/* 异常处理 */
+//				std::cout << "ListObjects fail" <<
+//					",code:" << outcome4.error().Code() <<
+//					",message:" << outcome4.error().Message() <<
+//					",requestId:" << outcome4.error().RequestId() << std::endl;
+//				break;
+//			}
+//			for (const auto& object : outcome4.result().ObjectSummarys()) {
+//				std::cout << "object" <<
+//					",name:" << object.Key() <<
+//					",size:" << object.Size() <<
+//					",lastmodify time:" << object.LastModified() << std::endl;
+//			}
+//			for (const auto& commonPrefix : outcome4.result().CommonPrefixes()) {
+//				std::cout << "commonPrefix" << ",name:" << commonPrefix << std::endl;
+//			}
+//			nextMarker = outcome4.result().NextMarker();
+//		} while (outcome4.result().IsTruncated());
+//	}
+//	
+//	std::string nextMarker = "";
+//	ListObjectOutcome outcome3;
+//	do {
+//		/*列举文件*/
+//		ListObjectsRequest request3(BucketName);
+//		/*设置正斜线（/）为文件夹的分隔符*/
+//		request3.setDelimiter("/");
+//		request3.setPrefix(keyPrefix);
+//		request3.setMarker(nextMarker);
+//		outcome3 = client.ListObjects(request3);
+//
+//		if (!outcome3.isSuccess()) {
+//			/*异常处理*/
+//			std::cout << "ListObjects fail" <<
+//				",code:" << outcome3.error().Code() <<
+//				",message:" << outcome3.error().Message() <<
+//				",requestId:" << outcome3.error().RequestId() << std::endl;
+//			break;
+//		}
+//
+//		for (const auto& object : outcome3.result().ObjectSummarys()) {
+//			std::cout << "object" <<
+//				",name:" << object.Key() <<
+//				",size:" << object.Size() << std::endl;
+//		}
+//
+//		for (const auto& commonPrefix : outcome3.result().CommonPrefixes()) {
+//			int64_t foldersize = calculateFolderLength(client, BucketName, commonPrefix);
+//			std::cout << "folder" <<
+//				",name:" << commonPrefix <<
+//				",size:" << foldersize << std::endl;
+//		}
+//		nextMarker = outcome3.result().NextMarker();
+//	} while (outcome3.result().IsTruncated());
+//
+//	std::string YourMarker = "Test/";
+//	ListObjectOutcome outcome5;
+//	do {
+//		/* 列举文件 */
+//		ListObjectsRequest request5(BucketName);
+//		/* 列举指定marker之后的文件 */
+//		request.setMarker(YourMarker);
+//		outcome5 = client.ListObjects(request5);
+//
+//		if (!outcome5.isSuccess()) {
+//			/* 异常处理 */
+//			std::cout << "ListObjects fail" <<
+//				",code:" << outcome5.error().Code() <<
+//				",message:" << outcome5.error().Message() <<
+//				",requestId:" << outcome5.error().RequestId() << std::endl;
+//			break;
+//		}
+//		YourMarker = outcome.result().NextMarker();
+//		for (const auto& object : outcome.result().ObjectSummarys()) {
+//			std::cout << "object" <<
+//				",name:" << object.Key() <<
+//				",size:" << object.Size() <<
+//				",lastmodify time:" << object.LastModified() << std::endl;
+//		}
+//	} while (outcome5.result().IsTruncated());
+//
+//	/* 释放网络等资源 */
+//	ShutdownSdk();
+//	return 0;
+//}
+
 int32 OSSTest::MainOSS()
 {
 	std::string ObjectName = "GTAVTool.zip";
-	std::string FileNametoSave = "C:/Users/Smartuil/Desktop/SomeTest/OSS/1.zip";
-	std::string DownloadFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS/2.zip";
-	std::string CheckpointFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS";
-
-	/*初始化网络等资源*/
+	/* 初始化网络等资源 */
 	InitializeSdk();
 
 	ClientConfiguration conf;
 	OssClient client(EndPoint, AccessKeyId, AccessKeySecret, conf);
 
-	/* 异步获取文件 */
-	GetObjectRequest request5(BucketName, ObjectName);
-	TransferProgress progressCallback = { ProgressCallback , nullptr };
-	request5.setTransferProgress(progressCallback);
-	request5.setResponseStreamFactory([=]() 
-	{
-		return std::make_shared<std::fstream>(
-			FileNametoSave, 
-			std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); 
-	});
-	auto OutLamada = [=]()
-	{
-		auto outcome = client.GetObject(request5);
-	};
-	ASYNCTASK_Lambda(OutLamada);
+	/* ObjectName表示删除OSS文件时需要指定包含文件后缀在内的完整路径，例如abc/efg/123.jpg */
+	/* 如需删除文件夹，请将ObjectName设置为对应的文件夹名称。如果文件夹非空，则需要将文件夹下的所有object删除后才能删除该文件夹 */
+	DeleteObjectRequest request(BucketName, ObjectName);
 
+	/* 删除文件 */
+	auto outcome = client.DeleteObject(request);
 
-	///*获取文件到本地文件*/
-	//GetObjectRequest request(BucketName, ObjectName);
-	//request.setResponseStreamFactory([=]() {return std::make_shared<std::fstream>(FileNametoSave, std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); });
+	if (!outcome.isSuccess()) {
+		/* 异常处理 */
+		std::cout << "DeleteObject fail" <<
+			",code:" << outcome.error().Code() <<
+			",message:" << outcome.error().Message() <<
+			",requestId:" << outcome.error().RequestId() << std::endl;
+		ShutdownSdk();
+		return -1;
+	}
 
-	//auto outcome = client.GetObject(request);
-
-	//if (outcome.isSuccess()) {
-	//	std::cout << "GetObjectToFile success" << outcome.result().Metadata().ContentLength() << std::endl;
-	//}
-	//else {
-	//	/*异常处理*/
-	//	std::cout << "GetObjectToFile fail" <<
-	//		",code:" << outcome.error().Code() <<
-	//		",message:" << outcome.error().Message() <<
-	//		",requestId:" << outcome.error().RequestId() << std::endl;
-	//	ShutdownSdk();
-	//	return -1;
-	//}
-
-	///*获取文件到本地内存*/
-	//GetObjectRequest request2(BucketName, ObjectName);
-	//auto outcome2 = client.GetObject(request2);
-
-	///* 获取文件 */
-	//GetObjectRequest request3(BucketName, ObjectName);
-	///* 设置下载范围 */
-	//request3.setRange(0, 1);
-	//auto outcome3 = client.GetObject(request3);
-
-	///* 断点续传下载 */
-	//DownloadObjectRequest request4(BucketName, ObjectName, DownloadFilePath, CheckpointFilePath);
-	//auto outcome4 = client.ResumableDownloadObject(request4);
-
-	/*释放网络等资源*/
+	/* 释放网络等资源 */
 	ShutdownSdk();
 
 	return 0;
 }
+
+#if PLATFORM_WINDOWS
+#pragma optimize("", on)
+#endif
