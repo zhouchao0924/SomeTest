@@ -514,6 +514,8 @@ int32 OSSTest::MainOSS()
 {
 	std::string ObjectName = "GTAVTool.zip";
 	std::string FileNametoSave = "C:/Users/Smartuil/Desktop/SomeTest/OSS/1.zip";
+	std::string DownloadFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS/2.zip";
+	std::string CheckpointFilePath = "C:/Users/Smartuil/Desktop/SomeTest/OSS";
 
 	/*初始化网络等资源*/
 	InitializeSdk();
@@ -521,28 +523,55 @@ int32 OSSTest::MainOSS()
 	ClientConfiguration conf;
 	OssClient client(EndPoint, AccessKeyId, AccessKeySecret, conf);
 
-	/*获取文件到本地文件*/
-	GetObjectRequest request(BucketName, ObjectName);
-	request.setResponseStreamFactory([=]() {return std::make_shared<std::fstream>(FileNametoSave, std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); });
+	/* 异步获取文件 */
+	GetObjectRequest request5(BucketName, ObjectName);
+	TransferProgress progressCallback = { ProgressCallback , nullptr };
+	request5.setTransferProgress(progressCallback);
+	request5.setResponseStreamFactory([=]() 
+	{
+		return std::make_shared<std::fstream>(
+			FileNametoSave, 
+			std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); 
+	});
+	auto OutLamada = [=]()
+	{
+		auto outcome = client.GetObject(request5);
+	};
+	ASYNCTASK_Lambda(OutLamada);
 
-	auto outcome = client.GetObject(request);
 
-	if (outcome.isSuccess()) {
-		std::cout << "GetObjectToFile success" << outcome.result().Metadata().ContentLength() << std::endl;
-	}
-	else {
-		/*异常处理*/
-		std::cout << "GetObjectToFile fail" <<
-			",code:" << outcome.error().Code() <<
-			",message:" << outcome.error().Message() <<
-			",requestId:" << outcome.error().RequestId() << std::endl;
-		ShutdownSdk();
-		return -1;
-	}
+	///*获取文件到本地文件*/
+	//GetObjectRequest request(BucketName, ObjectName);
+	//request.setResponseStreamFactory([=]() {return std::make_shared<std::fstream>(FileNametoSave, std::ios_base::out | std::ios_base::in | std::ios_base::trunc | std::ios_base::binary); });
 
-	/*获取文件到本地内存*/
-	GetObjectRequest request2(BucketName, ObjectName);
-	auto outcome2 = client.GetObject(request2);
+	//auto outcome = client.GetObject(request);
+
+	//if (outcome.isSuccess()) {
+	//	std::cout << "GetObjectToFile success" << outcome.result().Metadata().ContentLength() << std::endl;
+	//}
+	//else {
+	//	/*异常处理*/
+	//	std::cout << "GetObjectToFile fail" <<
+	//		",code:" << outcome.error().Code() <<
+	//		",message:" << outcome.error().Message() <<
+	//		",requestId:" << outcome.error().RequestId() << std::endl;
+	//	ShutdownSdk();
+	//	return -1;
+	//}
+
+	///*获取文件到本地内存*/
+	//GetObjectRequest request2(BucketName, ObjectName);
+	//auto outcome2 = client.GetObject(request2);
+
+	///* 获取文件 */
+	//GetObjectRequest request3(BucketName, ObjectName);
+	///* 设置下载范围 */
+	//request3.setRange(0, 1);
+	//auto outcome3 = client.GetObject(request3);
+
+	///* 断点续传下载 */
+	//DownloadObjectRequest request4(BucketName, ObjectName, DownloadFilePath, CheckpointFilePath);
+	//auto outcome4 = client.ResumableDownloadObject(request4);
 
 	/*释放网络等资源*/
 	ShutdownSdk();
