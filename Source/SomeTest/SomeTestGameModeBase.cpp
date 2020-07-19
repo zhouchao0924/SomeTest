@@ -10,6 +10,7 @@
 #include "MultiThread/GraphTask.h"
 #include "MultiThread/MyAsyncTask.h"
 #include "TestOSS.h"
+#include "ThreadManage.h"
 
 #define IsUse 0
 
@@ -519,7 +520,7 @@ void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	delete NewTestMultiThread;
 	NewInterface = nullptr;
 #endif
-
+	FThreadManagement::Destroy();
 }
 
 //主线程执行内容

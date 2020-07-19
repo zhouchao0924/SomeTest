@@ -44,6 +44,7 @@ public class SimpleOSS : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+                "SimpleThread"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
