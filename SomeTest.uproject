@@ -50,6 +50,11 @@
 			"Name": "SimpleThread",
 			"Enabled": true,
 			"MarketplaceURL": "http://renzhai.net/"
+		},
+		{
+			"Name": "SimpleOSS",
+			"Enabled": true,
+			"MarketplaceURL": "http://renzhai.net/"
 		}
 	]
 }

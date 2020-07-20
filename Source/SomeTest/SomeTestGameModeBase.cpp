@@ -9,7 +9,6 @@
 #include "Async/TaskGraphInterfaces.h"
 #include "MultiThread/GraphTask.h"
 #include "MultiThread/MyAsyncTask.h"
-#include "TestOSS.h"
 #include "ThreadManage.h"
 
 #define IsUse 0
@@ -511,6 +510,7 @@ void ASomeTestGameModeBase::BeginPlay()
 	delete MyTask;
 #endif
 	//OSSTest::MainOSS();
+	FString URL = "oss-cn-beijing.aliyuncs.com";
 }
 
 void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
