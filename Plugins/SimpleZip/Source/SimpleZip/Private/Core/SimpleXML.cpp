@@ -1,4 +1,4 @@
-#include "SimpleXML.h"
+#include "Core/SimpleXML.h"
 
 void SimpleXML::Write(const FString &XMLHead, const FString &Attribute, const FString &XMLValue, FString &Content, bool bArray /*= false*/)
 {

@@ -2,9 +2,10 @@
 
 #pragma once
 
+#include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FTestCompressionDecompressionModule : public IModuleInterface
+class FSimpleZipModule : public IModuleInterface
 {
 public:
 

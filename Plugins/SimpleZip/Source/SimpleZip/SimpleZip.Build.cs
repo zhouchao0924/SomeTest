@@ -1,10 +1,10 @@
-// Some copyright should be here...
+// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
 
-public class TestCompressionDecompression : ModuleRules
+public class SimpleZip : ModuleRules
 {
-	public TestCompressionDecompression(ReadOnlyTargetRules Target) : base(Target)
+	public SimpleZip(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -36,8 +36,6 @@ public class TestCompressionDecompression : ModuleRules
 			{
 				"CoreUObject",
 				"Engine",
-				"Slate",
-				"SlateCore",
                 "XmlParser"
 				// ... add private dependencies that you statically link with here ...	
 			}
