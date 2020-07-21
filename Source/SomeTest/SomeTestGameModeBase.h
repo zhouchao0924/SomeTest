@@ -6,7 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "MultiThread/TestMultiThreadInterface.h"
 #include "MultiThread/TestMultiThread.h"
+#include "SimpleHTTPType.h"
 #include "SomeTestGameModeBase.generated.h"
+
 
 /**
  * 
@@ -95,5 +97,15 @@ public:
 	ITestMultiThreadInterface *NewInterface;
 
 	TestMultiThread *NewTestMultiThread;
+
+	//Pak
+	UFUNCTION()
+		void TestPak(int32 InSurplus, int64 InTotal, const FString& Mess);
+	UFUNCTION()
+		void TestPak2(const FSimpleHttpRequest Request, const FSimpleHttpResponse Response, bool bConnectedSuccessfully);
+	UFUNCTION()
+		void TestPak3(const FSimpleHttpRequest Request, int32 BytesSent, int32 BytesReceived);
+	UFUNCTION()
+		void TestPak4(const FSimpleHttpRequest Request, const FString HeaderName, const FString NewHeaderValue);
 
 };

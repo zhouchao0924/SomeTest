@@ -1,145 +1,351 @@
-/*
-下面的网址讲解了如何使用本套插件
- DocURL：			https://zhuanlan.zhihu.com/p/82195344
 
- 下面的网址讲解如何开发当前的插件
- MarketplaceURL :   https://www.aboutcg.org/courseDetails/682/introduce
-
- 如果想了解更多关于UE4教程请参考：
- URL :				https://zhuanlan.zhihu.com/p/60117613
-
- 如果想系统了解人宅系列教程以及相关插件迭代更新 可以关注我的博客
- URL :				http://renzhai.net/
-
- 如果想了解我们下一节的课程安排可以 可以在微信公众号搜所 人宅 关注即可 我们会推送很多富有技术的文章
-
- 新浪博客            https://weibo.com/BZRZ/profile?s=6cm7D0  //这个博客从16年到现在 有三四年没怎么用过 以后说不定可以重新启用 先发个连接
- */
- /*
-  SimpleHTTP学习文档
-  UE4插件名： SimpleHTTP
- 版本 1.1
- 目录
- 前置工作
- 上传资源
- 下载资源
- 删除资源
- SimpleHTTP源码接口
- 哈喽大家好，我叫人宅，这节课我们来讲解一下SimpleHTTP使用技巧；
-
- 该插件目前提供了对web服务器进行上传下载和删除的函数接口，分别是：
-
-		bool GetObject(const FString &URL, const FString &SavePaths);
-	bool PutObject(const FString &URL, TArray<uint8> &Data);
-	bool PutObject(const FString &URL, const FString &LocalPaths);
-	bool PutObject(const FString &URL, TSharedRef<FArchive, ESPMode::ThreadSafe> Stream);
-	bool DeleteObject(const FString &URL);
- 该插件使用上也是非常方便，无需繁杂的注册环节，即可使用：
-
-
-
- 1.前置工作
- 在使用该插件需要包含头文件
-
- #include "SimpleHttpManage.h"
- 在你需要包含的模块.Build.cs
-
- SimpleHTTP
- 一切准备就绪 就可以大胆的使用本插件了；
-
- 2.上传资源
- 我们拿阿里云OSS服务端做例子
-
-		//域名 wersdfd.oss-cn-beijing.aliyuncs.com
-	//格式 https://<域名>/<对象名>/<对象名>/...
-	//https://wersdfd.oss-cn-beijing.aliyuncs.com/Hello.zip
-	FString URL = "https://wersdfd.oss-cn-beijing.aliyuncs.com/Hello.zip";
-	FString LocalPaths = "F:/PJ/TestOSS/SimpleHTTP.zip";
-	if (!FSimpleHttpManage::Get()->PutObject(URL, LocalPaths))
-	{
-		check(0);
-	}
- 3.下载资源
-	FString URL = "https://wersdfd.oss-cn-beijing.aliyuncs.com/Hello.zip";
-	FString LocalPaths = "F:/PJ/TestOSS/WWWEEEERRR.zip";
-	if (!FSimpleHttpManage::Get()->GetObject(URL, LocalPaths))
-	{
-		check(0);
-	}
- 4.删除资源
-		FString URL = "https://wersdfd.oss-cn-beijing.aliyuncs.com/Hello.zip";
-
-		if (!FSimpleHttpManage::Get()->DeleteObject(URL))
-	{
-		check(0);
-	}
- 5.SimpleHTTP源码接口
- #pragma once
-
- #include "CoreMinimal.h"
- #include "Interfaces/IHttpRequest.h"
- #include "Interfaces/IHttpResponse.h"
-
- class SIMPLEHTTP_API FSimpleHttpManage
- {
- public:
-	FSimpleHttpManage();
-	~FSimpleHttpManage();
-
-	static FSimpleHttpManage *Get();
-	static void Destroy();
-
-	bool GetObject(const FString &URL, const FString &SavePaths);
-	bool PutObject(const FString &URL, TArray<uint8> &Data);
-	bool PutObject(const FString &URL, const FString &LocalPaths);
-	bool PutObject(const FString &URL, TSharedRef<FArchive, ESPMode::ThreadSafe> Stream);
- private:
-
-	void HttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
-	void HttpRequestProgress(FHttpRequestPtr Request, int32 BytesSent, int32 BytesReceived);
-	void HttpRequestHeaderReceived(FHttpRequestPtr Request, const FString& HeaderName, const FString& NewHeaderValue);
-
-	void Print(const FString &Msg,float Time = 10.f,FColor Color = FColor::Red);
- private:
-	static FSimpleHttpManage	*SimpleHttp;
-	FCriticalSection			Mutex;
-	FString						TmpSavePaths;
- };
-
-
- 可以看得出非常简单，而且易上手，好，那本次的分享到此结束，谢谢。
-
-  */
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Interfaces/IHttpRequest.h"
-#include "Interfaces/IHttpResponse.h"
-/**
- * 
- */
-class SIMPLEHTTP_API FSimpleHttpManage
-{
-public:
-	FSimpleHttpManage();
-	~FSimpleHttpManage();
+#include "HTTP/SimpleHTTPHandle.h"
+#include "SimpleHTTPType.h"
+#include "Tickable.h"
 
+struct FSimpleHttpActionRequest;
+
+/*
+ * A simple set of HTTP interface functions can quickly perform HTTP code operations. 
+ * Only one interface is needed to interact with our HTTP server. Currently, 
+ * HTTP supports downloading, uploading, deleting and other operations. 
+ * See our API for details
+*/
+class SIMPLEHTTP_API FSimpleHttpManage :public FTickableGameObject
+{
+	/**
+	 * GC
+	 * Pure virtual that must be overloaded by the inheriting class. It will
+	 * be called from within LevelTick.cpp after ticking all actors or from
+	 * the rendering thread (depending on bIsRenderingThreadObject)
+	 *
+	 * @param DeltaTime	Game time passed since the last call.
+	 */
+	virtual void Tick(float DeltaTime);
+
+	/**
+	 * Used to determine whether the object should be ticked in the editor.  Defaults to false since
+	 * that is the previous behavior.
+	 *
+	 * @return	true if this tickable object can be ticked in the editor
+	 */
+	virtual bool IsTickableInEditor() const;
+
+	/** return the stat id to use for this tickable **/
+	virtual TStatId GetStatId() const;
+
+	/** Get HTTP function collection  **/
+	struct SIMPLEHTTP_API FHTTP
+	{
+		/*We want to have direct access to the commands in http .*/
+		friend class FSimpleHttpManage;
+
+		/**
+		 * The data can be downloaded to local memory via the HTTP serverll .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @Return						Returns true if the request succeeds 
+		 */
+		bool GetObjectToMemory(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL);
+		
+		/**
+		 * The data can be downloaded to local memory via the HTTP serverll.
+		 * Can download multiple at one time .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					Need domain name .
+		 */
+		void GetObjectsToMemory(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const TArray<FString> &URL);
+
+		/**
+		 * Download individual data locally.
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @param SavePaths				Path to local storage .
+		 * @Return						Returns true if the request succeeds 
+		 */
+		bool GetObjectToLocal(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL, const FString &SavePaths);
+		
+		/**
+		 * Download multiple data to local .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					Need domain name .
+		 * @param SavePaths				Path to local storage .
+		 */
+		void GetObjectsToLocal(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const TArray<FString> &URL, const FString &SavePaths);
+
+		/**
+		 * Upload single file from disk to server .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @param LocalPaths			Specify the Path where you want to upload the file.
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectFromLocal(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL, const FString &LocalPaths);
+		
+		/**
+		 * Upload duo files from disk to server  .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @param LocalPaths			Specify the Path where you want to upload the file.
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectsFromLocal(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL, const FString &LocalPaths);
+
+		/**
+		 * Can upload byte data .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @param Buffer				Byte code data.
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectFromBuffer(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL, const TArray<uint8> &Buffer);
+		
+		/**
+		 * Stream data upload supported by UE4 .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @param Stream				UE4 storage structure .
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectFromStream(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL, TSharedRef<FArchive, ESPMode::ThreadSafe> Stream);
+
+		/**
+		 * Remove a single object from the server .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					domain name .
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool DeleteObject(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const FString &URL);
+		
+		/**
+		 * Multiple URLs need to be specified to remove multiple objects from the server .
+		 *
+		 * @param BPResponseDelegate	Proxy set relative to the blueprint.
+		 * @param URL					Need domain name .
+		 */
+		void DeleteObjects(const FSimpleHTTPBPResponseDelegate &BPResponseDelegate, const TArray<FString> &URL);
+		
+		//////////////////////////////////////////////////////////////////////////
+
+		/**
+		 * The data can be downloaded to local memory via the HTTP serverll .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool GetObjectToMemory(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL);
+
+		/**
+		 * The data can be downloaded to local memory via the HTTP serverll.
+		 * Can download multiple at one time .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					Need domain name .
+		 */
+		void GetObjectsToMemory(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const TArray<FString> &URL);
+
+		/**
+		 * Download individual data locally.
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @param SavePaths				Path to local storage .
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool GetObjectToLocal(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL, const FString &SavePaths);
+
+		/**
+		 * Download multiple data to local .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					Need domain name .
+		 * @param SavePaths				Path to local storage .
+		 */
+		void GetObjectsToLocal(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const TArray<FString> &URL, const FString &SavePaths);
+
+		/**
+		 * Upload single file from disk to server .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @param LocalPaths			Specify the Path where you want to upload the file.
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectFromLocal(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL, const FString &LocalPaths);
+
+		/**
+		 * Upload duo files from disk to server  .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @param LocalPaths			Specify the Path where you want to upload the file.
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectsFromLocal(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL, const FString &LocalPaths);
+
+		/**
+		 * Can upload byte data .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @param Buffer				Byte code data.
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectFromBuffer(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL, const TArray<uint8> &Buffer);
+
+		/**
+		 * Stream data upload supported by UE4 .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @param Stream				UE4 storage structure .
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool PutObjectFromStream(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL, TSharedRef<FArchive, ESPMode::ThreadSafe> Stream);
+
+		/**
+		 * Remove a single object from the server .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					domain name .
+		 * @Return						Returns true if the request succeeds
+		 */
+		bool DeleteObject(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const FString &URL);
+
+		/**
+		 * Multiple URLs need to be specified to remove multiple objects from the server .
+		 *
+		 * @param BPResponseDelegate	C + + based proxy interface .
+		 * @param URL					Need domain name .
+		 */
+		void DeleteObjects(const FSimpleHTTPResponseDelegate &BPResponseDelegate, const TArray<FString> &URL);
+
+	private:
+
+		/**
+		 * Register our agent BP for internal use .
+		 *
+		 * @param return	Use handle find PRequest.
+		 */
+		FSimpleHTTPHandle RegisteredHttpRequest(EHTTPRequestType RequestType = EHTTPRequestType::SINGLE,
+			FSimpleHttpSingleRequestCompleteDelegate SimpleHttpRequestCompleteDelegate = FSimpleHttpSingleRequestCompleteDelegate(),
+			FSimpleHttpSingleRequestProgressDelegate	SimpleHttpRequestProgressDelegate = FSimpleHttpSingleRequestProgressDelegate(),
+			FSimpleHttpSingleRequestHeaderReceivedDelegate SimpleHttpRequestHeaderReceivedDelegate = FSimpleHttpSingleRequestHeaderReceivedDelegate(), 
+			FAllRequestCompleteDelegate AllRequestCompleteDelegate = FAllRequestCompleteDelegate());
+
+		/**
+		 * Register our agent BP for internal use .
+		 *
+		 * @param return	Use handle find PRequest.
+		 */
+		FSimpleHTTPHandle RegisteredHttpRequest(EHTTPRequestType RequestType = EHTTPRequestType::SINGLE,
+			FSimpleSingleCompleteDelegate SimpleHttpRequestCompleteDelegate = nullptr,
+			FSimpleSingleRequestProgressDelegate	SimpleHttpRequestProgressDelegate = nullptr,
+			FSimpleSingleRequestHeaderReceivedDelegate SimpleHttpRequestHeaderReceivedDelegate = nullptr,
+			FSimpleDelegate AllRequestCompleteDelegate = nullptr);
+
+		/** 
+		 * Refer to the previous API for internal use details only 
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool GetObjectToMemory(const FSimpleHTTPHandle &Handle,const FString &URL);
+		
+		/** 
+		 * Refer to the previous API for internal use details only 
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		void GetObjectsToMemory(const FSimpleHTTPHandle &Handle, const TArray<FString> &URL);
+	
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool GetObjectToLocal(const FSimpleHTTPHandle &Handle, const FString &URL, const FString &SavePaths);
+
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		void GetObjectsToLocal(const FSimpleHTTPHandle &Handle, const TArray<FString> &URL, const FString &SavePaths);
+	
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool PutObjectFromLocal(const FSimpleHTTPHandle &Handle, const FString &URL, const FString &LocalPaths);
+		
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool PutObjectsFromLocal(const FSimpleHTTPHandle &Handle, const FString &URL, const FString &LocalPaths);
+		
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool PutObjectFromBuffer(const FSimpleHTTPHandle &Handle, const FString &URL, const TArray<uint8> &Buffer);
+		
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool PutObjectFromStream(const FSimpleHTTPHandle &Handle, const FString &URL, TSharedRef<FArchive, ESPMode::ThreadSafe> Stream);
+	
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		bool DeleteObject(const FSimpleHTTPHandle &Handle, const FString &URL);
+		
+		/**
+		 * Refer to the previous API for internal use details only
+		 *
+		 * @param Handle	Easy to find requests .
+		 */
+		void DeleteObjects(const FSimpleHTTPHandle &Handle, const TArray<FString> &URL);
+
+	private:
+		/*You can find the corresponding request according to the handle  */
+		TWeakPtr<FSimpleHttpActionRequest> Find(const FSimpleHTTPHandle &Handle);
+
+		/*HTTP Map*/
+		TMap<FSimpleHTTPHandle, TSharedPtr<FSimpleHttpActionRequest>> HTTPMap;
+	};
+
+public:
 	static FSimpleHttpManage *Get();
 	static void Destroy();
 
-	bool GetObject(const FString &URL, const FString &SavePaths);
-	bool PutObject(const FString &URL, TArray<uint8> &Data);
-	bool PutObject(const FString &URL, const FString &LocalPaths);
-	bool PutObject(const FString &URL, TSharedRef<FArchive, ESPMode::ThreadSafe> Stream);
-	bool DeleteObject(const FString &URL);
-
+	/** Get HTTP function collection  **/
+	FORCEINLINE FHTTP &GetHTTP() { return HTTP; }
 private:
-	void HttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
-	void HttpRequestProgress(FHttpRequestPtr Request, int32 BytesSent, int32 BytesReceived);
-	void HttpRequestHeaderReceived(FHttpRequestPtr Request, const FString& HeaderName, const FString& NewHeaderValue);
 
-	void Print(const FString &Msg, float Time = 10.f, FColor Color = FColor::Red);
-private:
-	static FSimpleHttpManage	*SimpleHttp;
-	FString						TmpSavePaths;
+	static FSimpleHttpManage *Instance;
+	FHTTP HTTP;
+	FCriticalSection Mutex;
 };
+
+#define SIMPLE_HTTP FSimpleHttpManage::Get()->GetHTTP()

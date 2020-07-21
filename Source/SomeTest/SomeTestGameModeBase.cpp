@@ -10,6 +10,9 @@
 #include "MultiThread/GraphTask.h"
 #include "MultiThread/MyAsyncTask.h"
 #include "ThreadManage.h"
+#include "PakEditor/PakFileUpload.h"
+#include "PakRuntime/PakFileDownload.h"
+#include "PakInfo.h"
 
 #define IsUse 0
 
@@ -509,8 +512,41 @@ void ASomeTestGameModeBase::BeginPlay()
 	MyTask->EnsureCompletion();
 	delete MyTask;
 #endif
-	//OSSTest::MainOSS();
-	FString URL = "oss-cn-beijing.aliyuncs.com";
+	//OSSTest::MainOSS();		
+
+	FString AccessKeyID = "XXX";
+	FString AccessKeyIDSecret = "XXX";
+	FString EndPoint = "oss-cn-beijing.aliyuncs.com";
+	FString BucketName = "smartuiloss";
+	FString LocalPath = "C:/Users/Smartuil/Desktop/SomeTest/Pak/File";
+	TArray<FString> Error;
+
+	//SimplePakEditor::PakFileUploadByOSS(AccessKeyID, AccessKeyIDSecret, EndPoint, BucketName, LocalPath, Error);
+	//FPakEditorUploadDelegate PakEditorUploadDelegate;
+	//PakEditorUploadDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak);
+	//SimplePakEditor::AsynchPakFileUploadByOSS(AccessKeyID, AccessKeyIDSecret, EndPoint, BucketName, LocalPath, PakEditorUploadDelegate);
+
+	//for (auto &Tmp : Error)
+	//{
+	//	if (GEngine)
+	//	{
+	//		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Tmp);
+	//	}
+	//}
+
+	FSimpleHttpSingleRequestCompleteDelegate			SimpleHttpRequestCompleteDelegate;
+	FSimpleHttpSingleRequestProgressDelegate			SimpleHttpRequestProgressDelegate;
+	FSimpleHttpSingleRequestHeaderReceivedDelegate		SimpleHttpRequestHeaderReceivedDelegate;
+	SimpleHttpRequestCompleteDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak2);
+	SimpleHttpRequestProgressDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak3);
+	SimpleHttpRequestHeaderReceivedDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak4);
+
+	//FString URL = "http://smartuiloss.oss-cn-beijing.aliyuncs.com";
+	//SimplePakEditor::PakFileUploadByHTTP(URL, LocalPath, SimpleHttpRequestCompleteDelegate, SimpleHttpRequestProgressDelegate, SimpleHttpRequestHeaderReceivedDelegate);
+	
+	FString URL = "https://smartuiloss.oss-cn-beijing.aliyuncs.com/DependencyPakFile.xml";
+	FString XMLPath = "C:/Users/Smartuil/Desktop/SomeTest/Pak/Down";
+	SimplePakRuntime::PakFileDownloadByHTTP(URL, XMLPath, EEncryptionMode::NONE, "", SimpleHttpRequestCompleteDelegate, SimpleHttpRequestProgressDelegate, SimpleHttpRequestHeaderReceivedDelegate);
 }
 
 void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -527,6 +563,42 @@ void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void ASomeTestGameModeBase::print()
 {
 	UE_LOG(LogTemp, Log, TEXT("print"));
+}
+
+void ASomeTestGameModeBase::TestPak(int32 InSurplus, int64 InTotal, const FString& Mess)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, 
+			FString::Printf(TEXT("InSurplus = %i, InTotal = %i, Mess = %s"), InSurplus, InTotal, *Mess));
+	}
+}
+
+void ASomeTestGameModeBase::TestPak2(const FSimpleHttpRequest Request, const FSimpleHttpResponse Response, bool bConnectedSuccessfully)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red,
+			FString::Printf(TEXT("bConnectedSuccessfully = %i"), bConnectedSuccessfully));
+	}
+}
+
+void ASomeTestGameModeBase::TestPak3(const FSimpleHttpRequest Request, int32 BytesSent, int32 BytesReceived)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red,
+			FString::Printf(TEXT("BytesSent = %i, BytesReceived = %i"), BytesSent, BytesReceived));
+	}
+}
+
+void ASomeTestGameModeBase::TestPak4(const FSimpleHttpRequest Request, const FString HeaderName, const FString NewHeaderValue)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red,
+			FString::Printf(TEXT("HeaderName = %s, NewHeaderValue = %s"), *HeaderName, *NewHeaderValue));
+	}
 }
 
 template<typename... TReturns, typename... TArgs>

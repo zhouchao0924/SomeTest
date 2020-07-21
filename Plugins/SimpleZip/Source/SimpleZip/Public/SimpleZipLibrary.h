@@ -3,10 +3,11 @@
 #pragma once
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PakInfo.h"
 #include "SimpleZipLibrary.generated.h"
 
 UCLASS()
-class USimpleZipLibrary : public UBlueprintFunctionLibrary
+class SIMPLEZIP_API USimpleZipLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_UCLASS_BODY()
 

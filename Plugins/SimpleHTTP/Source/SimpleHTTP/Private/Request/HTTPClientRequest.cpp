@@ -13,7 +13,7 @@ SimpleHTTP::HTTP::FPutObjectRequest::FPutObjectRequest(const FString &URL, TShar
 	HttpReuest->SetContentFromStream(Stream);
 }
 
-SimpleHTTP::HTTP::FPutObjectRequest::FPutObjectRequest(const FString &URL, TArray<uint8>& ContentPayload)
+SimpleHTTP::HTTP::FPutObjectRequest::FPutObjectRequest(const FString &URL,const TArray<uint8>& ContentPayload)
 {
 	DEFINITION_HTTP_TYPE("PUT", "application/x-www-form-urlencoded")
 	HttpReuest->SetContent(ContentPayload);

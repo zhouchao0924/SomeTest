@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class SomeTest : ModuleRules
+public class PakEditor : ModuleRules
 {
-	public SomeTest(ReadOnlyTargetRules Target) : base(Target)
+	public PakEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
@@ -12,15 +12,9 @@ public class SomeTest : ModuleRules
             "Core",
             "CoreUObject",
             "Engine",
-            "SimpleScreenLoading",
-            "InputCore",
-            "UMG",
-            "SimpleThread",
             "SimpleOSS",
-            "SimpleHTTP",
-            "PakEditor",
-            "PakRuntime"
-            //"AssetSlateUI"
+            "SimpleThread",
+            "SimpleHTTP"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

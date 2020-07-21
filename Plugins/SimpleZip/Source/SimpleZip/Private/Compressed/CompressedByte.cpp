@@ -140,39 +140,40 @@ bool SimpleZip::FCompressedByte::CompressedData(
 
 			RecursionAddPakInfo(ByteData, PakData, PakInfo[PakInfo.Num() - 1].StickyByte, FragmentSize);
 		}
-	}
-	//储存Hash所对应的数据
-	for (auto &Tmp : PakData)
-	{
-		if (EncryptionMode == EEncryptionMode::AES)
+		//储存Hash所对应的数据
+		for (auto &Tmp : PakData)
 		{
-			if (Keys != "")
+			if (EncryptionMode == EEncryptionMode::AES)
 			{
-				AESEncrypData(Tmp.Value, Keys);
+				if (Keys != "")
+				{
+					AESEncrypData(Tmp.Value, Keys);
+				}
+				else
+				{
+					AESEncrypData(Tmp.Value, Tmp.Key.ToString());
+				}
 			}
-			else
+
+			FFileHelper::SaveArrayToFile(Tmp.Value, *(SavaPath / Tmp.Key.ToString()));
+		}
+
+		//释放资源  主要是为了维持动态平衡
+		TArray<SimpleZip::FPakHash*> RemovePakHash;
+		for (auto &TmpPak : PakData)
+		{
+			if (FMath::Abs<int32>(TmpPak.Value.Num() - FragmentSize) < 4)
 			{
-				AESEncrypData(Tmp.Value, Tmp.Key.ToString());
+				RemovePakHash.Add(&TmpPak.Key);
 			}
 		}
-		
-		FFileHelper::SaveArrayToFile(Tmp.Value, *(SavaPath / Tmp.Key.ToString()));
-	}
 
-	//释放资源  主要是为了维持动态平衡
-	TArray<SimpleZip::FPakHash*> RemovePakHash;
-	for (auto &TmpPak : PakData)
-	{
-		if (FMath::Abs<int32>(TmpPak.Value.Num() - FragmentSize) < 4)
+		for (auto &PakID : RemovePakHash)
 		{
-			RemovePakHash.Add(&TmpPak.Key);
+			PakData.Remove(*PakID);
 		}
 	}
 
-	for (auto &PakID : RemovePakHash)
-	{
-		PakData.Remove(*PakID);
-	}
 	//储存XML
 	return SavePakInfoToXMLFile(SavaPath, PakInfo, BaseURL);
 }
