@@ -3,24 +3,23 @@
 	"EngineAssociation": "4.24",
 	"Category": "",
 	"Description": "",
-  "Modules": [
-    {
-      "Name": "SomeTest",
-      "Type": "Runtime",
-      "LoadingPhase": "Default"
-    },
-    {
-      "Name": "PakEditor",
-      "Type": "Editor",
-      "LoadingPhase": "Default"
-    },
-    {
-      "Name": "PakRuntime",
-      "Type": "Runtime",
-      "LoadingPhase": "Default"
-    }
-  ],
-
+	"Modules": [
+		{
+			"Name": "SomeTest",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "PakEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "PakRuntime",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "SimpleArchives",
@@ -60,6 +59,34 @@
 			"Name": "SimpleOSS",
 			"Enabled": true,
 			"MarketplaceURL": "http://renzhai.net/"
+		},
+		{
+			"Name": "BlueprintToolEditor",
+			"Enabled": false
+		},
+		{
+			"Name": "ExtendEditor",
+			"Enabled": false
+		},
+		{
+			"Name": "ModeEditorTest",
+			"Enabled": false
+		},
+    {
+      "Name": "SimpleScreenLoading",
+      "Enabled": true
+    },
+		{
+			"Name": "TestDetails",
+			"Enabled": false
+		},
+		{
+			"Name": "TestGraphAndBlueprint",
+			"Enabled": false
+		},
+		{
+			"Name": "UBTCu",
+			"Enabled": false
 		}
 	]
 }

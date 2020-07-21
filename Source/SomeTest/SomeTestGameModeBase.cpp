@@ -514,39 +514,41 @@ void ASomeTestGameModeBase::BeginPlay()
 #endif
 	//OSSTest::MainOSS();		
 
-	FString AccessKeyID = "XXX";
-	FString AccessKeyIDSecret = "XXX";
-	FString EndPoint = "oss-cn-beijing.aliyuncs.com";
-	FString BucketName = "smartuiloss";
-	FString LocalPath = "C:/Users/Smartuil/Desktop/SomeTest/Pak/File";
-	TArray<FString> Error;
+	{
+		FString AccessKeyID = "XXX";
+		FString AccessKeyIDSecret = "XXX";
+		FString EndPoint = "oss-cn-beijing.aliyuncs.com";
+		FString BucketName = "smartuiloss";
+		FString LocalPath = "C:/Users/Smartuil/Desktop/SomeTest/Pak/File";
+		TArray<FString> Error;
 
-	//SimplePakEditor::PakFileUploadByOSS(AccessKeyID, AccessKeyIDSecret, EndPoint, BucketName, LocalPath, Error);
-	//FPakEditorUploadDelegate PakEditorUploadDelegate;
-	//PakEditorUploadDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak);
-	//SimplePakEditor::AsynchPakFileUploadByOSS(AccessKeyID, AccessKeyIDSecret, EndPoint, BucketName, LocalPath, PakEditorUploadDelegate);
+		//SimplePakEditor::PakFileUploadByOSS(AccessKeyID, AccessKeyIDSecret, EndPoint, BucketName, LocalPath, Error);
+		//FPakEditorUploadDelegate PakEditorUploadDelegate;
+		//PakEditorUploadDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak);
+		//SimplePakEditor::AsynchPakFileUploadByOSS(AccessKeyID, AccessKeyIDSecret, EndPoint, BucketName, LocalPath, PakEditorUploadDelegate);
 
-	//for (auto &Tmp : Error)
-	//{
-	//	if (GEngine)
-	//	{
-	//		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Tmp);
-	//	}
-	//}
+		//for (auto &Tmp : Error)
+		//{
+		//	if (GEngine)
+		//	{
+		//		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Tmp);
+		//	}
+		//}
 
-	FSimpleHttpSingleRequestCompleteDelegate			SimpleHttpRequestCompleteDelegate;
-	FSimpleHttpSingleRequestProgressDelegate			SimpleHttpRequestProgressDelegate;
-	FSimpleHttpSingleRequestHeaderReceivedDelegate		SimpleHttpRequestHeaderReceivedDelegate;
-	SimpleHttpRequestCompleteDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak2);
-	SimpleHttpRequestProgressDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak3);
-	SimpleHttpRequestHeaderReceivedDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak4);
+		FSimpleHttpSingleRequestCompleteDelegate			SimpleHttpRequestCompleteDelegate;
+		FSimpleHttpSingleRequestProgressDelegate			SimpleHttpRequestProgressDelegate;
+		FSimpleHttpSingleRequestHeaderReceivedDelegate		SimpleHttpRequestHeaderReceivedDelegate;
+		SimpleHttpRequestCompleteDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak2);
+		SimpleHttpRequestProgressDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak3);
+		SimpleHttpRequestHeaderReceivedDelegate.BindDynamic(this, &ASomeTestGameModeBase::TestPak4);
 
-	//FString URL = "http://smartuiloss.oss-cn-beijing.aliyuncs.com";
-	//SimplePakEditor::PakFileUploadByHTTP(URL, LocalPath, SimpleHttpRequestCompleteDelegate, SimpleHttpRequestProgressDelegate, SimpleHttpRequestHeaderReceivedDelegate);
-	
-	FString URL = "https://smartuiloss.oss-cn-beijing.aliyuncs.com/DependencyPakFile.xml";
-	FString XMLPath = "C:/Users/Smartuil/Desktop/SomeTest/Pak/Down";
-	SimplePakRuntime::PakFileDownloadByHTTP(URL, XMLPath, EEncryptionMode::NONE, "", SimpleHttpRequestCompleteDelegate, SimpleHttpRequestProgressDelegate, SimpleHttpRequestHeaderReceivedDelegate);
+		//FString URL = "http://smartuiloss.oss-cn-beijing.aliyuncs.com";
+		//SimplePakEditor::PakFileUploadByHTTP(URL, LocalPath, SimpleHttpRequestCompleteDelegate, SimpleHttpRequestProgressDelegate, SimpleHttpRequestHeaderReceivedDelegate);
+
+		FString URL = "https://smartuiloss.oss-cn-beijing.aliyuncs.com/DependencyPakFile.xml";
+		FString XMLPath = "C:/Users/Smartuil/Desktop/SomeTest/Pak/Down";
+		//SimplePakRuntime::PakFileDownloadByHTTP(URL, XMLPath, EEncryptionMode::NONE, "", SimpleHttpRequestCompleteDelegate, SimpleHttpRequestProgressDelegate, SimpleHttpRequestHeaderReceivedDelegate);
+	}
 }
 
 void ASomeTestGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)

@@ -91,7 +91,7 @@ struct SIMPLEHTTP_API FSimpleHttpRequest :public FSimpleHttpBase
 	float ElapsedTime;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "SimpleHttpBase|SimpleHttpRequest")
-	FSimpleHttpStarte Status;
+	FSimpleHttpStarte Status = FSimpleHttpStarte::NotStarted;
 };
 
 USTRUCT(BlueprintType)
