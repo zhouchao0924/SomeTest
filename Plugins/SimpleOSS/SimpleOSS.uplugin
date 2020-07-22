@@ -1,23 +1,23 @@
 {
-	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0",
-	"FriendlyName": "SimpleOSS",
-	"Description": "For simple OSS plug-ins, why name them simple? It's really simple to use them again. OSS is a product of Alibaba cloud. It provides the OSS SDK, but it requires a lot of code to complete an action. Simplesos can simplify these contents, and only need to call two lines of functions to complete the operation of OSS server data. ",
-	"Category": "RenZhai",
-	"CreatedBy": "Other Courses",
-	"CreatedByURL": "https://zhuanlan.zhihu.com/p/60117613",
-	"DocsURL": "https://zhuanlan.zhihu.com/p/83673743",
-	"MarketplaceURL": "http://renzhai.net/",
-	"SupportURL": "https://www.aboutcg.org/courseDetails/682/introduce",
-	"EngineVersion": "4.24.0",
-	"CanContainContent": true,
-	"Installed": true,
-	"Modules": [
-		{
-			"Name": "SimpleOSS",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	]
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "SimpleOSS",
+  "Description": "For simple OSS plug-ins, why name them simple? It's really simple to use them again. OSS is a product of Alibaba cloud. It provides the OSS SDK, but it requires a lot of code to complete an action. Simplesos can simplify these contents, and only need to call two lines of functions to complete the operation of OSS server data. ",
+  "Category": "RenZhai",
+  "CreatedBy": "Other Courses",
+  "CreatedByURL": "https://zhuanlan.zhihu.com/p/60117613",
+  "DocsURL": "https://zhuanlan.zhihu.com/p/83673743",
+  "MarketplaceURL": "http://renzhai.net/",
+  "SupportURL": "https://www.aboutcg.org/courseDetails/682/introduce",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "SimpleOSS",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
 }

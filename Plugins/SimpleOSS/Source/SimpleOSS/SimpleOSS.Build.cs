@@ -1,4 +1,4 @@
-﻿// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright (C) RenZhai.2019.All Rights Reserved.
 /*
  下面的网址讲解了如何使用本套插件
  DocURL：			https://zhuanlan.zhihu.com/p/83673743
@@ -59,6 +59,7 @@ public class SimpleOSS : ModuleRules
 			{
 				"CoreUObject",
 				"Engine",
+                "OSSThirdParty"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
@@ -70,32 +71,5 @@ public class SimpleOSS : ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
 			);
-
-
-            //string ThirdPartyPath = Path.GetFullPath(Path.Combine(ModuleDirectory, "../ThirdParty/"));
-            string OssPath = Path.Combine(ThirdPartyPath, "include");
-            PublicIncludePaths.Add(OssPath);
-            string AlibabacloudPath = Path.Combine(OssPath, "alibabacloud/oss");
-            PublicIncludePaths.Add(AlibabacloudPath);
-            PublicIncludePaths.Add(Path.Combine(AlibabacloudPath, "auth"));
-            PublicIncludePaths.Add(Path.Combine(AlibabacloudPath, "client"));
-            PublicIncludePaths.Add(Path.Combine(AlibabacloudPath, "http"));
-            PublicIncludePaths.Add(Path.Combine(AlibabacloudPath, "model"));
-            PublicIncludePaths.Add(Path.Combine(AlibabacloudPath, "utils"));
-
-            PublicIncludePaths.Add(Path.Combine(OssPath, "curl"));
-            PublicIncludePaths.Add(Path.Combine(OssPath, "openssl"));
-
-            string LibPath = Path.Combine(ThirdPartyPath, "lib");
-            PublicLibraryPaths.Add(LibPath);
-            PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "lib", "alibabacloud-oss-cpp-sdk.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(LibPath, "X64", "libcurl.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(LibPath, "X64", "libeay32.lib"));
-            PublicAdditionalLibraries.Add(Path.Combine(LibPath, "X64", "ssleay32.lib"));
-
-            PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "x64", "libcurl.dll"));
-            PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "x64", "libeay32.dll"));
-            PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "x64", "ssleay32.dll"));
-            PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "x64", "zlibwapi.dll"));
     }
 }

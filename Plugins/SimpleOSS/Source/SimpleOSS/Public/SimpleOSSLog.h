@@ -1,3 +1,4 @@
+// Copyright (C) RenZhai.2019.All Rights Reserved.
 /*
 下面的网址讲解了如何使用本套插件
  DocURL：			https://zhuanlan.zhihu.com/p/83673743
@@ -15,3 +16,8 @@
 
  新浪博客 https://weibo.com/BZRZ/profile?s=6cm7D0  //这个博客从16年到现在 有三四年没怎么用过 以后说不定可以重新启用 先发个连接
  */
+#pragma once
+
+#include "CoreMinimal.h"
+
+SIMPLEOSS_API DECLARE_LOG_CATEGORY_EXTERN(LogSimpleOSS, Log, All);

@@ -9,6 +9,6 @@ public class SomeTestTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "SomeTest", "PakEditor", "PakRuntime" } );
+		ExtraModuleNames.AddRange( new string[] { "SomeTest",  "PakRuntime" } );
 	}
 }

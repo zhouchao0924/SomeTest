@@ -72,10 +72,10 @@
 			"Name": "ModeEditorTest",
 			"Enabled": false
 		},
-    {
-      "Name": "SimpleScreenLoading",
-      "Enabled": true
-    },
+		{
+			"Name": "SimpleScreenLoading",
+			"Enabled": false
+		},
 		{
 			"Name": "TestDetails",
 			"Enabled": false

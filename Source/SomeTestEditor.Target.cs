@@ -9,6 +9,6 @@ public class SomeTestEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "SomeTest", "PakEditor", "PakRuntime" } );
+		ExtraModuleNames.AddRange( new string[] { "SomeTest", "PakEditor"} );
 	}
 }

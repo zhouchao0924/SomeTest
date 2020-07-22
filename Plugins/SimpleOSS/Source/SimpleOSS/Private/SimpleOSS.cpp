@@ -1,4 +1,4 @@
-﻿// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+﻿// Copyright (C) RenZhai.2019.All Rights Reserved.
 
 #include "SimpleOSS.h"
 #include "SimpleOSSManage.h"
