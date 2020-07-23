@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class SimpleZip : ModuleRules
+public class SimpleZIP : ModuleRules
 {
-	public SimpleZip(ReadOnlyTargetRules Target) : base(Target)
+	public SimpleZIP(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -13,8 +13,7 @@ public class SimpleZip : ModuleRules
 				// ... add public include paths required here ...
 			}
 			);
-				
-		
+        
 		PrivateIncludePaths.AddRange(
 			new string[] {
 				// ... add other private include paths required here ...
@@ -26,6 +25,10 @@ public class SimpleZip : ModuleRules
 			new string[]
 			{
 				"Core",
+                "CoreUObject",
+                "Engine",
+                "SimpleZIPLibrary",
+				"Projects"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -34,9 +37,6 @@ public class SimpleZip : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
-				"Engine",
-                "XmlParser"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

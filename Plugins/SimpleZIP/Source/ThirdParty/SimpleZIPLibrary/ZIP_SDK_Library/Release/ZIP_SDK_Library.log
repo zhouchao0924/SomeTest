@@ -1,0 +1,6 @@
+﻿  stdafx.cpp
+  unzip.cpp
+  zip.cpp
+  ZIP_SDK_Library.cpp
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+  ZIP_SDK_Library.vcxproj -> F:\PJ\HotUpdate\Plugins\SimpleZIP\Source\ThirdParty\SimpleZIPLibrary\ZIP_SDK_Library\Release\ZIP_SDK_Library.lib

@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "SimpleZip",
+	"FriendlyName": "SimpleZIP",
 	"Description": "",
 	"Category": "Other",
 	"CreatedBy": "",
@@ -12,11 +12,10 @@
 	"SupportURL": "",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
-	"IsExperimentalVersion": false,
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "SimpleZip",
+			"Name": "SimpleZIP",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}

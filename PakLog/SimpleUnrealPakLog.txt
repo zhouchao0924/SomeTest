@@ -1,0 +1,99 @@
+﻿Log file open, 07/23/20 14:58:38
+LogWindows: Failed to load 'aqProf.dll' (GetLastError=126)
+LogWindows: File 'aqProf.dll' does not exist
+LogWindows: Failed to load 'VtuneApi.dll' (GetLastError=126)
+LogWindows: File 'VtuneApi.dll' does not exist
+LogWindows: Failed to load 'VtuneApi32e.dll' (GetLastError=126)
+LogWindows: File 'VtuneApi32e.dll' does not exist
+LogPlatformFile: Not using cached read wrapper
+LogTaskGraph: Started task graph with 4 named threads and 14 total threads with 1 sets of task threads.
+LogPluginManager: Mounting plugin PlatformCrypto
+LogInit: Build: ++UE4+Release-4.24-CL-11590370
+LogInit: Engine Version: 4.24.3-11590370+++UE4+Release-4.24
+LogInit: Compatible Engine Version: 4.24.0-10570792+++UE4+Release-4.24
+LogInit: Net CL: 10570792
+LogInit: OS: Windows 10 (Release 1909) (), CPU: Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz, GPU: Intel(R) UHD Graphics 630
+LogInit: Compiled (64-bit): Feb 24 2020 16:08:43
+LogInit: Compiled with Visual C++: 19.16.27032.01
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE4+Release-4.24
+LogInit: Command Line: C:/Users/Smartuil/Desktop/SomeTest/Pak/Delegate.pak -create=../../../../../../Users/Smartuil/Desktop/SomeTest/Saved/376758CA4E7D5B7F92D366917CD2FADB.txt -abslog=C:/Users/Smartuil/Desktop/SomeTest/PakLog/SimpleUnrealPakLog.txt -compress -UTF8Output -platform=Windows -multiprocess -patchpaddingalign=2048
+LogInit: Base Directory: C:/Program Files/Epic Games/UE_4.24/Engine/Binaries/Win64/
+LogInit: Installed Engine Build: 1
+LogDevObjectVersion: Number of dev versions registered: 25
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 3
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 37
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 36
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 2
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 2
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 36
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 11
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 2
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 2
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 31
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 8
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 9
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 8
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+LogConfig: Applying CVar settings from Section [ConsoleVariables] File [../../../Engine/Programs/UnrealPak/Saved/Config/Windows/Engine.ini]
+[2020.07.23-06.58.38:721][  0]LogInit: Computer: SMARTUIL-PC
+[2020.07.23-06.58.38:721][  0]LogInit: User: Smartuil
+[2020.07.23-06.58.38:721][  0]LogInit: CPU Page size=4096, Cores=6
+[2020.07.23-06.58.38:721][  0]LogInit: High frequency timer resolution =10.000000 MHz
+[2020.07.23-06.58.38:721][  0]LogMemory: Memory total: Physical=15.9GB (16GB approx)
+[2020.07.23-06.58.38:721][  0]LogMemory: Platform Memory Stats for Windows
+[2020.07.23-06.58.38:721][  0]LogMemory: Process Physical Memory: 20.16 MB used, 20.17 MB peak
+[2020.07.23-06.58.38:721][  0]LogMemory: Process Virtual Memory: 60.82 MB used, 60.82 MB peak
+[2020.07.23-06.58.38:721][  0]LogMemory: Physical Memory: 11396.13 MB used,  4856.05 MB free, 16252.18 MB total
+[2020.07.23-06.58.38:721][  0]LogMemory: Virtual Memory: 4349.34 MB used,  134213376.00 MB free, 134217728.00 MB total
+[2020.07.23-06.58.38:721][  0]LogInit: Using OS detected language ().
+[2020.07.23-06.58.38:721][  0]LogInit: Using OS detected locale ().
+[2020.07.23-06.58.38:721][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2020.07.23-06.58.38:722][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2020.07.23-06.58.38:722][  0]LogInit: Using OS detected language ().
+[2020.07.23-06.58.38:722][  0]LogInit: Using OS detected locale ().
+[2020.07.23-06.58.38:722][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the language.
+[2020.07.23-06.58.38:722][  0]LogTextLocalizationManager: No localization for '' exists, so 'en' will be used for the locale.
+[2020.07.23-06.58.38:722][  0]LogTextLocalizationManager: Compacting localization data took   0.00ms
+[2020.07.23-06.58.38:729][  0]LogPakFile: Display: Using command line for crypto configuration
+[2020.07.23-06.58.38:730][  0]LogPakFile: Engine only spawned 10 worker threads, bumping up to 11!
+[2020.07.23-06.58.38:748][  0]LogPakFile: Display: Loading response file ../../../../../../Users/Smartuil/Desktop/SomeTest/Saved/376758CA4E7D5B7F92D366917CD2FADB.txt
+[2020.07.23-06.58.38:749][  0]LogPakFile: Added file Source: C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/BP_TestDelegateCharacter.uasset Dest: C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/
+[2020.07.23-06.58.38:749][  0]LogPakFile: Added file Source: C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/DelegateMap.umap Dest: C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/
+[2020.07.23-06.58.38:749][  0]LogPakFile: Added file Source: C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/DelegateMap_BuiltData.uasset Dest: C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/
+[2020.07.23-06.58.38:754][  0]LogPakFile: Display: Added 3 entries to add to pak file.
+[2020.07.23-06.58.38:759][  0]LogPakFile: Display: Collecting files to add to pak file...
+[2020.07.23-06.58.38:765][  0]LogPakFile: Display: Collected 3 files in 0.00s.
+[2020.07.23-06.58.38:774][  0]LogPakFile: Display: Creating pak C:/Users/Smartuil/Desktop/SomeTest/Pak/Delegate.pak.
+[2020.07.23-06.58.38:776][  0]LogDerivedDataCache: Unable to find inner node Boot for hierarchical cache Hierarchy.
+[2020.07.23-06.58.38:776][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  Pak pak cache file ../../../Engine/Programs/UnrealPak/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[2020.07.23-06.58.38:776][  0]LogDerivedDataCache: Unable to find inner node Pak for hierarchical cache Hierarchy.
+[2020.07.23-06.58.38:776][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  CompressedPak pak cache file ../../../Engine/Programs/UnrealPak/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2020.07.23-06.58.38:776][  0]LogDerivedDataCache: Unable to find inner node CompressedPak for hierarchical cache Hierarchy.
+[2020.07.23-06.58.38:801][  0]LogDerivedDataCache: Display: Pak cache opened for reading ../../../Engine/DerivedDataCache/Compressed.ddp.
+[2020.07.23-06.58.38:802][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  EnterprisePak pak cache file ../../../Enterprise/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2020.07.23-06.58.38:802][  0]LogDerivedDataCache: Unable to find inner node EnterprisePak for hierarchical cache Hierarchy.
+[2020.07.23-06.58.38:803][  0]LogDerivedDataCache: Using Local data cache path C:/Users/Smartuil/AppData/Local/UnrealEngine/Common/DerivedDataCache: Writable
+[2020.07.23-06.58.38:803][  0]LogDerivedDataCache: Shared data cache path not found in *engine.ini, will not use an Shared cache.
+[2020.07.23-06.58.38:803][  0]LogDerivedDataCache: Unable to find inner node Shared for hierarchical cache Hierarchy.
+[2020.07.23-06.58.38:824][  0]LogPakFile: Warning: Missing file "C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/BP_TestDelegateCharacter.uasset" will not be added to PAK file.
+[2020.07.23-06.58.38:843][  0]LogPakFile: Warning: Missing file "C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/DelegateMap.umap" will not be added to PAK file.
+[2020.07.23-06.58.38:860][  0]LogPakFile: Warning: Missing file "C:/Users/Smartuil/Desktop/SomeTest/Saved/Cooked/WindowsNoEditor/SomeTest/Content/Delegate/DelegateMap_BuiltData.uasset" will not be added to PAK file.
+[2020.07.23-06.58.38:865][  0]LogPakFile: Display: Added 0 files, 320 bytes total, time 0.10s.
+[2020.07.23-06.58.38:869][  0]LogPakFile: Display: Encryption - DISABLED
+[2020.07.23-06.58.38:877][  0]LogPakFile: Display: Unreal pak executed in 0.148440 seconds
+[2020.07.23-06.58.38:884][  0]LogExit: Preparing to exit.
+[2020.07.23-06.58.38:886][  0]LogExit: Exiting.
+[2020.07.23-06.58.38:895][  0]Log file closed, 07/23/20 14:58:38

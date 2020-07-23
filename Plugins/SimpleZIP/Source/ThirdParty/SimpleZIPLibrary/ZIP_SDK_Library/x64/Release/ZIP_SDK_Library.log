@@ -1,0 +1,20 @@
+﻿  stdafx.cpp
+  unzip.cpp
+  zip.cpp
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip.cpp(2649): warning C4311: 'type cast': pointer truncation from 'HWND' to 'unsigned long'
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip.cpp(2649): warning C4302: 'type cast': truncation from 'HWND' to 'unsigned long'
+  ZIP_SDK_Library.cpp
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(96): warning C4273: 'zip_file_by_loacl': inconsistent dll linkage
+  f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.h(15): note: see previous definition of 'zip_file_by_loacl'
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(104): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(105): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(106): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(169): warning C4273: 'unzip_file_by_loacl': inconsistent dll linkage
+  f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.h(16): note: see previous definition of 'unzip_file_by_loacl'
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(178): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+f:\pj\hotupdate\plugins\simplezip\source\thirdparty\simpleziplibrary\zip_sdk_library\zip_sdk_library.cpp(179): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+     Creating library F:\PJ\HotUpdate\Plugins\SimpleZIP\Source\ThirdParty\SimpleZIPLibrary\ZIP_SDK_Library\x64\Release\ZIP_SDK_Library.lib and object F:\PJ\HotUpdate\Plugins\SimpleZIP\Source\ThirdParty\SimpleZIPLibrary\ZIP_SDK_Library\x64\Release\ZIP_SDK_Library.exp
+  Generating code
+  All 372 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  ZIP_SDK_Library.vcxproj -> F:\PJ\HotUpdate\Plugins\SimpleZIP\Source\ThirdParty\SimpleZIPLibrary\ZIP_SDK_Library\x64\Release\ZIP_SDK_Library.dll

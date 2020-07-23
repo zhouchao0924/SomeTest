@@ -12,7 +12,7 @@
 #include "ThreadManage.h"
 #include "PakEditor/PakFileUpload.h"
 #include "PakRuntime/PakFileDownload.h"
-#include "PakInfo.h"
+//#include "PakInfo.h"
 
 #define IsUse 0
 
