@@ -15,6 +15,7 @@ class BLUEPRINTTOOLSCRIPT_API UBTScriptObject : public UObject
 public:
 	UBTScriptObject(){}
 
+	//static void VMC_Undefined(UObject* Context, FBTFrame& Stack, void const *RefData)
 	BT_VM(VMC_Undefined);
 	BT_VM(VMC_LetBool);
 	BT_VM(VMC_IntConst);

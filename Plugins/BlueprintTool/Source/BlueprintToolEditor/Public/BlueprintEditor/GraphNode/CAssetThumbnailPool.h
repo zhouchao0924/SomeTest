@@ -4,8 +4,12 @@
 class FObjectEditorThumbnailPool : public FAssetThumbnailPool
 {
 public:
-	FObjectEditorThumbnailPool(int32 NumObjectsInPool) : FAssetThumbnailPool(NumObjectsInPool) {}
+	FObjectEditorThumbnailPool(int32 NumObjectsInPool) 
+		: FAssetThumbnailPool(NumObjectsInPool)
+	{}
+
 	static TSharedPtr<FObjectEditorThumbnailPool> Get() { return Instance; }
+
 	static void Create()
 	{
 		Instance = MakeShareable(new FObjectEditorThumbnailPool(512));

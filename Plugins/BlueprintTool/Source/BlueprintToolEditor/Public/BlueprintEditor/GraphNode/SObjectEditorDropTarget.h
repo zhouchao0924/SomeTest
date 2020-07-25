@@ -9,6 +9,7 @@ public:
 		PanelCoordDropPosition = MyGeometry.AbsoluteToLocal(DragDropEvent.GetScreenSpacePosition());
 		return SAssetDropTarget::OnDrop(MyGeometry, DragDropEvent);
 	}
+
 	virtual void Tick(const FGeometry& AllottedGeometry, const double InCurrentTime, const float InDeltaTime) override
 	{
 		if (GetDragOverlayVisibility().IsVisible())

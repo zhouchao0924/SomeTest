@@ -8,6 +8,7 @@
 #include "Factory/Blueprint/BlueprintToolFactory.h"
 #include "AssetEditor/Architect/AssetArchitectActions.h"
 #include "BlueprintEditor/GraphNode/CAssetThumbnailPool.h"
+#include "../Test/TestBlueprintToolEditor.h"
 
 #define LOCTEXT_NAMESPACE "FBlueprintToolEditorModule"
 
@@ -17,6 +18,7 @@ void FBlueprintToolEditorModule::StartupModule()
 
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
 	RegisterAssetTypeAction(AssetTools, MakeShareable(new FBlueprintTypeActions));
+	RegisterAssetTypeAction(AssetTools, MakeShareable(new FTestBlueprintToolEditor));
 
 	FEdGraphUtilities::RegisterVisualNodeFactory(MakeShareable(new FBToolPanelNodeFactory));
 	FEdGraphUtilities::RegisterVisualPinFactory(MakeShareable(new FBToolPanelPinFactory));

@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "SimpleCode.h"
-//#include "SimpleCodeBase.Reflect.h"
+#include "ReflectiveData/SimpleCodeBase.Reflect.h"
 #include "SimpleCodeBase.generated.h"
 
 #if PLATFORM_WINDOWS
@@ -15,7 +15,10 @@ class BLUEPRINTTOOLCODE_API USimpleCodeBase : public USimpleCode
 {
 	GENERATED_BODY()
 public:
-	//GENERATED_BT_BODY()
+	GENERATED_BT_BODY()
+
+		//USimpleCodeBase_18_GENERATED_BODY_BT
+		//Z_BT_USimpleCodeBase
 public:
 
 	//¥Ú”°

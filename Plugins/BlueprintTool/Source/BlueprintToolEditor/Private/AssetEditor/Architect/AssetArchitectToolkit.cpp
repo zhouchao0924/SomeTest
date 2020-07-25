@@ -113,9 +113,13 @@ void FBlueprintToolEditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabMan
 	FBTCommands::Unregister();
 }
 
-void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost)
+void FBlueprintToolEditorToolkit::Initialize(
+	UBlueprintData* InTextAsset, 
+	const EToolkitMode::Type InMode, 
+	const TSharedPtr<IToolkitHost>& InToolkitHost)
 {
-	FBTCommands::Register();
+	//调用virtual void RegisterCommands() override;
+	FBTCommands::Register();/** Use this method to register commands. Usually done in StartupModule(). */
 
 	BindCommands();
 	ExtendToolbar();
@@ -131,6 +135,15 @@ void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const 
 		GraphEditor = CreateBPGraphEditor(EDGraph);
 	}
 
+	/*蓝图编辑器管理一个class UEdGraph对象，这个相当于Model
+	其他的基于Graph的编辑器可能使用class UEdGraph的派生类，例如Material Editor：class UMaterialGraph : public UEdGraph
+	它使用class UEdGraphSchema_K2来定义蓝图Graph的行为，相当于Controller
+	这些行为包括：测试Pin之间是否可以连接、创建或删除连接等等
+	它是class UEdGraphSchema的派生类
+	详见：Source / Editor / BlueprintGraph / Classes / EdGraphSchema_K2.h
+	整体的UI、Node布局等，都是一个复用的SGraphEditor，相当于View
+	Graph中的每个Node对应一个可扩展的Widget，可以从class SGraphNode派生之后添加的SGraphEditor中。对于蓝图来说，它们都是：class SGraphNodeK2Base的派生类*/
+	
 	StaticMeshComponent = NewObject<UStaticMeshComponent>();
 	PreviewViewport = SNew(SBlueprintPreviewViewport,StaticMeshComponent)
 	.BPEditorPtr(SharedThis(this))
@@ -220,6 +233,31 @@ void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const 
 			)
 		);*/
 
+	/**
+	 * Initializes this asset editor.  Called immediately after construction.  If you override this, remember to
+	 * call the base class implementation
+	 *
+	 * @param	Mode					Asset editing mode for this editor (standalone or world-centric)
+	 * @param	InitToolkitHost			When Mode is WorldCentric, this is the level editor instance to spawn this editor within
+	 * @param	AppIdentifier			When Mode is Standalone, this is the app identifier of the app that should host this toolkit
+	 * @param	StandaloneDefaultLayout	The default layout for a standalone asset editor
+	 * @param	bCreateDefaultToolbar	The default toolbar, which can be extended
+	 * @param	bCreateDefaultStandaloneMenu	True if in standalone mode, the asset editor should automatically generate a default "asset" menu, or false if you're going to do this yourself in your derived asset editor's implementation
+	 * @param	ObjectToEdit			The object to edit
+	 * @param	bInIsToolbarFocusable	Whether the buttons on the default toolbar can receive keyboard focus
+	 * @param	bUseSmallToolbarIcons	Whether the buttons on the default toolbar use the small icons
+	 */
+	//void FAssetEditorToolkit::InitAssetEditor(
+	//	const EToolkitMode::Type Mode, 
+	//	const TSharedPtr< class IToolkitHost >& InitToolkitHost, 
+	//	const FName AppIdentifier, 
+	//	const TSharedRef<FTabManager::FLayout>& StandaloneDefaultLayout, 
+	//	const bool bCreateDefaultStandaloneMenu, 
+	//	const bool bCreateDefaultToolbar, 
+	//	UObject* ObjectToEdit, 
+	//	const bool bInIsToolbarFocusable, 
+	//	const bool bInUseSmallToolbarIcons)
+
 	InitAssetEditor(
 		InMode,
 		InToolkitHost,
@@ -230,7 +268,8 @@ void FBlueprintToolEditorToolkit::Initialize(UBlueprintData* InTextAsset, const 
 		InTextAsset
 	);
 
-	OnGraphChangedHandle = GraphEditor->GetCurrentGraph()->AddOnGraphChangedHandler(FOnGraphChanged::FDelegate::CreateRaw(this, &FBlueprintToolEditorToolkit::OnGraphChanged));
+	OnGraphChangedHandle = GraphEditor->GetCurrentGraph()->AddOnGraphChangedHandler(
+		FOnGraphChanged::FDelegate::CreateRaw(this, &FBlueprintToolEditorToolkit::OnGraphChanged));
 
 	RegenerateMenusAndToolbars();
 }
@@ -328,7 +367,7 @@ void FBlueprintToolEditorToolkit::Run()
 	Compile();
 #endif
 	
-	//USimpleCodeEvent::BlueprintGameBegins(StaticMeshComponent);
+	USimpleCodeEvent::BlueprintGameBegins(StaticMeshComponent);
 }
 
 void FBlueprintToolEditorToolkit::SaveAsset_Execute()
@@ -370,7 +409,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByContentBrowserTab(const
 {
 	TSharedRef<SDockTab> SpawnedTab =
 		SNew(SDockTab)
-		.Label(LOCTEXT("BPContentBrowserKey", "BluePrint Content Browser"))
+		.Label(LOCTEXT("BPContentBrowserKey", "Content Browser"))
 		.TabColorScale(GetTabColorScale())
 		[
 			SNullWidget::NullWidget
@@ -388,7 +427,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByContentBrowserTab(const
 
 TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByBlueprintViewTab(const FSpawnTabArgs& Args)
 {
-	AssetDropTarget = SNew(SObjectEditorDropTarget)
+	AssetDropTarget = SNew(SObjectEditorDropTarget)//处理从content拖入对象
 		.OnAssetDropped(this, &FBlueprintToolEditorToolkit::AssetDropped)
 		.OnIsAssetAcceptableForDrop(this, &FBlueprintToolEditorToolkit::IsAssetAcceptableForDrop)
 		.Visibility(EVisibility::HitTestInvisible);
@@ -416,7 +455,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByPaletteTab(const FSpawn
 
 	TSharedRef<SDockTab> SpawnedTab = SNew(SDockTab)
 		.Icon(FEditorStyle::GetBrush("Kismet.Tabs.Palette"))
-		.Label(LOCTEXT("BToolPlaetteTitle", "Hello Hello"))
+		.Label(LOCTEXT("BToolPlaetteTitle", "Palette"))
 		[
 			SNew(SBox)
 			.AddMetaData<FTagMetaData>(FTagMetaData(TEXT("BToolPalette")))
@@ -445,7 +484,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByDetailsTab(const FSpawn
 	PropertyEditor = PropertyEditorRef;
 
 	return SNew(SDockTab)
-		.Label(LOCTEXT("BTDetailsTab", "Hello Details"))
+		.Label(LOCTEXT("BTDetailsTab", "Details"))
 		[
 			PropertyEditorRef
 		];
@@ -468,7 +507,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByPreviewSettingsTab(cons
 
 	return SNew(SDockTab)
 		.Icon(FEditorStyle::GetBrush("Kismet.Tabs.Palette"))
-		.Label(LOCTEXT("PreviewSettingsTitle", "BPToolPreview Settings"))
+		.Label(LOCTEXT("PreviewSettingsTitle", "Preview Settings"))
 		[
 			SNew(SBox)
 			.AddMetaData<FTagMetaData>(FTagMetaData(TEXT("BPTool Preview Settings")))
@@ -481,7 +520,7 @@ TSharedRef<SDockTab> FBlueprintToolEditorToolkit::SpawnByPreviewSettingsTab(cons
 TSharedRef<SGraphEditor> FBlueprintToolEditorToolkit::CreateBPGraphEditor(UEdGraph* InGraph)
 {
 	FGraphAppearanceInfo AppearanceInfo;
-	AppearanceInfo.CornerText = LOCTEXT("MyAppearanceCornerText", "BP Editor");
+	AppearanceInfo.CornerText = LOCTEXT("MyAppearanceCornerText", "BP Editor");//右下角的字
 
 	TSharedRef<SWidget> TitleBarWidget =
 		SNew(SBorder)
@@ -494,11 +533,12 @@ TSharedRef<SGraphEditor> FBlueprintToolEditorToolkit::CreateBPGraphEditor(UEdGra
 			.FillWidth(1.f)
 			[
 				SNew(STextBlock)
-				.Text(LOCTEXT("MyText", "Hello C"))
+				.Text(LOCTEXT("MyText", "Smartuil's Blueprint"))
 				.TextStyle(FEditorStyle::Get(), TEXT("GraphBreadcrumbButtonText"))
 			]
 		];
 
+	//绑定对蓝图粘贴删除等操作
 	GraphEditorCommands = MakeShareable(new FUICommandList);
 	{
 		GraphEditorCommands->MapAction(FGenericCommands::Get().Duplicate,
@@ -540,6 +580,7 @@ TSharedRef<SGraphEditor> FBlueprintToolEditorToolkit::CreateBPGraphEditor(UEdGra
 		);
 	}
 
+	//处理点击不同node
 	SGraphEditor::FGraphEditorEvents InGraphEvents;
 	InGraphEvents.OnSelectionChanged = SGraphEditor::FOnSelectionChanged::CreateSP(this, &FBlueprintToolEditorToolkit::OnSelectedBPNodesChanged);
 
@@ -558,6 +599,11 @@ void FBlueprintToolEditorToolkit::OnSelectedBPNodesChanged(const TSet<class UObj
 	if (SelectionNode.Num() > 0)
 	{
 		PropertyEditor->SetObjects(SelectionNode.Array());
+	}
+	else//修复点击空白处，details面板没有清空的bug
+	{
+		TArray<UObject*> InObjects;
+		PropertyEditor->SetObjects(InObjects);
 	}
 }
 

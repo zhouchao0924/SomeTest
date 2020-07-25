@@ -42,7 +42,7 @@ TSharedPtr<class SGraphPin> FBToolPanelPinFactory::CreatePin(class UEdGraphPin* 
 	TSharedPtr<class SGraphPin> NewPin;
 	if (const UPBToolSchema* K2Schema = Cast<const UPBToolSchema>(Pin->GetSchema()))
 	{
-		NewPin = FNodeFactory::CreateK2PinWidget(Pin);
+		NewPin = FNodeFactory::CreateK2PinWidget(Pin);//使用ue4pin样式
 
 		if (!NewPin.IsValid())
 		{

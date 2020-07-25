@@ -3,6 +3,7 @@
 
 VariableIndex(UObject)
 
+//在BlueprintToolFactory中创建SObjectNode
 UObjectNode::UObjectNode()
 {
 	VariableName = *FString::Printf(TEXT("%s_%i"), *GetClass()->GetName(), IncreaseProgressively(UObject));

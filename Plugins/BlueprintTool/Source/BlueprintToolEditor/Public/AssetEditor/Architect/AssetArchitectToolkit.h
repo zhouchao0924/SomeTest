@@ -3,6 +3,7 @@
 #include "Tickable.h"
 
 class UBlueprintData;
+//»ÙœÎº‡Ã˝PropertyEditor£¨ø…“‘ºÃ≥–FNotifyHook
 class FBlueprintToolEditorToolkit : public FAssetEditorToolkit, public FNotifyHook, public FTickableGameObject
 {
 	typedef FAssetEditorToolkit Super;
@@ -41,7 +42,7 @@ private:
 	void Run();
 
 	//Save
-	virtual void SaveAsset_Execute()override;
+	virtual void SaveAsset_Execute() override;
 
 	//Data
 	virtual UBlueprintData* GetBlueprintData() const;

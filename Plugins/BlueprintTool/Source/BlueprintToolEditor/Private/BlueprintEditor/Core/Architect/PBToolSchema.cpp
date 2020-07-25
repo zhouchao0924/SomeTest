@@ -20,6 +20,7 @@ void UPBToolSchema::InitVariable(FGraphContextMenuBuilder& ContextMenuBuilder) c
 	FBPTSchemaUtils::CreateAction<UTextNode>("Text", "Variable", LOCTEXT("NewText", "a Text variable"), ContextMenuBuilder, nullptr);
 }
 
+//初始化一些变量
 void UPBToolSchema::InitVariable(UEdGraph* OwnerBPGraph, TArray<TSharedPtr<FEdGraphSchemaAction> >& OutActions) const
 {
 	FBPTSchemaUtils::CreateAction<UObjectNode>("Object", "variable", LOCTEXT("NewObject", "a object variable"), OwnerBPGraph, OutActions, nullptr);
@@ -38,6 +39,7 @@ UPBToolSchema::UPBToolSchema(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
 {}
 
+//右键出来列表
 void UPBToolSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const
 {
 	TArray<UClass*> CodeClassArray;
@@ -127,7 +129,7 @@ bool UPBToolSchema::TryCreateConnection(UEdGraphPin* A, UEdGraphPin* B) const
 void UPBToolSchema::GetActionList(UEdGraph* OwnerBPGraph, TArray<TSharedPtr<FEdGraphSchemaAction> >& OutActions) const
 {
 	TArray<UClass*> CodeClassArray;
-	GetDerivedClasses(USimpleCode::StaticClass(), CodeClassArray, false);
+	GetDerivedClasses(USimpleCode::StaticClass(), CodeClassArray, false);//获取继承自SimpleCode的类
 
 	for (UClass * TmpCode : CodeClassArray)
 	{

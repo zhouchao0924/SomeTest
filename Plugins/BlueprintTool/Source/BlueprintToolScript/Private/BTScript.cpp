@@ -84,7 +84,7 @@ uint8 GBTRegisterNative(int32 NativeBytecodeIndex, const FNativeBTFuncPtr& Func)
 	if (!bInitialized)
 	{
 		bInitialized = true;
-		for (uint32 i = 0; i < ARRAY_COUNT(GBTNatives); i++)
+		for (uint32 i = 0; i < UE_ARRAY_COUNT(GBTNatives); i++)
 		{
 			GBTNatives[i] = &UBTScriptObject::VMC_Undefined;
 		}
@@ -92,7 +92,7 @@ uint8 GBTRegisterNative(int32 NativeBytecodeIndex, const FNativeBTFuncPtr& Func)
 	if (NativeBytecodeIndex != INDEX_NONE)
 	{
 		if (!(NativeBytecodeIndex<0 || 
-			(uint32)NativeBytecodeIndex>ARRAY_COUNT(GBTNatives) ||
+			(uint32)NativeBytecodeIndex>UE_ARRAY_COUNT(GBTNatives) ||
 			GBTNatives[NativeBytecodeIndex] != &UBTScriptObject::VMC_Undefined))
 		{
 			CA_SUPPRESS(6386)
@@ -116,7 +116,7 @@ void FBTFrame::AddOutParm(void const *Addr)
 		while (ListParm->Nest.IsValid())
 		{
 			ListParm = ListParm->Nest;
-		}
+		}//ÕÒµ½Î²²¿
 
 		ListParm->Nest = MakeShareable(new FBTOutParm);
 		ListParm->Nest->PropAddr = Addr;
@@ -253,17 +253,24 @@ UFunction * UBTScriptObject::FindScriptFuntion(FName FunName)
 		if (Fun->GetFName() == FunName)
 		{
 			NewFuntion = Fun;
+			//break;
 		}
 	}
 
 	return NewFuntion;
 }
 
+//#define BT_VM_FUNCTION(func) void func( UObject* Context, FBTFrame& Stack,void const *RefData)
+//void UBTScriptObject::VMC_LetBool(UObject* Context, FBTFrame& Stack, void const *RefData)
+//static void VMC_LetBool(UObject* Context, FBTFrame& Stack, void const *RefData)
+
 BT_VM_FUNCTION(UBTScriptObject::VMC_LetBool)
 {
 	*(int32*)RefData = Stack.ReadInt<int32>();
 }
 Add_VM_FUNCTION(VMC_LetBool)
+
+//static uint8 VMC_LetBool_Native = GBTRegisterNative((int32)EVMCommand::VMC_LetBool, &UBTScriptObject::VMC_LetBool);
 
 BT_VM_FUNCTION(UBTScriptObject::VMC_IntConst)
 {

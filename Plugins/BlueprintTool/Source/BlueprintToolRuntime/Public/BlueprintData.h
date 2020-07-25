@@ -18,5 +18,6 @@ public:
 	class UEdGraph* EdGraph;
 #endif // WITH_EDITORONLY_DATA
 
+	//统一销毁当前对象的引用
 	static void AddReferencedObjects(UObject* InThis, FReferenceCollector& Collector);
 };

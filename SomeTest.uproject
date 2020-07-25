@@ -61,10 +61,6 @@
 			"MarketplaceURL": "http://renzhai.net/"
 		},
 		{
-			"Name": "BlueprintToolEditor",
-			"Enabled": false
-		},
-		{
 			"Name": "ExtendEditor",
 			"Enabled": false
 		},
@@ -82,10 +78,6 @@
 		},
 		{
 			"Name": "TestGraphAndBlueprint",
-			"Enabled": false
-		},
-		{
-			"Name": "UBTCu",
 			"Enabled": false
 		}
 	]

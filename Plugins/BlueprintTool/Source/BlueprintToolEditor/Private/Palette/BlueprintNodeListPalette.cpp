@@ -53,7 +53,7 @@ void SBlueprintNodeListPalette::CollectAllActions(FGraphActionListBuilderBase& O
 
 	if (BlueprintToolEditor.IsValid())
 	{
-		TSharedPtr<SGraphEditor> BPGraphEditor = BlueprintToolEditor.Pin()->GetGraphEditor();
+		TSharedPtr<SGraphEditor> BPGraphEditor = BlueprintToolEditor.Pin()->GetGraphEditor();//Pin()是TWeak的用法
 		if (BPGraphEditor.IsValid())
 		{
 			UEdGraph* Graph = BPGraphEditor->GetCurrentGraph();

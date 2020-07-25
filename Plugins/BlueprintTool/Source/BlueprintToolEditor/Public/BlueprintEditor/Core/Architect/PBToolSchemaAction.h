@@ -19,7 +19,13 @@ public:
 		:FEdGraphSchemaAction(InNodeCategory, InMenuDesc, InToolTip, InGrouping, InKeywords, InSectionID)
 	{}
 
-	virtual UEdGraphNode* PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode = true);
+	/** Execute this action, given the graph and schema, 
+	and possibly a pin that we were dragged from. Returns a node that was created by this action (if any). */
+	virtual UEdGraphNode* PerformAction(
+		class UEdGraph* ParentGraph, 
+		UEdGraphPin* FromPin, 
+		const FVector2D Location, 
+		bool bSelectNewNode = true);
 
 	class UK3Node *K3Node;
 };

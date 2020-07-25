@@ -7,6 +7,7 @@ UEdGraphNode* FPBToolSchemaAction::PerformAction(class UEdGraph* ParentGraph, UE
 {
 	UEdGraphNode *UEdResultNode = nullptr;
 
+	//重新生成一个node
 	if (K3Node != nullptr)
 	{
 		const FScopedTransaction Transaction(LOCTEXT("FF", "Hell:K3Node"));

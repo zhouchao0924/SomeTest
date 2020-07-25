@@ -4,6 +4,10 @@
 
 #define LOCTEXT_NAMESPACE "FBlueprintTypeActions"
 
+#if PLATFORM_WINDOWS
+#pragma optimize("",off) 
+#endif
+
 FText FBlueprintTypeActions::GetName() const
 {
 	return LOCTEXT("FBlueprintTypeActionsName", "BlueprintTool Theme");
@@ -49,3 +53,7 @@ uint32 FBlueprintTypeActions::GetCategories()
 }
 
 #undef LOCTEXT_NAMESPACE
+
+#if PLATFORM_WINDOWS
+#pragma optimize("",on) 
+#endif
