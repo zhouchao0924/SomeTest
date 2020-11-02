@@ -3,13 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Modules/ModuleInterface.h"
 
-/**
- * 
- */
-class SOMETEST_API MyClass
-{
+class FMyBlueprintNodeEditorModule : public IModuleInterface {
 public:
-	MyClass();
-	~MyClass();
 };

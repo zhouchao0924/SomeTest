@@ -16,7 +16,7 @@
 	//构造UClass对应的UClass对象，无注册
 	SOMETEST_API UClass* Z_Construct_UClass_AReflexActor_NoRegister();
 	//构造UClass对应的UClass对象，有注册
-	SOMETEST_API UClass* Z_Construct_UClass_AReflexActor();
+	SOMETEST_API UClass* Z_Construct_UClass_AReflexActor();//外部调用
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 
 	//构造SomeTest本身的UPackage对象
@@ -160,7 +160,7 @@
 	//延迟注册
 	static TClassCompiledInDefer<AReflexActor> AutoInitializeAReflexActor(TEXT("AReflexActor"), sizeof(AReflexActor), 1395401713); 
 
-	UClass* AReflexActor::GetPrivateStaticClass() 
+	UClass* AReflexActor::GetPrivateStaticClass() //StaticClass调用
 	{ 
 		static UClass* PrivateStaticClass = NULL; 
 		if (!PrivateStaticClass) 
@@ -841,7 +841,7 @@ void AReflexActor::Tick(float DeltaTime)
 	Generated code exported from UnrealHeaderTool.
 	DO NOT modify this manually! Edit the corresponding .h files instead!
 ===========================================================================*/
-
+//结构体 没有写变量
 #include "UObject/GeneratedCppIncludes.h"
 #include "SomeTest/ReflexSystem/ReflexStruct.h"
 #ifdef _MSC_VER
@@ -874,7 +874,8 @@ class UScriptStruct* FReflexStruct::StaticStruct()
 	return Singleton;
 }
 
-template<> SOMETEST_API UScriptStruct* StaticStruct<FReflexStruct>()
+template<> 
+SOMETEST_API UScriptStruct* StaticStruct<FReflexStruct>()
 {
 	return FReflexStruct::StaticStruct();
 }

@@ -19,7 +19,8 @@ public class SomeTest : ModuleRules
             "SimpleOSS",
             "SimpleHTTP",
             "PakEditor",
-            "PakRuntime"
+            "PakRuntime",
+            "Http"
             //"AssetSlateUI"
         });
 
